@@ -1,0 +1,31 @@
+<template>
+  <el-rate
+    style="margin-top: 10px;"
+    v-on="currentListener"
+    v-bind="currentOption"
+    v-model="currentValue"/>
+</template>
+
+<script type="text/ecmascript-6">
+  import { BasicFormColumn } from "./basic.js"
+
+  export default {
+    extends: BasicFormColumn,
+    computed: {
+      currentOption() {
+        return this.currentRawOption
+      },
+      currentListener() {
+        return this.currentRawListener
+      },
+      currentValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
+      }
+    }
+  }
+</script>

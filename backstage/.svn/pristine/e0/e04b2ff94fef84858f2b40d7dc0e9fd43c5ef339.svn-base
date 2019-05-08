@@ -1,0 +1,7 @@
+import templateMultiple from './templateMultiple.vue'
+import templateSingle from './templateSingle.vue'
+
+export default {
+  templateMultiple,
+  templateSingle
+}

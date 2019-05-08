@@ -1,0 +1,55 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="6630EE5E-4F04-4192-BC47-3EA5EA4A8E45" platform="MtWeb" defaultW="1100" defaultH="6000" measureW="1100" measureH="6000" mobileScreenScale="0">
+  <controls controlCount="1">
+    <control controlID="D6FC395A-CBF0-466B-A3AF-66DD4EBCA122" controlTypeID="Tab" x="20" y="20" w="1037" h="604" zOrder="0">
+      <links eventType="AtClick" animate="AmNone" animateAutoDelay="0" animateDuration="500">
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF">
+          <area shape="0" alt="" ID="{C5459384-E8FF-4FF2-9F74-4292CEBFD379}" coords="(0,0,80,18)"/>
+        </link>
+        <link targetPageID="F0025996-C2E3-42A5-A261-1C3DF4EA947F" linkType="ltPageLink" isApplyIncludePage="False" title="%E8%AE%BE%E5%A4%87%E8%B5%84%E6%96%99">
+          <area shape="0" alt="" ID="{5A20602A-6D48-4C35-940D-D43C09EF4890}" coords="(79,0,159,18)"/>
+        </link>
+        <link targetPageID="A0F13343-2612-468D-AF84-D8418B3ED247" linkType="ltPageLink" isApplyIncludePage="False" title="%E8%AE%BE%E5%A4%87%E5%9B%BE%E7%BA%B8">
+          <area shape="0" alt="" ID="{C4DEB2B4-0E66-470E-9CF8-B8E8D4A46DCF}" coords="(158,0,238,18)"/>
+        </link>
+        <link targetPageID="38C0ACA0-1DCC-4621-BC2F-8654CA61B690" linkType="ltPageLink" isApplyIncludePage="False" title="%E8%BF%90%E8%A1%8C%E8%AE%B0%E5%BD%95">
+          <area shape="0" alt="" ID="{4BA7F0C8-AB75-4FB5-838E-349C14616C8D}" coords="(237,0,317,18)"/>
+        </link>
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E5%8F%98%E6%9B%B4%E8%AE%B0%E5%BD%95">
+          <area shape="0" alt="" ID="{424140CA-BE03-406E-A59F-8E90DA74531D}" coords="(316,0,396,18)"/>
+        </link>
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E6%A3%80%E4%BF%AE%E8%AE%A1%E5%88%92">
+          <area shape="0" alt="" ID="{DDAFD76F-AE8E-4361-BC0A-9D1F70283B04}" coords="(395,0,474,18)"/>
+        </link>
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E6%A3%80%E4%BF%AE%E7%AE%A1%E7%90%86">
+          <area shape="0" alt="" ID="{6C74003C-FEAC-41E7-80FD-2CB61FAE33A3}" coords="(473,0,553,18)"/>
+        </link>
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E8%AE%BE%E5%A4%87%E5%86%85%E4%BF%AE">
+          <area shape="0" alt="" ID="{8B412BA5-CDDB-455F-80CA-AC7C99A74020}" coords="(552,0,632,18)"/>
+        </link>
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E8%AE%BE%E5%A4%87%E5%A4%96%E4%BF%AE">
+          <area shape="0" alt="" ID="{0B39F99B-0F3F-4A27-879E-461DC33FA5D4}" coords="(631,0,711,18)"/>
+        </link>
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E7%BB%B4%E4%BF%AE%E5%B7%A5%E5%8D%95">
+          <area shape="0" alt="" ID="{29FCDACD-78E6-41C5-843B-A0E68159439A}" coords="(710,0,790,18)"/>
+        </link>
+        <link targetPageID="" linkType="ltPageLink" isApplyIncludePage="False" title="%E7%BB%B4%E4%BF%AE%E9%AA%8C%E6%94%B6">
+          <area shape="0" alt="" ID="{FE94E1D4-11ED-4C21-814C-8B705262C0A9}" coords="(789,0,869,18)"/>
+        </link>
+      </links>
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91+Bold" postScript="" weightStyle="Bold" weight="700" isBold="True" isItalic="False"/>
+      <text>%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF%2C%E8%AE%BE%E5%A4%87%E8%B5%84%E6%96%99%2C%E8%AE%BE%E5%A4%87%E5%9B%BE%E7%BA%B8%2C%E8%BF%90%E8%A1%8C%E8%AE%B0%E5%BD%95%2C%E5%8F%98%E6%9B%B4%E8%AE%B0%E5%BD%95%2C%E6%A3%80%E4%BF%AE%E8%AE%A1%E5%88%92%2C%E6%A3%80%E4%BF%AE%E7%AE%A1%E7%90%86%2C%E8%AE%BE%E5%A4%87%E5%86%85%E4%BF%AE%2C%E8%AE%BE%E5%A4%87%E5%A4%96%E4%BF%AE%2C%E7%BB%B4%E4%BF%AE%E5%B7%A5%E5%8D%95%2C%E7%BB%B4%E4%BF%AE%E9%AA%8C%E6%94%B6</text>
+      <textColor>4278190335</textColor>
+      <textSize>16</textSize>
+      <lineSpacing>0</lineSpacing>
+      <textStyles>[fsBold]</textStyles>
+      <useDefaultTextSize>False</useDefaultTextSize>
+      <selectedIndex>4</selectedIndex>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

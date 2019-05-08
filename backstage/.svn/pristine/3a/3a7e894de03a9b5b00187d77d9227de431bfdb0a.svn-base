@@ -1,0 +1,84 @@
+<template>
+  <div class="column-single">
+    <div
+      class="column-single-label"
+      v-if="column.visible">
+      {{column.label}}
+    </div>
+    <component
+      @search="onSearch"
+      @input="onInput"
+      :options="options"
+      :column="column"
+      :is="componentName"
+      v-model="currentForm"/>
+  </div>
+</template>
+
+<script type="text/ecmascript-6">
+  import components from './index.js'
+
+  export default {
+    components,
+    props: {
+      options: {},
+      column: {}
+    },
+    computed: {
+      componentName() {
+        let layout = this.column.layout
+        return typeof layout === "object" ? layout : `column-${ layout }`
+      },
+      currentField() {
+        return this.column.field
+      },
+      currentForm: {
+        get() {
+          return this.options.getParams(this.currentField)
+        },
+        set(val) {
+          return this.options.setParams(val, this.currentField)
+        }
+      }
+    },
+    methods: {
+      onSearch() {
+        this.$emit("search")
+      },
+      onInput() {
+        this.$emit("input")
+      }
+    }
+  }
+</script>
+
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus"
+  scoped>
+
+  .column-single
+    display: inline-flex
+    margin-right: 20px
+
+    &-label
+      display: inline-block
+      font-size: 14px
+      color: #666666
+      padding: 0 14px
+      height: 40px
+      line-height: 40px
+      min-width: 68px
+      text-align: center
+      background-color: #f5f7fa
+      border: 1px solid #dcdfe6
+      border-right: none
+      border-top-left-radius: 4px
+      border-bottom-left-radius: 4px
+      box-sizing: border-box
+
+    >>> .el-input__inner
+      border-radius: 0
+
+</style>

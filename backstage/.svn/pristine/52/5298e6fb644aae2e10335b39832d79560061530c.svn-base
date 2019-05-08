@@ -1,0 +1,120 @@
+<template>
+  <run-work :options='options'/>
+</template>
+
+<script>
+  import Run from 'run'
+  import Mock from 'mockjs'
+
+  /**
+   * @author zhang pan
+   * @date 03-15-2019
+   * @description 组织机构静态页面
+   */
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    created() {
+      const { parent_id, supervisor } = Mock.mock({
+        'parent_id|5': [{
+            label: () => Mock.Random.name(),
+            'parent_id|+1': 1
+        }],
+        'supervisor|5': [{
+          label: () => Mock.Random.name()
+        }]
+      })
+      this.sources.set('parent_id', parent_id)
+      this.sources.set('supervisor', supervisor)
+      this.options = new Run.Work({
+        config: {
+          title: '组织机构管理'
+        },
+        actions: ['create', 'update', 'delete', 'see'],
+        list: {
+          layout: 'treegrid',
+          nodeOrder: "sl_index",
+          columns: ['name', 'supervisor', 'in_charges', 'description', 'is_delete']
+        },
+        form: {
+          rules: {
+            parent_id: true,
+            name: true,
+            supervisor: true,
+            in_charges: true
+          },
+          columns: ['parent_id:select', 'name', 'supervisor:select', 'in_charges:select', 'telphone', 'address', 'sl_index', 'is_delete', 'description:textarea']
+        },
+        search: ['name', 'supervisor', 'in_charges', 'description'],
+        columns: [
+          { label: '名称', field: 'name', layout: 'text' },
+          { label: '主管', field: 'supervisor', layout: 'text', source: 'supervisor'},
+          { label: '分管', field: 'in_charges', layout: 'text', source: 'supervisor' },
+          { label: '描述', field: 'description', layout: 'text' },
+          { label: '上级部门', field: 'parent_id', layout: 'text', source: 'parent_id' },
+          { label: '创建人', field: 'author', layout: 'text' },
+          { label: '创建时间', field: 'createdAt', layout: 'date' },
+          { label: '修改人', field: 'editor', layout: 'text' },
+          { label: '最后修改时间', field: 'updatedAt', layout: 'text' },
+          { label: '是否启用', field: 'is_valid', layout: 'text' },
+          { label: '电话', field: 'telphone', layout: 'text' },
+          { label: '地址', field: 'address', layout: 'text' },
+          { label: '上级部门id集合', field: 'rt_path', layout: 'text' },
+          { label: '排序', field: 'sl_index', layout: 'text' },
+          { label: '是否启用', field: 'is_delete', layout: 'switch' }
+        ],
+        events: {
+          search(params) {
+            const { rows, total } = Mock.mock({
+              "rows|50-100": [{
+                name: () => Mock.Random.name(),
+                supervisor: () => Mock.Random.name(),
+                in_charges: () => Mock.Random.name(),
+                description: () => Mock.Random.csentence(),
+                parent_id: () => Mock.Random.name(),
+                author: () => Mock.Random.name(),
+                createdAt: () => Mock.Random.date(),
+                editor: () => Mock.Random.name(),
+                updatedAt: () => Mock.Random.date(),
+                is_valid: true,
+                telphone: /^1[3578]\d{10}$/,
+                address: () => Mock.Random.city(true),
+                rt_path: () => Mock.mock([Mock.Random.id()]),
+                'sl_index|+1': 1,
+                is_delete: false,
+                'id|+1': 1,
+                'parentId'() {
+                  return this.id > 5 ? (this.parentId > 5 ? Mock.mock({ 'id|6-10': 6 }).id : Mock.mock({ 'id|1-10': 1 }).id) : null
+                }
+              }]
+            })
+            setTimeout(() => {
+              this.sources.set('rows', rows)
+            }, 1000)
+          },
+          delete(rows, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          submit(form, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          see(form) {
+
+          },
+          edit(form) {
+            console.log(this, form)
+          }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>

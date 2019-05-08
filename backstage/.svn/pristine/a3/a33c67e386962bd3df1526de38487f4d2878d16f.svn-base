@@ -1,0 +1,251 @@
+<template>
+  <div class="page">
+    <el-card header="账户管理">
+      <!-- 工具栏 -->
+      <div class="toolbar">
+        <div class="toolbar-item left">
+          <el-button-group>
+            <el-button icon="runicon iconplus" @click="createItem">&nbsp;创建</el-button>
+            <el-button icon="runicon iconedit" @click="updateItem">&nbsp;修改</el-button>
+            <el-button type="danger" icon="runicon icondelete" @click="removeItem">&nbsp;删除</el-button>
+            <el-button icon="runicon iconeye" @click="seeItem">&nbsp;查看</el-button>
+          </el-button-group>
+        </div>
+        <div class="toolbar-item right">
+          <div class="toolbar-item-input">
+            <el-input placeholder="请输入组织机构" v-model="condition.organization">
+            </el-input>
+          </div>
+          <div class="toolbar-item-searchbar">
+            <el-button type="primary" size="medium" round :loading="tableLoading" @click="onSearch">查询</el-button>
+            <span class="text-link" @click="popupSearch = !popupSearch">&nbsp;高级筛选&nbsp;</span>
+            <run-popup-search v-model="popupSearch" :options="searchOptions" />
+          </div>
+        </div>
+      </div>
+      <!-- 表格 -->
+      <el-table :data="items" @selection-change="onSelectionChange" border style="width: 100%">
+        <el-table-column type="selection" width="50" align="center" />
+        <el-table-column type="index" label="序号" width="50" align="center" />
+        <el-table-column prop="name" label="姓名" align="center" />
+        <el-table-column prop="initial" label="首字母" align="center" width="70" />
+        <el-table-column prop="gender" label="性别" align="center" width="70" />
+        <el-table-column prop="card_id" label="身份证" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="code" label="人员唯一" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="card_number" label="卡号" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="down_phone" label="井下电话" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="up_phone" label="井上电话" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="organization" label="组织机构" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="native_place" label="籍贯" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="birthday" label="出生日期" align="center" :show-overflow-tooltip="true" />
+        <el-table-column prop="work_time" label="参加工作时间" width="120" align="center" :show-overflow-tooltip="true" />
+      </el-table>
+      <!-- 分页 -->
+      <el-pagination class="margin-top" @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[15, 30, 50, 100, 200]" :page-size="15" layout="total, sizes, prev, pager, next" :total="total" />
+    </el-card>
+    <!-- 创建弹框 -->
+    <run-layer title="创建账户" v-model="formShow">
+      <run-form class="form" v-if="formOptions" :options="formOptions" />
+    </run-layer>
+  </div>
+</template>
+
+<script>
+import Run from 'run'
+import Mock from 'mockjs'
+
+const gender = [
+  { D_text: '男', D_code: '1' },
+  { D_text: '女', D_code: '2' }
+]
+
+const organization = [
+  {
+    value: 'cjt',
+    label: '曹家滩',
+    children: [
+      {
+        value: 'web',
+        label: '前端开发'
+      },
+      {
+        value: 'serve',
+        label: '后端开发'
+      }
+    ]
+  }
+]
+
+export default {
+  name: 'login',
+  data() {
+    return {
+      input: "",
+      condition: {},
+      items: [],
+      total: 0,
+      currentPage: 4,
+      formShow: false,
+      formOptions: null,
+      sources: new Run.Source(),
+      tableSelection: [],
+      tableLoading: false,
+      popupSearch: false,
+      searchOptions: null
+    }
+  },
+  created() {
+    this.fetchItems()
+    this.initFormOptions()
+    this.fetchData()
+    this.initSearchOptions()
+  },
+  methods: {
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+    },
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+    },
+    createItem() {
+      this.formShow = true
+    },
+    updateItem(selection = this.tableSelection) {
+      let count = selection.length
+      if (count <= 0 || count > 1) return this.$message.error('请选中一行数据！')
+
+      let row = selection[0]
+
+
+
+    },
+    removeItem() { },
+    seeItem() { },
+    initFormOptions() {
+      // TODO: 表单校验怎么配置？
+      // TODO: 首字母和人员唯一标示需要程序自动生成存入数据库
+      this.formOptions = new Run.Form({
+        columns: [
+          { label: "姓名", field: "name", layout: "text" },
+          { label: "性别", field: "gender", layout: "radio", source: 'gender' },
+          { label: '身份证号', field: 'card_id', layout: 'text' },
+          { label: '卡号', field: 'card_number', layout: 'text' },
+          { label: '井下电话', field: 'down_phone', layout: 'text' },
+          { label: '井上电话', field: 'up_phone', layout: 'text' },
+          { label: '组织机构', field: 'organization', layout: 'treeselect', source: 'organization' },
+          { label: '籍贯', field: 'native_place', layout: 'text' },
+          { label: '出生日期', field: 'birthday', layout: 'date' },
+          { label: '参加工作时间', field: 'work_time', layout: 'date' }
+        ],
+        events: {
+          submit: (form, done) => {
+            setTimeout(() => {
+              this.items.push({ ...form })
+              done()
+              this.formShow = false
+            }, 3000)
+          },
+          cancel: () => this.formShow = false,
+          close: () => this.formShow = false
+        },
+        sources: this.sources
+      })
+    },
+    initSearchOptions() {
+      this.searchOptions = new Run.PopupSearch({
+        config: {
+          switch: false,
+        },
+        columns: [
+          { field: "time", layout: "time" }
+        ],
+        sources: this.sources
+      })
+    },
+    fetchData() {
+      setTimeout(() => {
+        this.sources.set('gender', gender)
+        this.sources.set('organization', organization)
+      }, 3000)
+    },
+    fetchItems() {
+      const { items, total } = Mock.mock({
+        "items|2": [
+          {
+            "name": () => Mock.Random.cname(),
+            "initial": () => Mock.Random.character('upper'),
+            "gender|1": ['男', '女'],
+            "card_id": /\d{5,10}\-/,
+            "code": () => Mock.Random.id(),
+            "card_number": () => Mock.Random.natural(10000),
+            "down_phone": /^1[34578]\d{9}$/,
+            "up_phone": /^1[34578]\d{9}$/,
+            "organization|1": ['曹家滩矿山'],
+            "native_place": () => Mock.Random.county(true),
+            "birthday": () => Mock.Random.date('yyyy-MM-dd'),
+            "work_time": () => Mock.Random.date('yyyy-MM-dd')
+          }
+        ],
+        "total"() { return this.items.length }
+      })
+
+      this.items = items
+      this.total = total
+    },
+    onSelectionChange(selection) {
+      this.tableSelection = selection
+    },
+    onSearch() {
+      this.tableLoading = true
+      console.log(this.condition)
+      setTimeout(() => {
+        this.tableLoading = false
+      }, 2000)
+    },
+    onReset() {
+      this.condition = {}
+    },
+    onSee(row) { },
+    onUpdate() { }
+  }
+}
+</script>
+
+<style lang="stylus" scoped>
+.margin-top
+  margin-top 16px
+>>>.el-pagination
+  display flex
+  justify-content space-between
+  &__total
+    flex-grow 1
+.toolbar
+  padding 16px 0px
+  display flex
+  justify-content space-between
+  align-items center
+  &-item
+    display flex
+    align-items center
+    justify-content flex-end
+    &-input
+      display flex
+      align-items center
+      margin-left 16px
+      span
+        flex none
+    &-searchbar
+      margin-left 24px
+      .text-link
+        font-size 12px
+        margin-left 15px
+        cursor pointer
+        text-decoration underline
+        color #409EFF
+        line-height 25px
+  &-item.left
+    flex-grow 0
+  &-item.right
+    flex-grow 1
+</style>
+

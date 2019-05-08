@@ -1,0 +1,27 @@
+export const system_job = {
+  create: "system/job/create",
+  update: "system/job/update",
+  search: "system/job/search",
+  delete: "system/job/delete"
+}
+
+export const system_contact = {
+  create: "system/contact/create",
+  update: "system/contact/update",
+  search: "system/contact/search",
+  delete: "system/contact/delete",
+}
+
+export const system_menu = {
+  create: "system/menu/create",
+  update: "system/menu/update",
+  search: "system/menu/search",
+  delete: "system/menu/delete",
+}
+
+export const system_department = {
+  create: "system/department/create",
+  update: "system/department/update",
+  search: "system/department/search",
+  delete: "system/department/delete",
+}

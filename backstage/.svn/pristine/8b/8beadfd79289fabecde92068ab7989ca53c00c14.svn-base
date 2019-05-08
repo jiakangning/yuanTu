@@ -1,0 +1,97 @@
+/*
+ * @Author: zhaoqinglong
+ * @Date: 2019-03-16 12:41:12
+ * @Last Modified by: zhaoqinglong
+ * @Last Modified time: 2019-03-16 14:05:03
+ */
+
+const ContactManager = require('../../service/membership/ContactManager')
+const UserManager = require('../../service/membership/UserManager')
+exports.create = (req, res, next) => {
+  let contactManager = new ContactManager()
+  contactManager.create(req.body, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}
+
+exports.update = (req, res, next) => {
+  let contactManager = new ContactManager()
+  contactManager.update(Object.assign({ id: req.params.id }, req.body), (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}
+exports.getContacts = (req, res, next) => {
+  let contactManager = new ContactManager()
+  contactManager.getContacts(req.body, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}
+exports.getContactById = (req, res, next) => {
+  let contactManager = new ContactManager()
+  contactManager.getContactById({ id: req.params.id }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}
+exports.delContactById = (req, res, next) => {
+  let contactManager = new ContactManager()
+  contactManager.deleteContactById({ id: req.params.id }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}
+// 完善用户资料
+exports.completeUserContact = (req, res, next) => {
+  let contactManager = new ContactManager()
+  let userManager = new UserManager()
+  // 创建联系人
+  contactManager.create(req.body, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      // 创建成功,设置关联
+      userManager.associateContact({
+        userId: req.body.userId,
+        contactId: data.id
+      }, (err, data) => {
+        if (err) {
+          res.send(err)
+        } else {
+          res.send(data)
+        }
+      })
+    }
+  })
+}
+// 关联用户和联系人
+exports.associateUserAndContact = (req, res, next) => {
+  let userManager = new UserManager()
+  userManager.associateContact({
+    userId: req.body.userId,
+    contactId: req.body.contactId
+  }, (err, data) => {
+    if (err) {
+      res.send(err)
+    } else {
+      res.send(data)
+    }
+  })
+}

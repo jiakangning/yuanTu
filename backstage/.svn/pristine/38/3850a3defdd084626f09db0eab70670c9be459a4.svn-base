@@ -1,0 +1,203 @@
+<!-- create: 韩连杰
+    data: 2019-03-15
+    description: 职位管理
+  -->
+  <!-- 修改: 赵赛赛
+    data: 2019-03-16
+    description: 对接增加查询接口
+  -->
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  import Run from 'run'
+  import Mock from 'mockjs'
+
+  export default {
+    data () {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    mounted () {
+      this.options = new Run.Work({
+        config: {
+          title: '职位管理',
+        },
+        actions: ['create', 'update', 'delete', 'see'],
+        tabs: 'tabs',
+        list: [
+          'text',
+          'mLevel',
+          'pIndex',
+          'remarks'
+        ],
+        form: [
+          'text',
+          'mLevel',
+          'pIndex',
+          'remarks'
+        ],
+        search: {
+          layout: 'multiple',
+          columns: [
+            'mLevel',
+            'text',
+          ]
+        },
+        columns: [
+          { label: '职位名称', field: 'text', layout: 'text', rules: true },
+          { label: '职位说明', field: 'remarks', layout: 'textarea', rules: true },
+          { label: '职级', field: 'mLevel', layout: 'select', source: 'level', rin_chargesules: true, rules: true },
+          { label: '排序', field: 'pIndex', layout: 'number', rules: true }
+        ],
+        events: {
+          loading (store, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          search (params) {
+            let self = this
+            setTimeout(() => {
+              const { level } = Mock.mock({
+                'level|25': [{
+                  'label|+1': 1,
+                  'value|+1': 1
+                }]
+              })
+              this.sources.set('level', level)
+            }, 1000)
+            let mLevel = params.mLevel
+            let text = params.text
+            let pageSize = null
+            let currentPage = null
+            let pagination = params.pagination
+            if (params.pagination) {
+              pageSize = params.pageSize
+              currentPage = params.currentPage
+            }
+            let url = 'http://127.0.0.1:3000/system/findPositionAll'
+            fetch(url, {
+              method: 'post',
+              headers: {
+                'Content-type': 'application/json'
+              },
+              body: JSON.stringify({
+                pagination: pagination,
+                text: text,
+                mLevel: mLevel,
+                pageSize: pageSize,
+                currentPage: currentPage
+              })
+            })
+              .then(function (data) {
+                data.json().then(jsonData => {
+                    self.sources.set('rows', jsonData.result.rows)
+                    self.sources.set('total', jsonData.result.total)
+                  }
+                )
+              }).catch(function (error) {
+              d
+              console.log('request failed', error)
+            })
+          },
+          delete (rows, done) {
+            let url = 'http://127.0.0.1:3000/system/position'
+            if (rows.length == 1) {
+              fetch(url + '/' + rows[0].id, {
+                method: 'delete',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+              }).then(function (response) {
+                done()
+              }, function (error) {
+                console.log(error, '====')
+                done('err', null)
+              })
+            } else if (rows.length > 1) {
+              let ids = rows.map(item => {
+                return item.id
+              })
+              ids = ids.join(',')
+              fetch(url + '/' + ids, {
+                method: 'delete',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+              }).then(function (response) {
+                done()
+              }, function (error) {
+                console.log(error, '====')
+                done('err', null)
+              })
+            }
+          },
+          submit (form, done) {
+            let text = form.text
+            let pIndex = form.pIndex
+            let remarks = form.remarks
+            let mLevel = form.mLevel
+            let url = 'http://127.0.0.1:3000/system/position'
+            if (form.id) {
+              fetch(url + '/' + form.id, {
+                method: 'post',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                  id: form.id,
+                  text: text,
+                  mLevel: mLevel,
+                  pIndex: pIndex,
+                  remarks: remarks
+                })
+              }).then(function (response) {
+                if (response.status == '400') {
+                  done('err', '职位已经存在')
+                } else {
+                  done()
+                }
+              }, function (error) {
+                console.log(error, '====')
+                done('err', null)
+              })
+            } else {
+              fetch(url, {
+                method: 'post',
+                headers: {
+                  'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                  text: text,
+                  mLevel: mLevel,
+                  pIndex: pIndex,
+                  remarks: remarks
+                })
+              }).then(function (response) {
+                if (response.status == '400') {
+                  done('err', '职位已经存在')
+                } else {
+                  done()
+                }
+              }, function (error) {
+                console.log(error, '====')
+                done('err', null)
+              })
+            }
+          },
+          edit (form) {
+            console.log(this, form)
+          }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

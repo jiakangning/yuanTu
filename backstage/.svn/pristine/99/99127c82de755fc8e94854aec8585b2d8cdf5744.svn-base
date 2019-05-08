@@ -1,0 +1,30 @@
+const StaffManager = require('../service/location/StaffManager')
+let timer
+
+exports.getAllStaffs = (req, res, next) => {
+  const staffManager = new StaffManager()
+  staffManager.getAll({}, (error, staffs) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(staffs)
+    }
+  })
+}
+
+exports.pushAllStaffs = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer) clearInterval(timer)
+  const staffManager = new StaffManager()
+  timer = setInterval(() => {
+    staffManager.getAll({}, (error, staffs) => {
+      if (error) return io.emit('Error.Realtime', error)
+      io.emit('Location.Staff', { type: 'show', payload: { staffs } })
+    })
+    // io.clients((_, clients) => {
+    //   clients.forEach(key => {
+    //     console.log(io.sockets.connected[key].user)
+    //   })
+    // })
+  }, interval)
+}

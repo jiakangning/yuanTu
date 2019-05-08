@@ -1,0 +1,115 @@
+/**
+ * author:Zyy
+ * created_at:2019/3/15
+ * */
+const MenuManager = require('../../service/system/MenuManager')
+
+exports.createMenu = function (req, res, next) {
+  if (!req.body) {
+    res.sendStatus(400)
+  }
+  let menuManager = new MenuManager()
+  menuManager.create(req.body, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.setHeader('Location', `${req.protocol}://${req.hostname}:3000/system/menus/${result}`)
+      res.json(result)
+    }
+  })
+}
+exports.updateMenu = function (req, res, next) {
+  if (!req.body) {
+    res.sendStatus(204)
+  }
+  let menuManager = new MenuManager()
+  menuManager.update(req.body, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+
+exports.destroyMenuById = function (req, res, next) {
+  if (req.params.id) {
+    let menuManager = new MenuManager()
+    menuManager.destroy(req.params, function (err, result) {
+      if (err) {
+        res.send(err)
+      } else {
+        res.json(result)
+      }
+    })
+  }
+}
+exports.destroyMenu = function (req, res, next) {
+  let menuManager = new MenuManager()
+  menuManager.bulkDestroy(null, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+exports.createMenuAndCommand = function (req, res, next) {
+  if (!req.body) {
+    res.sendStatus(400)
+  }
+  let menuManager = new MenuManager()
+  menuManager.createMenuAndCommand(req.body, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+
+exports.findMenuByPk = function (req, res, next) {
+  let menuManager = new MenuManager()
+  menuManager.findByPk(req.params, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+
+exports.findAll = function (req, res, next) {
+  let menuManager = new MenuManager()
+  menuManager.findAll(req.query, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+/**
+ * 获取menu和command关联的树形结构
+ * */
+exports.findMenuCmdToTree = function (req, res, next) {
+  let menuManager = new MenuManager()
+  menuManager.findMenuCmdToTree(null, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+
+exports.destroyMenuCommandCascade = function (req, res, next) {
+  let menuManager = new MenuManager()
+  menuManager.destroyMenuCommandCascade(req.params, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}

@@ -1,0 +1,11 @@
+module.exports = function (val = [], old = []) {
+  const { create, update } = val.reduce((results, item) => {
+    item.id ? results.update.push(item) : results.create.push(item)
+    return results
+  }, { create: [], update: [] })
+  const destroy = old.reduce((results, item) => {
+    let obj = val.find(v => item.id === v.id)
+    return obj ? results : results.concat(item)
+  }, [])
+  return { create, update, destroy }
+}

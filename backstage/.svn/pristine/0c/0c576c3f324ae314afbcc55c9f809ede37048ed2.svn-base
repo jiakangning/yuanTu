@@ -1,0 +1,18 @@
+/**
+ * author:Zyy
+ * created_at:2019/3/15
+ * */
+const router = require('express').Router()
+const {
+  createCommand,
+  updateCommand,
+  destroyCommand,
+  findByPk
+} = require('../../../app/controller/system/commandController')
+// command路由
+router.post('/commands', createCommand)
+router.put('/commands', updateCommand)
+router.patch('/commands', updateCommand)
+router.get('/commands/:id', findByPk)
+router.delete('/commands/:id', destroyCommand)
+module.exports = router

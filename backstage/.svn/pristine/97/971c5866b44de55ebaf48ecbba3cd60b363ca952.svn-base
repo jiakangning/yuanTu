@@ -1,0 +1,110 @@
+const sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+
+const Contact = dbCtx.define('contact', {
+  name: {
+    type: sequelize.STRING
+  },
+  pinyin: {
+    type: sequelize.STRING
+  },
+  address: {
+    type: sequelize.STRING
+  },
+  // 私人电话
+  privatePhone: {
+    type: sequelize.STRING,
+    field: 'private_phone'
+  },
+  // 公司电话
+  companyPhone: {
+    type: sequelize.STRING,
+    field: 'company_phone'
+  },
+  // 井下电话
+  downholePhone: {
+    type: sequelize.STRING,
+    field: 'downhole_phone'
+  },
+  // 身份证号
+  identityNumber: {
+    type: sequelize.STRING,
+    field: 'identity_number'
+  },
+  // 唯一编码
+  uniqueCode: {
+    type: sequelize.STRING,
+    unique: true,
+    field: 'unique_code'
+  },
+  // 籍贯
+  birthPlace: {
+    type: sequelize.STRING,
+    field: 'birth_place'
+  },
+  email: {
+    type: sequelize.STRING,
+    validate: {
+      isEmail: true
+    }
+  },
+  birthDate: {
+    type: sequelize.DATE,
+    field: 'birth_date'
+  },
+  // 参加工作时间
+  workTime: {
+    type: sequelize.DATE,
+    field: 'work_time'
+  },
+  // 教育程度
+  education_level: {
+    type: sequelize.STRING,
+    field: 'private_phone'
+  },
+  // 大学专业
+  major: {
+    type: sequelize.STRING
+  },
+  // 民族
+  nationality: {
+    type: sequelize.STRING
+  },
+  // 婚姻状况
+  maritalStatus: {
+    type: sequelize.STRING,
+    field: 'marital_status'
+  },
+  // 政治面貌
+  politicalStatus: {
+    type: sequelize.STRING,
+    field: 'political_status'
+  },
+  // 工种名称
+  workKind: {
+    type: sequelize.STRING,
+    field: 'work_kind'
+  },
+  // 在职状态
+  inserviceStatus: {
+    type: sequelize.STRING,
+    field: 'inservice_status'
+  },
+  photo: {
+    type: sequelize.STRING
+  },
+  sex: {
+    type: sequelize.STRING,
+    validate: {
+      isIn: [
+        ['男', '女']
+      ]
+    }
+  }
+}, {
+  timestamps: true,
+  paranoid: true,
+  underscored: true,
+  tableName: 'system_contact'
+})
+module.exports = Contact

@@ -1,0 +1,19 @@
+/** 安全监控 */
+const redisCtx = require('../../../config/plugin.redis')
+
+class SafeRepo {
+  getAll (callback) {
+    redisCtx.smembers(SafeRepo.Key, callback)
+  }
+  getAlarms (callback) {
+    redisCtx.smembers(SafeRepo.AlarmKey, callback)
+  }
+  get (key, callback) {
+    redisCtx.hgetall(key, callback)
+  }
+}
+
+SafeRepo.Key = '陕西陕煤曹家滩矿业有限公司:安全监控系统'
+SafeRepo.AlarmKey = '陕西陕煤曹家滩矿业有限公司:安全监控系统:报警'
+
+module.exports = SafeRepo

@@ -1,0 +1,15 @@
+/** 矿压监测 */
+const redisCtx = require('../../../config/plugin.redis')
+
+class MinePressureRepo {
+  getAll (callback) {
+    redisCtx.smembers(MinePressureRepo.Key, callback)
+  }
+  get (key, callback) {
+    redisCtx.hgetall(key, callback)
+  }
+}
+
+MinePressureRepo.Key = '陕西陕煤曹家滩矿业有限公司:矿压监测系统'
+
+module.exports = MinePressureRepo

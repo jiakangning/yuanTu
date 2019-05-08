@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3a45ea80-d0d4-4a0b-aba0-bb0df6ab408c" name="Default Changelist" comment="" />
+    <ignored path="$PROJECT_DIR$/.tmp/" />
+    <ignored path="$PROJECT_DIR$/temp/" />
+    <ignored path="$PROJECT_DIR$/tmp/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/apps/run/chartCard.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="401">
+              <caret line="302" column="23" selection-start-line="302" selection-start-column="23" selection-end-line="302" selection-end-column="23" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="e#1036#1717#0" />
+                <element signature="e#1078#1369#0" />
+                <element signature="e#1096#1330#0" />
+                <element signature="e#1406#1669#0" />
+                <element signature="e#1428#1661#0" />
+                <element signature="e#1440#1651#0" />
+                <element signature="e#1465#1610#0" />
+                <element signature="e#1742#2319#0" />
+                <element signature="e#1784#2087#0" />
+                <element signature="e#1802#2048#0" />
+                <element signature="e#2124#2270#0" />
+                <element signature="e#2146#2262#0" />
+                <element signature="e#2158#2252#0" />
+                <element signature="e#2345#3116#0" />
+                <element signature="e#2387#2596#0" />
+                <element signature="e#2405#2557#0" />
+                <element signature="e#2631#2915#0" />
+                <element signature="e#2652#2907#0" />
+                <element signature="e#2664#2897#0" />
+                <element signature="e#2732#2885#0" />
+                <element signature="e#2748#2871#0" />
+                <element signature="e#2947#3066#0" />
+                <element signature="e#3139#3772#0" />
+                <element signature="e#3181#3384#0" />
+                <element signature="e#3199#3345#0" />
+                <element signature="e#3421#3725#0" />
+                <element signature="e#3442#3717#0" />
+                <element signature="e#3454#3707#0" />
+                <element signature="e#3544#3695#0" />
+                <element signature="e#3560#3681#0" />
+                <element signature="e#3795#4532#0" />
+                <element signature="e#3837#4076#0" />
+                <element signature="e#3855#4037#0" />
+                <element signature="e#4085#4196#0" />
+                <element signature="e#4229#4389#0" />
+                <element signature="e#4253#4381#0" />
+                <element signature="e#4265#4371#0" />
+                <element signature="e#4558#5687#0" />
+                <element signature="e#4600#4819#0" />
+                <element signature="e#4618#4780#0" />
+                <element signature="e#4828#4955#0" />
+                <element signature="e#4988#5147#0" />
+                <element signature="e#5011#5139#0" />
+                <element signature="e#5023#5129#0" />
+                <element signature="e#5179#5291#0" />
+                <element signature="e#5346#5431#0" />
+                <element signature="e#5997#6299#0" />
+                <element signature="e#6018#6291#0" />
+                <element signature="e#6030#6281#0" />
+                <element signature="e#6055#6237#0" />
+                <element signature="e#6418#6631#0" />
+                <element signature="e#6436#6592#0" />
+                <element signature="e#6666#6894#0" />
+                <element signature="e#6687#6886#0" />
+                <element signature="e#6699#6876#0" />
+                <element signature="e#6724#6835#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/apps/run/chartCard.vue" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="width" value="1680" />
+    <option name="height" value="1050" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="webclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webclient" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webclient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webclient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webclient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="apps" type="462c0819:PsiDirectoryNode" />
+              <item name="run" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webclient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="run" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webclient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="run" type="462c0819:PsiDirectoryNode" />
+              <item name="chart" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="webclient" type="b2602c69:ProjectViewProjectNode" />
+              <item name="webclient" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="run" type="462c0819:PsiDirectoryNode" />
+              <item name="chartCard" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="$PROJECT_DIR$/node_modules/eslint" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="serve" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="serve" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.serve" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3a45ea80-d0d4-4a0b-aba0-bb0df6ab408c" name="Default Changelist" comment="" />
+      <created>1552466774290</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1552466774290</updated>
+      <workItem from="1552466775983" duration="932000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="932000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1680" height="1050" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="npm" sideWeight="0.50076103" side_tool="true" weight="0.24954791" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49923897" visible="true" weight="0.19650392" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32959184" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/.browserslistrc">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run/chart/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="23" column="6" lean-forward="true" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/run/chartCard/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" column="29" selection-start-line="1" selection-start-column="25" selection-end-line="1" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/apps/run/chartCard.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="401">
+          <caret line="302" column="23" selection-start-line="302" selection-start-column="23" selection-end-line="302" selection-end-column="23" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#1036#1717#0" />
+            <element signature="e#1078#1369#0" />
+            <element signature="e#1096#1330#0" />
+            <element signature="e#1406#1669#0" />
+            <element signature="e#1428#1661#0" />
+            <element signature="e#1440#1651#0" />
+            <element signature="e#1465#1610#0" />
+            <element signature="e#1742#2319#0" />
+            <element signature="e#1784#2087#0" />
+            <element signature="e#1802#2048#0" />
+            <element signature="e#2124#2270#0" />
+            <element signature="e#2146#2262#0" />
+            <element signature="e#2158#2252#0" />
+            <element signature="e#2345#3116#0" />
+            <element signature="e#2387#2596#0" />
+            <element signature="e#2405#2557#0" />
+            <element signature="e#2631#2915#0" />
+            <element signature="e#2652#2907#0" />
+            <element signature="e#2664#2897#0" />
+            <element signature="e#2732#2885#0" />
+            <element signature="e#2748#2871#0" />
+            <element signature="e#2947#3066#0" />
+            <element signature="e#3139#3772#0" />
+            <element signature="e#3181#3384#0" />
+            <element signature="e#3199#3345#0" />
+            <element signature="e#3421#3725#0" />
+            <element signature="e#3442#3717#0" />
+            <element signature="e#3454#3707#0" />
+            <element signature="e#3544#3695#0" />
+            <element signature="e#3560#3681#0" />
+            <element signature="e#3795#4532#0" />
+            <element signature="e#3837#4076#0" />
+            <element signature="e#3855#4037#0" />
+            <element signature="e#4085#4196#0" />
+            <element signature="e#4229#4389#0" />
+            <element signature="e#4253#4381#0" />
+            <element signature="e#4265#4371#0" />
+            <element signature="e#4558#5687#0" />
+            <element signature="e#4600#4819#0" />
+            <element signature="e#4618#4780#0" />
+            <element signature="e#4828#4955#0" />
+            <element signature="e#4988#5147#0" />
+            <element signature="e#5011#5139#0" />
+            <element signature="e#5023#5129#0" />
+            <element signature="e#5179#5291#0" />
+            <element signature="e#5346#5431#0" />
+            <element signature="e#5997#6299#0" />
+            <element signature="e#6018#6291#0" />
+            <element signature="e#6030#6281#0" />
+            <element signature="e#6055#6237#0" />
+            <element signature="e#6418#6631#0" />
+            <element signature="e#6436#6592#0" />
+            <element signature="e#6666#6894#0" />
+            <element signature="e#6687#6886#0" />
+            <element signature="e#6699#6876#0" />
+            <element signature="e#6724#6835#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

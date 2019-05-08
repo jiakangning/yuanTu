@@ -1,0 +1,23 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 角色控制器
+*/
+const RoleManage = require('../../service/system/RoleManager')
+const formatResponse = require('../../util/formatResponse.js')
+
+exports.create = function (req, res) {
+  new RoleManage().create(req.body, formatResponse(res))
+}
+
+exports.update = function (req, res) {
+  new RoleManage().update(req.body, formatResponse(res))
+}
+
+exports.destroy = function (req, res) {
+  new RoleManage().delete(req.body, formatResponse(res))
+}
+
+exports.findAll = function (req, res) {
+  new RoleManage().findAll(req.body, formatResponse(res))
+}

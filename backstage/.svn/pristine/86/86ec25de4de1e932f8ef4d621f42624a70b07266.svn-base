@@ -1,0 +1,16 @@
+<template>
+  <div class="login">
+    这里是组织机构
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'login',
+  data() {
+    return {
+      input: ""
+    }
+  }
+}
+</script>

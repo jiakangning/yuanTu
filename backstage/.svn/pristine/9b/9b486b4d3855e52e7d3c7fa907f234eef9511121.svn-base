@@ -1,0 +1,8 @@
+const dbCtx = require('../database/dbCtx')
+let before
+before((done) => {
+  require('../app/model/membership/User')
+  dbCtx.sync()
+    .then(_ => done())
+    .catch(error => done(error))
+})

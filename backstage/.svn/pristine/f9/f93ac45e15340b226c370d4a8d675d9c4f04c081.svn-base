@@ -1,0 +1,82 @@
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  /**
+   * @update 赵赛赛
+   * @date 2019-03-17
+   * 新建页面
+   */
+  import Run from 'run'
+  import {system_LogOperate as LogOperate} from '@/store/action-types.js'
+
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    mounted() {
+      this.options = new Run.Work({
+        config: {
+          title: '操作日志管理'
+        },
+        actions: ['delete'],
+        tabs: 'tabs',
+        list: [
+          'module',
+          'moduleType',
+          'account',
+          'subject',
+          'body',
+          'logDate'
+        ],
+        form: [
+          'module',
+          'moduleType',
+          'account',
+          'subject',
+          'body',
+          'logDate'
+        ],
+        search: {
+          layout: 'multiple',
+          columns: [
+            'logDate',
+            'account',
+          ]
+        },
+        columns: [
+          {label: '模块类型', field: 'module', layout: 'text'},
+          {label: '模块名称', field: 'moduleType', layout: 'text'},
+          {label: '账户名称', field: 'account', layout: 'text'},
+          {label: '日志标题', field: 'subject', layout: 'text'},
+          {label: '日志内容', field: 'body', layout: 'textarea'},
+          {label: '日志时间', field: 'logDate', layout: 'date'}
+        ],
+        events: {
+          search: (params) => {
+            this.$store.dispatch(LogOperate.search, params)
+              .then(({rows, count}) => {
+                this.sources.set('rows', rows)
+                this.sources.set('count', count)
+              })
+          },
+          delete: (rows, done) => {
+            this.$store.dispatch(LogOperate.delete, rows.map(v => v.id)).then(() => done()).catch(done)
+          },
+          submit: (form, done) => {
+
+          }
+        },
+        sources: this.sources
+      })
+    },
+    methods: {}
+  }
+</script>
+
+<style scoped>
+</style>

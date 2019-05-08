@@ -1,0 +1,13 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+const system = require('./system/index')
+const common = require('./common/index')
+const test = require('./test/index')
+
+module.exports = function (app) {
+  system('/system', app)
+  common('/common', app)
+  test('/test', app)
+}

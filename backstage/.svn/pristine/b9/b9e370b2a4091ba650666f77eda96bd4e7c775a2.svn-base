@@ -1,0 +1,18 @@
+export default class Event {
+  constructor(events = {}) {
+    this._events = events
+    this._before = {}
+  }
+
+  before(name, callback) {
+    this._before[name] = callback
+  }
+
+  async emit(context, name, options, done) {
+    const callback = this._events[name]
+    const before = this._before[name]
+    if (!callback) return
+    if (before) options = await before.call(context, options)
+    callback.call(context, options, done)
+  }
+}

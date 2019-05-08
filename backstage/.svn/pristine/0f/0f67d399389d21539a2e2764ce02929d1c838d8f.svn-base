@@ -1,0 +1,235 @@
+/*
+creator: 魏婷
+date: 2019-03-15
+description: 人员管理
+*/
+
+<template>
+  <run-work :options="options"></run-work>
+</template>
+
+<script>
+import Run from 'run'
+import Mock from 'mockjs'
+
+export default {
+  name: 'contact',
+  data() {
+    return {
+      options: null,
+      sources: new Run.Source()
+    }
+  },
+  created() {
+    this.options = new Run.Work({
+      config: {
+        title: "通讯录管理"
+      },
+      actions: ["create", "update", "delete", "see"],
+      list: [
+        'name',
+        'capital',
+        'called:text',
+        'identity_number',
+        'unique_code',
+        'card_number',
+        'privatep_phone',
+        'downhole_phone',
+        'organization',
+        'birthplace',
+        'birth_date',
+        'operating_time'
+      ],
+      form: [
+        'name',
+        'capital',
+        'pin_yin',
+        'called',
+        'identity_number',
+        'unique_code',
+        'card_number',
+        'organization:treeselect',
+        'downhole_phone',
+        'job_id',
+        'privatep_phone',
+        'address',
+        'email',
+        'birthplace',
+        'birth_date',
+        'operating_time',
+        'education_level',
+        'profession',
+        'nationality',
+        'marital_status',
+        'political_status',
+        'work_name',
+        'inservice_status',
+        'status',
+        'description',
+        'photo'
+      ],
+      search: {
+        layout: "multiple",
+        columns: ['organization']
+      },
+      columns: [
+        { label: "姓名", field: "name", layout: "text", cols: 6 },
+        { label: "首字母", field: "capital", layout: "text", cols: 6 },
+        { label: "拼音", field: "pin_yin", layout: "text", cols: 6 },
+        { label: "性别", field: "called", layout: "select", source: 'gender', cols: 6 },
+        { label: '身份证号', field: 'identity_number', layout: 'text', cols: 12 },
+        { label: '人员唯一编码', field: 'unique_code', layout: 'text', cols: 12 },
+        { label: '卡号', field: 'card_number', layout: 'text', cols: 12 },
+        { label: "组织机构", field: "organization", layout: "text", source: 'organization', cols: 12 },
+        { label: "井下电话", field: "downhole_phone", layout: "text", cols: 12 },
+        { label: "职位", field: "job_id", layout: "select", source: 'job', cols: 12 },
+        { label: "井上电话", field: "privatep_phone", layout: "text", cols: 12 },
+        { label: "住址", field: "address", layout: "text", cols: 12 },
+        { label: "邮箱", field: "email", layout: "text", cols: 12 },
+        { label: "籍贯", field: "birthplace", layout: "text", cols: 12 },
+        { label: "出生日期", field: "birth_date", layout: "date", cols: 12 },
+        { label: "参加工作时间", field: "operating_time", layout: "date", cols: 12 },
+        { label: "教育程度", field: "education_level", layout: "select", source: 'education_level', cols: 12 },
+        { label: "专业", field: "profession", layout: "text", cols: 12 },
+        { label: "民族", field: "nationality", layout: "text", cols: 12 },
+        { label: "婚姻状况", field: "marital_status", layout: "select", source: 'marital_status', cols: 12 },
+        { label: "政治面貌", field: "political_status", layout: "select", source: 'political_status', cols: 12 },
+        { label: "工种名称", field: "work_name", layout: "text", cols: 12 },
+        { label: "就职状态", field: "inservice_status", layout: "select", source: 'inservice_status', cols: 12 },
+        { label: "是否启用", field: "status", layout: "switch", cols: 12 }, // TODO: 数据表里的状态？都有哪些状态？
+        { label: "备注", field: "description", layout: "textarea" },
+        { label: "头像", field: "photo", layout: "text" } // TODO: 组件里没有file类型？
+      ],
+      events: {
+        search: (params) => {
+          this.fetchPersons(params)
+        },
+        delete(rows, done) {
+          // 删除数据
+          done()
+        },
+        submit(form, done) {
+          if (form.id) {
+            // 更新数据
+            console.log(form.id)
+            done()
+
+          } else {
+            // 新增数据
+            console.log(form)
+            done()
+          }
+        },
+        edit(form) {
+          console.log('edit')
+        }
+      },
+      sources: this.sources
+    })
+
+    this.initData()
+    this.fetchData()
+  },
+  methods: {
+    initData() {
+      const { gender, education_level, marital_status, political_status, inservice_status } = Mock.mock({
+        "gender|2": [
+          {
+            "label|+1": ['男', '女'],
+            "value|+1": ['1', '2']
+          }
+        ],
+        "education_level|4": [
+          {
+            "label|+1": ['博士及以上', '硕士', '本科', '专科'],
+            "value|+1": ['4', '3', '2', '1']
+          }
+        ],
+        "marital_status|3": [
+          {
+            "label|+1": ['已婚', '未婚', '离异'],
+            "value|+1": ['1', '2', '3']
+          }
+        ],
+        "political_status|3": [
+          {
+            "label|+1": ['党员', '团员', '群众'],
+            "value|+1": ['1', '2', '3']
+          }
+        ],
+        "inservice_status|2": [
+          {
+            "label|+1": ['就职', '离职'],
+            "value|+1": ['1', '2']
+          }
+        ]
+      })
+      this.sources.set('gender', gender) // 性别
+      this.sources.set('education_level', education_level) // 教育程度
+      this.sources.set('marital_status', marital_status) // 婚姻状况
+      this.sources.set('political_status', political_status) // 政治面貌
+      this.sources.set('inservice_status', inservice_status) // 工作状态
+    },
+    fetchData() {
+      const { organization, job } = Mock.mock({
+        "organization|1": [
+          {
+            "value": 'cjt',
+            "label": '曹家滩',
+            "children|2": [
+              {
+                "value|+1": ['web', 'serve'],
+                "label|+1": ['前端开发', '后端开发']
+              }
+            ]
+          }
+        ],
+        "job|2": [
+          {
+            "label|+1": ['总经理', '职员'],
+            "value|+1": ['1', '2']
+          }
+        ]
+      })
+
+      setTimeout(() => {
+        this.sources.set('organization', [organization])
+        this.sources.set('job', job)
+      }, 3000)
+    },
+    fetchPersons(params) {
+      console.log('查询参数：')
+      console.log(params)
+
+      setTimeout(() => {
+        const { rows, total } = Mock.mock({
+          "rows|50-100": [
+            {
+              "id|+1": 1,
+              "name": () => Mock.Random.cname(),
+              "capital": () => Mock.Random.character('upper'),
+              "called|1": ['男', '女'],
+              "identity_number": /^[1-9]\d{5}[1-9]\d{3}((0\d)(1[0-2]))(([0|1|2]\d)3[0-1])\d{4}$/,
+              "unique_code": () => Mock.Random.natural(1, 2000),
+              "card_number": () => Mock.Random.natural(10000, 100000),
+              "privatep_phone": /^1[34578]\d{9}$/,
+              "downhole_phone": /^1[34578]\d{9}$/,
+              "organization|1": ['曹家滩矿山'],
+              "birthplace": () => Mock.Random.county(true),
+              "birth_date": () => Mock.Random.date('yyyy-MM-dd'),
+              "operating_time": () => Mock.Random.date('yyyy-MM-dd')
+            }
+          ],
+          "total"() {
+            return this.rows.length
+          }
+        })
+
+        this.sources.set("rows", rows)
+        this.sources.set("total", total)
+      }, 2000)
+    }
+  }
+}
+</script>
+

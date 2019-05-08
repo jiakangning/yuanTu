@@ -1,0 +1,87 @@
+<!-- create: 韩连杰
+    data: 2019-03-15
+    description: 职位管理
+  -->
+<!-- 修改: 赵赛赛
+  data: 2019-03-16
+  description: 对接增加查询接口
+-->
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  import Run from 'run'
+  import Mock from 'mockjs'
+  import { system_job as JOB } from '@/store/action-types.js'
+
+  export default {
+    data () {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    mounted () {
+      this.options = new Run.Work({
+        config: {
+          title: '登录日志管理'
+        },
+        actions: ['delete'],
+        tabs: 'tabs',
+        list: [
+          'account',
+          'lTime',
+          'isPass',
+          'browser',
+          'ip'
+        ],
+        form: [
+          'account',
+          'lTime',
+          'isPass',
+          'browser',
+          'ip'
+        ],
+        search: {
+          layout: 'multiple',
+          columns: [
+            'lTime',
+            'account',
+          ]
+        },
+        columns: [
+          { label: '登陆账户', field: 'account', layout: 'text' },
+          { label: '登陆时间', field: 'lTime', layout: 'date' },
+          { label: '是否通过', field: 'isPass', layout: 'select', source: 'isPass' },
+          { label: '浏览器', field: 'browser', layout: 'text' },
+          { label: 'IP地址', field: 'ip', layout: 'text' }
+        ],
+        events: {
+          search: (params) => {
+            const { isPass } = Mock.mock({
+              'isPass|2': [
+                {
+                  'label|+1': ['是', '否'],
+                  'value|+1': [true, false]
+                }
+              ]
+            })
+            this.sources.set('isPass', isPass)
+            console.log(params)
+          },
+          delete: (rows, done) => {
+          },
+          submit: (form, done) => {
+
+          }
+        },
+        sources: this.sources
+      })
+    },
+    methods: {}
+  }
+</script>
+
+<style scoped>
+</style>

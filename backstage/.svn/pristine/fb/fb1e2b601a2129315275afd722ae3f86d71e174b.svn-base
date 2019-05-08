@@ -1,0 +1,231 @@
+<template>
+  <div class="time">
+    <h3 class="time-title">年度</h3>
+    <div class="time-year">
+      <el-radio
+        v-for="(item, index) in yearList"
+        v-model="curYear"
+        :key="index"
+        :label="item"
+        size="mini"
+        border>{{item}}
+      </el-radio>
+    </div>
+    <h3 class="time-title">月度</h3>
+    <div class="time-month">
+      <el-slider
+        v-model="curMonth"
+        show-stops
+        :format-tooltip="formatTooltip"
+        :max="12"
+        :min="1"
+        range>
+      </el-slider>
+    </div>
+    <h3 class="time-title">日期</h3>
+    <div class="time-date">
+      <el-date-picker
+        class="time-date-main"
+        value-format="yyyy-MM-dd"
+        size="small"
+        v-model="curDate"
+        type="daterange"
+        range-separator="至"
+        start-placeholder="开始日期"
+        end-placeholder="结束日期">
+      </el-date-picker>
+    </div>
+    <h3 class="time-title">快捷</h3>
+    <div class="time-shortcut">
+      <el-tag
+        class="time-shortcut-tag"
+        v-for="item in shortcuts"
+        @click.native="onDetail(item)"
+        :label="item.value"
+        :key="item.value"
+        border>{{ item.label }}
+      </el-tag>
+    </div>
+  </div>
+</template>
+
+<script>
+  import moment from 'moment'
+
+  const monthList = ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]
+
+  export default {
+    props: {
+      options: {},
+      column: {},
+      value: {}
+    },
+    data() {
+      return {
+        curDate: null,
+        curYear: null,
+        curMonth: [],
+        yearList: [],
+        shortcuts: [
+          {
+            label: "最近一周",
+            value: 1
+          },
+          {
+            label: "最近一个月",
+            value: 2
+          },
+          {
+            label: "最近三个月",
+            value: 3
+          }
+        ]
+      }
+    },
+    computed: {
+      currentYearMonth() {
+        let year = this.curYear
+        let [start, end] = this.curMonth.sort()
+        if (start === end) {
+          if (start === 12) {
+            start--
+          } else {
+            end++
+          }
+        }
+        start = ("00" + start)
+        end = ("00" + end)
+        start = start.substr(start.length - 2, 2)
+        end = end.substr(end.length - 2, 2)
+        return [`${ year }-${ start }-01`, `${ year }-${ end }-01`]
+      },
+      currentValue() {
+        return this.curDate || this.currentYearMonth
+      }
+    },
+    methods: {
+      init() {
+        let year = moment().year()
+        let month = moment().month() + 1
+        let nextMonth = moment().month(1).month() + 1
+        this.curYear = year
+        this.curMonth = [month, nextMonth]
+        this.yearList = [year, year - 1, year - 2]
+      },
+
+      onDetail(item) {
+        switch (item.value) {
+          case 1:
+            return this.setDate1()
+          case 2:
+            return this.setDate2()
+          case 3:
+            return this.setDate3()
+        }
+      },
+
+      setDate3() {
+        let end = moment().add(1, "days").format("YYYY-MM-DD")
+        let start = moment(end).add(-3, "month").format("YYYY-MM-DD")
+        this.curDate = [start, end]
+      },
+
+      setDate2() {
+        let end = moment().add(1, "days").format("YYYY-MM-DD")
+        let start = moment(end).add(-1, "month").format("YYYY-MM-DD")
+        this.curDate = [start, end]
+      },
+
+      setDate1() {
+        let end = moment().add(1, "days").format("YYYY-MM-DD")
+        let start = moment().add(-6, "days").format("YYYY-MM-DD")
+        this.curDate = [start, end]
+      },
+
+      formatTooltip(value) {
+        return monthList[value - 1]
+      }
+    },
+    created() {
+      this.init()
+    },
+    watch: {
+      currentValue: {
+        immediate: true,
+        handler(val) {
+          this.$emit("input", val)
+        }
+      },
+      currentYearMonth: {
+        immediate: true,
+        handler() {
+          this.curDate = null
+        }
+      },
+      value: {
+        immediate: true,
+        handler(val) {
+          val || this.init()
+        }
+      }
+    }
+  }
+</script>
+
+<style
+  scoped
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus">
+  .time
+    &-title
+      margin: 10px 0
+      font-size: 14px
+      color: rgba(0, 0, 0, 0.85)
+      line-height: 22px
+
+    &-year
+      padding: 12px 10px
+
+      >>> .el-radio {
+        margin-bottom: 12px;
+      }
+
+      >>> .el-radio:nth-child(3n+1) {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+      }
+
+      >>> .el-radio:nth-child(3n+2) {
+        margin: 0 22px;
+      }
+
+      >>> .el-radio:nth-child(3n+3) {
+        margin-right: 0 !important;
+        margin-left: 0 !important;
+      }
+
+    &-month
+      padding: 12px 10px
+
+    &-date
+      padding: 12px 10px
+
+      &-main
+        height: 34px
+        width: 100%
+
+    &-shortcut
+      padding: 12px 10px
+
+      &-tag
+        cursor: pointer
+        color: #606266
+        background-color: transparent
+        margin: 0 10px 10px 0
+        border: 1px solid #dcdfe6
+        padding: 0 10px
+
+        &:hover
+          background-color: rgba(64, 158, 255, .1)
+</style>

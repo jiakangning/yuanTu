@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 3820 38" width="3820" height="38" hape-rendering="geometricPrecision" xmlns:a="http://www.adobe.com/svg10-extensions" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<style type="text/css">
+	.stpdzc0{fill:#009933;}
+	.stpdzc1{font-family:'ArialMT';}
+	.stpdzc2{font-size:5.2488px;}
+	.stpdzc3{fill:#CECECE;}
+	.stpdzc4{font-size:5.2823px;}
+	.stpdzc5{fill:#7A6A56;stroke:#000000;stroke-miterlimit:10;}
+	.stpdzc6{fill:#525252;}
+	.stpdzc7{fill:#BABDD9;}
+	.stpdzc8{fill:#604C3F;}
+	.stpdzc9{fill:#FFFFFF;}
+</style>
+<g id="Fill_0">
+	<path id="path_0_0" class="stpdzc0" d="M3791.4,34.6L3791.4,34.6c-1.7-1.2-1.7-4.7,0-7l20.2-25.8c1.7-2.3,5.2-2.9,6.9-1.2h0.6
+		c1.7,1.8,1.7,5.3,0.6,7.6L3798.9,34c-1.7,1.8-5.2,2.3-6.9,1.2L3791.4,34.6z"/>
+	<text id="Text_0_0" transform="matrix(0.7836 0.6141 -0.6035 0.7974 3812.446 3.2345)" class="stpdzc1 stpdzc2"> </text>
+</g>
+<g id="Fill_1">
+	<path id="path_0_1" class="stpdzc0" d="M27,0c123.4,0,3666.9,0,3791.5,0c-8.1,8.2-15.6,15.8-24.2,24.7c-123.4,0-3666.9,0-3791.5,0
+		C10.8,16.4,18.3,8.8,27,0z"/>
+</g>
+<g id="_x30__x5F_2">
+	<path id="path_0_2" class="stpdzc3" d="M191.4,35.2H13.7c-4.6,0-8.7-2.9-8.7-5.9l0,0c0-2.9,4-5.9,8.7-5.9h3775.4c4.6,0,8.7,2.9,8.7,5.9
+		l0,0c0,2.9-4,5.9-8.7,5.9H191.4z"/>
+	<text id="Text_0_2" transform="matrix(0.9829 0 0 1 7.3759 29.9066)" class="stpdzc1 stpdzc4"> </text>
+</g>
+<g id="_x30__x5F_3">
+	<path id="path_0_3" class="stpdzc5" d="M10.3,37.5c-5.2,0-9.8-3.5-9.8-8.2l0,0c0-4.7,4.6-8.2,9.8-8.2c120,0,3660,0,3781.1,0
+		c5.2,0,9.8,3.5,9.8,8.2l0,0c0,4.7-4.6,8.2-9.8,8.2C3671.4,37.5,131.4,37.5,10.3,37.5z"/>
+</g>
+<g id="_x30__x5F_4">
+	<path id="path_0_4" class="stpdzc6" d="M10.8,23.5H3792V27H10.8V23.5z"/>
+	<text id="Text_0_4" transform="matrix(0.9829 0 0 1 13.1444 29.9066)" class="stpdzc1 stpdzc4"> </text>
+</g>
+<g id="_x30__x5F_5">
+	<g id="_x30__x5F_5_x5F_0">
+		<ellipse id="ellipse_0_5_0" cx="3792" cy="29.3" rx="6.1" ry="6.2"/>
+		<text id="Text_0_5_0" transform="matrix(0.9829 0 0 1 3788.502 29.9066)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+	<g id="_x30__x5F_5_x5F_1">
+		<ellipse id="ellipse_0_5_1" class="stpdzc7" cx="3791.4" cy="29.3" rx="5.5" ry="5.6"/>
+		<text id="Text_0_5_1" transform="matrix(0.9829 0 0 1 3788.502 30.4935)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+	<g id="_x30__x5F_5_x5F_2">
+		<ellipse id="ellipse_0_5_2" class="stpdzc8" cx="3791.4" cy="29.3" rx="3.7" ry="3.8"/>
+		<text id="Text_0_5_2" transform="matrix(0.9829 0 0 1 3790.2329 32.2542)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+	<g id="_x30__x5F_5_x5F_3">
+		<ellipse id="ellipse_0_5_3" class="stpdzc7" cx="3791.4" cy="29.3" rx="2" ry="2.1"/>
+		<text id="Text_0_5_3" transform="matrix(0.9829 0 0 1 3791.9634 34.015)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+</g>
+<g id="_x30__x5F_6">
+	<g id="_x30__x5F_6_x5F_0">
+		<ellipse id="ellipse_0_6_0" cx="10.8" cy="29.9" rx="6.1" ry="6.2"/>
+		<text id="Text_0_6_0" transform="matrix(0.9829 0 0 1 7.3741 30.4937)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+	<g id="_x30__x5F_6_x5F_1">
+		<ellipse id="ellipse_0_6_1" class="stpdzc7" cx="10.3" cy="29.9" rx="5.5" ry="5.6"/>
+		<text id="Text_0_6_1" transform="matrix(0.9829 0 0 1 7.3741 31.0806)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+	<g id="_x30__x5F_6_x5F_2">
+		<ellipse id="ellipse_0_6_2" class="stpdzc8" cx="10.3" cy="29.9" rx="3.7" ry="3.8"/>
+		<text id="Text_0_6_2" transform="matrix(0.9829 0 0 1 9.1041 32.8413)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+	<g id="_x30__x5F_6_x5F_3">
+		<ellipse id="ellipse_0_6_3" class="stpdzc7" cx="10.3" cy="29.9" rx="2" ry="2.1"/>
+		<text id="Text_0_6_3" transform="matrix(0.9829 0 0 1 10.8346 34.6021)" class="stpdzc1 stpdzc4"> </text>
+	</g>
+</g>
+<g id="XMLIDPDZC_16_">
+	<g id="XMLIDPDZC_117_">
+		<g id="XMLIDPDZC_126_">
+			<g id="_x31__x5F_0_x5F_1_3_">
+				<path id="path_1_0_1_3_" class="stpdzc9" d="M3417.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_3_" transform="matrix(-0.9829 0 0 1 3415.2153 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_3_">
+				<path id="path_1_0_0_3_" class="stpdzc9" d="M3395.6,10.2L3395.6,10.2l7.5,5.3V5L3395.6,10.2z"/>
+				<text id="Text_1_0_0_3_" transform="matrix(-0.9829 0 0 1 3400.7935 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_125_">
+			<g id="_x31__x5F_1_x5F_0_3_">
+				<path id="path_1_1_0_3_" class="stpdzc9" d="M3354.1,10.2L3354.1,10.2l7.5,5.3V5L3354.1,10.2z"/>
+				<text id="Text_1_1_0_3_" transform="matrix(-0.9829 0 0 1 3359.2588 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_3_">
+				<path id="path_1_1_1_3_" class="stpdzc9" d="M3376,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_3_" transform="matrix(-0.9829 0 0 1 3373.6802 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_124_">
+			<g id="_x31__x5F_2_x5F_0_3_">
+				<path id="path_1_2_0_3_" class="stpdzc9" d="M3312.5,10.2L3312.5,10.2l7.5,5.3V5L3312.5,10.2z"/>
+				<text id="Text_1_2_0_3_" transform="matrix(-0.9829 0 0 1 3317.7241 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_3_">
+				<path id="path_1_2_1_3_" class="stpdzc9" d="M3334.5,12H3320V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_3_" transform="matrix(-0.9829 0 0 1 3332.1455 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_123_">
+			<g id="_x31__x5F_3_x5F_1_3_">
+				<path id="path_1_3_1_3_" class="stpdzc9" d="M3292.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_3_" transform="matrix(-0.9829 0 0 1 3290.6108 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_3_">
+				<path id="path_1_3_0_3_" class="stpdzc9" d="M3271,10.2L3271,10.2l7.5,5.3V5L3271,10.2z"/>
+				<text id="Text_1_3_0_3_" transform="matrix(-0.9829 0 0 1 3276.189 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_122_">
+			<g id="_x31__x5F_4_x5F_0_3_">
+				<path id="path_1_4_0_3_" class="stpdzc9" d="M3229.5,10.2L3229.5,10.2l7.5,5.3V5L3229.5,10.2z"/>
+				<text id="Text_1_4_0_3_" transform="matrix(-0.9829 0 0 1 3234.6543 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_3_">
+				<path id="path_1_4_1_3_" class="stpdzc9" d="M3251.4,12H3237V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_3_" transform="matrix(-0.9829 0 0 1 3249.0762 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_121_">
+			<g id="_x31__x5F_5_x5F_1_3_">
+				<path id="path_1_5_1_3_" class="stpdzc9" d="M3209.8,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_3_" transform="matrix(-0.9829 0 0 1 3207.5415 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_3_">
+				<path id="path_1_5_0_3_" class="stpdzc9" d="M3187.9,10.2L3187.9,10.2l7.5,5.3V5L3187.9,10.2z"/>
+				<text id="Text_1_5_0_3_" transform="matrix(-0.9829 0 0 1 3193.1196 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_120_">
+			<g id="_x31__x5F_6_x5F_1_3_">
+				<path id="path_1_6_1_3_" class="stpdzc9" d="M3168.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_3_" transform="matrix(-0.9829 0 0 1 3166.0059 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_3_">
+				<path id="path_1_6_0_3_" class="stpdzc9" d="M3146.4,10.2L3146.4,10.2l7.5,5.3V5L3146.4,10.2z"/>
+				<text id="Text_1_6_0_3_" transform="matrix(-0.9829 0 0 1 3151.584 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_119_">
+			<g id="_x31__x5F_7_x5F_1_3_">
+				<path id="path_1_7_1_3_" class="stpdzc9" d="M3126.8,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_3_" transform="matrix(-0.9829 0 0 1 3124.4712 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_3_">
+				<path id="path_1_7_0_3_" class="stpdzc9" d="M3104.9,10.2L3104.9,10.2l7.5,5.3V5L3104.9,10.2z"/>
+				<text id="Text_1_7_0_3_" transform="matrix(-0.9829 0 0 1 3110.0488 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_118_">
+			<g id="_x31__x5F_8_x5F_0_3_">
+				<path id="path_1_8_0_3_" class="stpdzc9" d="M3063.3,10.2L3063.3,10.2l7.5,5.3V5L3063.3,10.2z"/>
+				<text id="Text_1_8_0_3_" transform="matrix(-0.9829 0 0 1 3068.5156 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_3_">
+				<path id="path_1_8_1_3_" class="stpdzc9" d="M3085.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_3_" transform="matrix(-0.9829 0 0 1 3082.9365 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_107_">
+		<g id="XMLIDPDZC_116_">
+			<g id="_x31__x5F_0_x5F_1_4_">
+				<path id="path_1_0_1_4_" class="stpdzc9" d="M3041.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_4_" transform="matrix(-0.9829 0 0 1 3038.8735 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_4_">
+				<path id="path_1_0_0_4_" class="stpdzc9" d="M3019.3,10.2L3019.3,10.2l7.5,5.3V5L3019.3,10.2z"/>
+				<text id="Text_1_0_0_4_" transform="matrix(-0.9829 0 0 1 3024.4517 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_115_">
+			<g id="_x31__x5F_1_x5F_0_4_">
+				<path id="path_1_1_0_4_" class="stpdzc9" d="M2977.7,10.2L2977.7,10.2l7.5,5.3V5L2977.7,10.2z"/>
+				<text id="Text_1_1_0_4_" transform="matrix(-0.9829 0 0 1 2982.917 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_4_">
+				<path id="path_1_1_1_4_" class="stpdzc9" d="M2999.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_4_" transform="matrix(-0.9829 0 0 1 2997.3384 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_114_">
+			<g id="_x31__x5F_2_x5F_0_4_">
+				<path id="path_1_2_0_4_" class="stpdzc9" d="M2936.2,10.2L2936.2,10.2l7.5,5.3V5L2936.2,10.2z"/>
+				<text id="Text_1_2_0_4_" transform="matrix(-0.9829 0 0 1 2941.3823 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_4_">
+				<path id="path_1_2_1_4_" class="stpdzc9" d="M2958.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_4_" transform="matrix(-0.9829 0 0 1 2955.8037 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_113_">
+			<g id="_x31__x5F_3_x5F_1_4_">
+				<path id="path_1_3_1_4_" class="stpdzc9" d="M2916.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_4_" transform="matrix(-0.9829 0 0 1 2914.269 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_4_">
+				<path id="path_1_3_0_4_" class="stpdzc9" d="M2894.7,10.2L2894.7,10.2l7.5,5.3V5L2894.7,10.2z"/>
+				<text id="Text_1_3_0_4_" transform="matrix(-0.9829 0 0 1 2899.8472 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_112_">
+			<g id="_x31__x5F_4_x5F_0_4_">
+				<path id="path_1_4_0_4_" class="stpdzc9" d="M2853.1,10.2L2853.1,10.2l7.5,5.3V5L2853.1,10.2z"/>
+				<text id="Text_1_4_0_4_" transform="matrix(-0.9829 0 0 1 2858.3125 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_4_">
+				<path id="path_1_4_1_4_" class="stpdzc9" d="M2875,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_4_" transform="matrix(-0.9829 0 0 1 2872.7344 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_111_">
+			<g id="_x31__x5F_5_x5F_1_4_">
+				<path id="path_1_5_1_4_" class="stpdzc9" d="M2833.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_4_" transform="matrix(-0.9829 0 0 1 2831.1997 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_4_">
+				<path id="path_1_5_0_4_" class="stpdzc9" d="M2811.6,10.2L2811.6,10.2l7.5,5.3V5L2811.6,10.2z"/>
+				<text id="Text_1_5_0_4_" transform="matrix(-0.9829 0 0 1 2816.7778 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_110_">
+			<g id="_x31__x5F_6_x5F_1_4_">
+				<path id="path_1_6_1_4_" class="stpdzc9" d="M2792,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_4_" transform="matrix(-0.9829 0 0 1 2789.6641 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_4_">
+				<path id="path_1_6_0_4_" class="stpdzc9" d="M2770.1,10.2L2770.1,10.2l7.5,5.3V5L2770.1,10.2z"/>
+				<text id="Text_1_6_0_4_" transform="matrix(-0.9829 0 0 1 2775.2422 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_109_">
+			<g id="_x31__x5F_7_x5F_1_4_">
+				<path id="path_1_7_1_4_" class="stpdzc9" d="M2750.4,12H2736V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_4_" transform="matrix(-0.9829 0 0 1 2748.1294 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_4_">
+				<path id="path_1_7_0_4_" class="stpdzc9" d="M2728.5,10.2L2728.5,10.2l7.5,5.3V5L2728.5,10.2z"/>
+				<text id="Text_1_7_0_4_" transform="matrix(-0.9829 0 0 1 2733.707 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_108_">
+			<g id="_x31__x5F_8_x5F_0_4_">
+				<path id="path_1_8_0_4_" class="stpdzc9" d="M2687,10.2L2687,10.2l7.5,5.3V5L2687,10.2z"/>
+				<text id="Text_1_8_0_4_" transform="matrix(-0.9829 0 0 1 2692.1738 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_4_">
+				<path id="path_1_8_1_4_" class="stpdzc9" d="M2708.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_4_" transform="matrix(-0.9829 0 0 1 2706.5947 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_97_">
+		<g id="XMLIDPDZC_106_">
+			<g id="_x31__x5F_0_x5F_1_5_">
+				<path id="path_1_0_1_5_" class="stpdzc9" d="M2663.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_5_" transform="matrix(-0.9829 0 0 1 2660.8735 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_5_">
+				<path id="path_1_0_0_5_" class="stpdzc9" d="M2641.3,10.2L2641.3,10.2l7.5,5.3V5L2641.3,10.2z"/>
+				<text id="Text_1_0_0_5_" transform="matrix(-0.9829 0 0 1 2646.4517 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_105_">
+			<g id="_x31__x5F_1_x5F_0_5_">
+				<path id="path_1_1_0_5_" class="stpdzc9" d="M2599.7,10.2L2599.7,10.2l7.5,5.3V5L2599.7,10.2z"/>
+				<text id="Text_1_1_0_5_" transform="matrix(-0.9829 0 0 1 2604.917 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_5_">
+				<path id="path_1_1_1_5_" class="stpdzc9" d="M2621.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_5_" transform="matrix(-0.9829 0 0 1 2619.3384 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_104_">
+			<g id="_x31__x5F_2_x5F_0_5_">
+				<path id="path_1_2_0_5_" class="stpdzc9" d="M2558.2,10.2L2558.2,10.2l7.5,5.3V5L2558.2,10.2z"/>
+				<text id="Text_1_2_0_5_" transform="matrix(-0.9829 0 0 1 2563.3823 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_5_">
+				<path id="path_1_2_1_5_" class="stpdzc9" d="M2580.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_5_" transform="matrix(-0.9829 0 0 1 2577.8037 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_103_">
+			<g id="_x31__x5F_3_x5F_1_5_">
+				<path id="path_1_3_1_5_" class="stpdzc9" d="M2538.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_5_" transform="matrix(-0.9829 0 0 1 2536.269 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_5_">
+				<path id="path_1_3_0_5_" class="stpdzc9" d="M2516.7,10.2L2516.7,10.2l7.5,5.3V5L2516.7,10.2z"/>
+				<text id="Text_1_3_0_5_" transform="matrix(-0.9829 0 0 1 2521.8472 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_102_">
+			<g id="_x31__x5F_4_x5F_0_5_">
+				<path id="path_1_4_0_5_" class="stpdzc9" d="M2475.1,10.2L2475.1,10.2l7.5,5.3V5L2475.1,10.2z"/>
+				<text id="Text_1_4_0_5_" transform="matrix(-0.9829 0 0 1 2480.3125 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_5_">
+				<path id="path_1_4_1_5_" class="stpdzc9" d="M2497,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_5_" transform="matrix(-0.9829 0 0 1 2494.7344 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_101_">
+			<g id="_x31__x5F_5_x5F_1_5_">
+				<path id="path_1_5_1_5_" class="stpdzc9" d="M2455.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_5_" transform="matrix(-0.9829 0 0 1 2453.1997 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_5_">
+				<path id="path_1_5_0_5_" class="stpdzc9" d="M2433.6,10.2L2433.6,10.2l7.5,5.3V5L2433.6,10.2z"/>
+				<text id="Text_1_5_0_5_" transform="matrix(-0.9829 0 0 1 2438.7778 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_100_">
+			<g id="_x31__x5F_6_x5F_1_5_">
+				<path id="path_1_6_1_5_" class="stpdzc9" d="M2414,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_5_" transform="matrix(-0.9829 0 0 1 2411.6641 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_5_">
+				<path id="path_1_6_0_5_" class="stpdzc9" d="M2392.1,10.2L2392.1,10.2l7.5,5.3V5L2392.1,10.2z"/>
+				<text id="Text_1_6_0_5_" transform="matrix(-0.9829 0 0 1 2397.2422 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_99_">
+			<g id="_x31__x5F_7_x5F_1_5_">
+				<path id="path_1_7_1_5_" class="stpdzc9" d="M2372.4,12H2358V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_5_" transform="matrix(-0.9829 0 0 1 2370.1294 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_5_">
+				<path id="path_1_7_0_5_" class="stpdzc9" d="M2350.5,10.2L2350.5,10.2l7.5,5.3V5L2350.5,10.2z"/>
+				<text id="Text_1_7_0_5_" transform="matrix(-0.9829 0 0 1 2355.707 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_98_">
+			<g id="_x31__x5F_8_x5F_0_5_">
+				<path id="path_1_8_0_5_" class="stpdzc9" d="M2309,10.2L2309,10.2l7.5,5.3V5L2309,10.2z"/>
+				<text id="Text_1_8_0_5_" transform="matrix(-0.9829 0 0 1 2314.1738 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_5_">
+				<path id="path_1_8_1_5_" class="stpdzc9" d="M2330.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_5_" transform="matrix(-0.9829 0 0 1 2328.5947 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_87_">
+		<g id="XMLIDPDZC_96_">
+			<g id="_x31__x5F_0_x5F_1_7_">
+				<path id="path_1_0_1_7_" class="stpdzc9" d="M1912,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_7_" transform="matrix(-0.9829 0 0 1 1909.7144 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_7_">
+				<path id="path_1_0_0_7_" class="stpdzc9" d="M1890.1,10.2L1890.1,10.2l7.5,5.3V5L1890.1,10.2z"/>
+				<text id="Text_1_0_0_7_" transform="matrix(-0.9829 0 0 1 1895.2925 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_95_">
+			<g id="_x31__x5F_1_x5F_0_7_">
+				<path id="path_1_1_0_7_" class="stpdzc9" d="M1848.6,10.2L1848.6,10.2l7.5,5.3V5L1848.6,10.2z"/>
+				<text id="Text_1_1_0_7_" transform="matrix(-0.9829 0 0 1 1853.7578 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_7_">
+				<path id="path_1_1_1_7_" class="stpdzc9" d="M1870.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_7_" transform="matrix(-0.9829 0 0 1 1868.1792 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_94_">
+			<g id="_x31__x5F_2_x5F_0_7_">
+				<path id="path_1_2_0_7_" class="stpdzc9" d="M1807,10.2L1807,10.2l7.5,5.3V5L1807,10.2z"/>
+				<text id="Text_1_2_0_7_" transform="matrix(-0.9829 0 0 1 1812.2231 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_7_">
+				<path id="path_1_2_1_7_" class="stpdzc9" d="M1829,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_7_" transform="matrix(-0.9829 0 0 1 1826.6445 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_93_">
+			<g id="_x31__x5F_3_x5F_1_7_">
+				<path id="path_1_3_1_7_" class="stpdzc9" d="M1787.4,12H1773V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_7_" transform="matrix(-0.9829 0 0 1 1785.1099 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_7_">
+				<path id="path_1_3_0_7_" class="stpdzc9" d="M1765.5,10.2L1765.5,10.2l7.5,5.3V5L1765.5,10.2z"/>
+				<text id="Text_1_3_0_7_" transform="matrix(-0.9829 0 0 1 1770.688 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_92_">
+			<g id="_x31__x5F_4_x5F_0_7_">
+				<path id="path_1_4_0_7_" class="stpdzc9" d="M1724,10.2L1724,10.2l7.5,5.3V5L1724,10.2z"/>
+				<text id="Text_1_4_0_7_" transform="matrix(-0.9829 0 0 1 1729.1533 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_7_">
+				<path id="path_1_4_1_7_" class="stpdzc9" d="M1745.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_7_" transform="matrix(-0.9829 0 0 1 1743.5752 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_91_">
+			<g id="_x31__x5F_5_x5F_1_7_">
+				<path id="path_1_5_1_7_" class="stpdzc9" d="M1704.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_7_" transform="matrix(-0.9829 0 0 1 1702.0405 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_7_">
+				<path id="path_1_5_0_7_" class="stpdzc9" d="M1682.4,10.2L1682.4,10.2l7.5,5.3V5L1682.4,10.2z"/>
+				<text id="Text_1_5_0_7_" transform="matrix(-0.9829 0 0 1 1687.6187 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_90_">
+			<g id="_x31__x5F_6_x5F_1_7_">
+				<path id="path_1_6_1_7_" class="stpdzc9" d="M1662.8,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_7_" transform="matrix(-0.9829 0 0 1 1660.5049 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_7_">
+				<path id="path_1_6_0_7_" class="stpdzc9" d="M1640.9,10.2L1640.9,10.2l7.5,5.3V5L1640.9,10.2z"/>
+				<text id="Text_1_6_0_7_" transform="matrix(-0.9829 0 0 1 1646.083 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_89_">
+			<g id="_x31__x5F_7_x5F_1_7_">
+				<path id="path_1_7_1_7_" class="stpdzc9" d="M1621.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_7_" transform="matrix(-0.9829 0 0 1 1618.9702 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_7_">
+				<path id="path_1_7_0_7_" class="stpdzc9" d="M1599.4,10.2L1599.4,10.2l7.5,5.3V5L1599.4,10.2z"/>
+				<text id="Text_1_7_0_7_" transform="matrix(-0.9829 0 0 1 1604.5479 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_88_">
+			<g id="_x31__x5F_8_x5F_0_7_">
+				<path id="path_1_8_0_7_" class="stpdzc9" d="M1557.8,10.2L1557.8,10.2l7.5,5.3V5L1557.8,10.2z"/>
+				<text id="Text_1_8_0_7_" transform="matrix(-0.9829 0 0 1 1563.0146 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_7_">
+				<path id="path_1_8_1_7_" class="stpdzc9" d="M1579.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_7_" transform="matrix(-0.9829 0 0 1 1577.4355 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_77_">
+		<g id="XMLIDPDZC_86_">
+			<g id="_x31__x5F_0_x5F_1_8_">
+				<path id="path_1_0_1_8_" class="stpdzc9" d="M1533.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_8_" transform="matrix(-0.9829 0 0 1 1531.3813 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_8_">
+				<path id="path_1_0_0_8_" class="stpdzc9" d="M1511.8,10.2L1511.8,10.2l7.5,5.3V5L1511.8,10.2z"/>
+				<text id="Text_1_0_0_8_" transform="matrix(-0.9829 0 0 1 1516.9595 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_85_">
+			<g id="_x31__x5F_1_x5F_0_8_">
+				<path id="path_1_1_0_8_" class="stpdzc9" d="M1470.2,10.2L1470.2,10.2l7.5,5.3V5L1470.2,10.2z"/>
+				<text id="Text_1_1_0_8_" transform="matrix(-0.9829 0 0 1 1475.4248 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_8_">
+				<path id="path_1_1_1_8_" class="stpdzc9" d="M1492.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_8_" transform="matrix(-0.9829 0 0 1 1489.8462 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_84_">
+			<g id="_x31__x5F_2_x5F_0_8_">
+				<path id="path_1_2_0_8_" class="stpdzc9" d="M1428.7,10.2L1428.7,10.2l7.5,5.3V5L1428.7,10.2z"/>
+				<text id="Text_1_2_0_8_" transform="matrix(-0.9829 0 0 1 1433.8901 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_8_">
+				<path id="path_1_2_1_8_" class="stpdzc9" d="M1450.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_8_" transform="matrix(-0.9829 0 0 1 1448.3115 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_83_">
+			<g id="_x31__x5F_3_x5F_1_8_">
+				<path id="path_1_3_1_8_" class="stpdzc9" d="M1409.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_8_" transform="matrix(-0.9829 0 0 1 1406.7769 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_8_">
+				<path id="path_1_3_0_8_" class="stpdzc9" d="M1387.2,10.2L1387.2,10.2l7.5,5.3V5L1387.2,10.2z"/>
+				<text id="Text_1_3_0_8_" transform="matrix(-0.9829 0 0 1 1392.355 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_82_">
+			<g id="_x31__x5F_4_x5F_0_8_">
+				<path id="path_1_4_0_8_" class="stpdzc9" d="M1345.6,10.2L1345.6,10.2l7.5,5.3V5L1345.6,10.2z"/>
+				<text id="Text_1_4_0_8_" transform="matrix(-0.9829 0 0 1 1350.8203 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_8_">
+				<path id="path_1_4_1_8_" class="stpdzc9" d="M1367.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_8_" transform="matrix(-0.9829 0 0 1 1365.2422 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_81_">
+			<g id="_x31__x5F_5_x5F_1_8_">
+				<path id="path_1_5_1_8_" class="stpdzc9" d="M1326,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_8_" transform="matrix(-0.9829 0 0 1 1323.7075 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_8_">
+				<path id="path_1_5_0_8_" class="stpdzc9" d="M1304.1,10.2L1304.1,10.2l7.5,5.3V5L1304.1,10.2z"/>
+				<text id="Text_1_5_0_8_" transform="matrix(-0.9829 0 0 1 1309.2856 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_80_">
+			<g id="_x31__x5F_6_x5F_1_8_">
+				<path id="path_1_6_1_8_" class="stpdzc9" d="M1284.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_8_" transform="matrix(-0.9829 0 0 1 1282.1719 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_8_">
+				<path id="path_1_6_0_8_" class="stpdzc9" d="M1262.6,10.2L1262.6,10.2l7.5,5.3V5L1262.6,10.2z"/>
+				<text id="Text_1_6_0_8_" transform="matrix(-0.9829 0 0 1 1267.75 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_79_">
+			<g id="_x31__x5F_7_x5F_1_8_">
+				<path id="path_1_7_1_8_" class="stpdzc9" d="M1242.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_8_" transform="matrix(-0.9829 0 0 1 1240.6372 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_8_">
+				<path id="path_1_7_0_8_" class="stpdzc9" d="M1221,10.2L1221,10.2l7.5,5.3V5L1221,10.2z"/>
+				<text id="Text_1_7_0_8_" transform="matrix(-0.9829 0 0 1 1226.2148 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_78_">
+			<g id="_x31__x5F_8_x5F_0_8_">
+				<path id="path_1_8_0_8_" class="stpdzc9" d="M1179.5,10.2L1179.5,10.2l7.5,5.3V5L1179.5,10.2z"/>
+				<text id="Text_1_8_0_8_" transform="matrix(-0.9829 0 0 1 1184.6816 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_8_">
+				<path id="path_1_8_1_8_" class="stpdzc9" d="M1201.4,12H1187V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_8_" transform="matrix(-0.9829 0 0 1 1199.1025 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_67_">
+		<g id="XMLIDPDZC_76_">
+			<g id="_x31__x5F_0_x5F_1_10_">
+				<path id="path_1_0_1_10_" class="stpdzc9" d="M775.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_10_" transform="matrix(-0.9829 0 0 1 773.2847 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_10_">
+				<path id="path_1_0_0_10_" class="stpdzc9" d="M753.7,10.2L753.7,10.2l7.5,5.3V5L753.7,10.2z"/>
+				<text id="Text_1_0_0_10_" transform="matrix(-0.9829 0 0 1 758.8628 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_75_">
+			<g id="_x31__x5F_1_x5F_0_10_">
+				<path id="path_1_1_0_10_" class="stpdzc9" d="M712.1,10.2L712.1,10.2l7.5,5.3V5L712.1,10.2z"/>
+				<text id="Text_1_1_0_10_" transform="matrix(-0.9829 0 0 1 717.3281 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_10_">
+				<path id="path_1_1_1_10_" class="stpdzc9" d="M734.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_10_" transform="matrix(-0.9829 0 0 1 731.7495 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_74_">
+			<g id="_x31__x5F_2_x5F_0_10_">
+				<path id="path_1_2_0_10_" class="stpdzc9" d="M670.6,10.2L670.6,10.2l7.5,5.3V5L670.6,10.2z"/>
+				<text id="Text_1_2_0_10_" transform="matrix(-0.9829 0 0 1 675.7935 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_10_">
+				<path id="path_1_2_1_10_" class="stpdzc9" d="M692.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_10_" transform="matrix(-0.9829 0 0 1 690.2148 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_73_">
+			<g id="_x31__x5F_3_x5F_1_10_">
+				<path id="path_1_3_1_10_" class="stpdzc9" d="M651,12h-14.4V8.5H651V12z"/>
+				<text id="Text_1_3_1_10_" transform="matrix(-0.9829 0 0 1 648.6802 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_10_">
+				<path id="path_1_3_0_10_" class="stpdzc9" d="M629.1,10.2L629.1,10.2l7.5,5.3V5L629.1,10.2z"/>
+				<text id="Text_1_3_0_10_" transform="matrix(-0.9829 0 0 1 634.2583 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_72_">
+			<g id="_x31__x5F_4_x5F_0_10_">
+				<path id="path_1_4_0_10_" class="stpdzc9" d="M587.5,10.2L587.5,10.2l7.5,5.3V5L587.5,10.2z"/>
+				<text id="Text_1_4_0_10_" transform="matrix(-0.9829 0 0 1 592.7236 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_10_">
+				<path id="path_1_4_1_10_" class="stpdzc9" d="M609.5,12H595V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_10_" transform="matrix(-0.9829 0 0 1 607.1455 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_71_">
+			<g id="_x31__x5F_5_x5F_1_10_">
+				<path id="path_1_5_1_10_" class="stpdzc9" d="M567.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_10_" transform="matrix(-0.9829 0 0 1 565.6108 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_10_">
+				<path id="path_1_5_0_10_" class="stpdzc9" d="M546,10.2L546,10.2l7.5,5.3V5L546,10.2z"/>
+				<text id="Text_1_5_0_10_" transform="matrix(-0.9829 0 0 1 551.189 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_70_">
+			<g id="_x31__x5F_6_x5F_1_10_">
+				<path id="path_1_6_1_10_" class="stpdzc9" d="M526.4,12H512V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_10_" transform="matrix(-0.9829 0 0 1 524.0752 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_10_">
+				<path id="path_1_6_0_10_" class="stpdzc9" d="M504.5,10.2L504.5,10.2l7.5,5.3V5L504.5,10.2z"/>
+				<text id="Text_1_6_0_10_" transform="matrix(-0.9829 0 0 1 509.6533 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_69_">
+			<g id="_x31__x5F_7_x5F_1_10_">
+				<path id="path_1_7_1_10_" class="stpdzc9" d="M484.8,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_10_" transform="matrix(-0.9829 0 0 1 482.5405 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_10_">
+				<path id="path_1_7_0_10_" class="stpdzc9" d="M462.9,10.2L462.9,10.2l7.5,5.3V5L462.9,10.2z"/>
+				<text id="Text_1_7_0_10_" transform="matrix(-0.9829 0 0 1 468.1182 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_68_">
+			<g id="_x31__x5F_8_x5F_0_10_">
+				<path id="path_1_8_0_10_" class="stpdzc9" d="M421.4,10.2L421.4,10.2l7.5,5.3V5L421.4,10.2z"/>
+				<text id="Text_1_8_0_10_" transform="matrix(-0.9829 0 0 1 426.585 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_10_">
+				<path id="path_1_8_1_10_" class="stpdzc9" d="M443.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_10_" transform="matrix(-0.9829 0 0 1 441.0059 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_57_">
+		<g id="XMLIDPDZC_66_">
+			<g id="_x31__x5F_0_x5F_1_11_">
+				<path id="path_1_0_1_11_" class="stpdzc9" d="M398.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_11_" transform="matrix(-0.9829 0 0 1 395.9517 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_11_">
+				<path id="path_1_0_0_11_" class="stpdzc9" d="M376.3,10.2L376.3,10.2l7.5,5.3V5L376.3,10.2z"/>
+				<text id="Text_1_0_0_11_" transform="matrix(-0.9829 0 0 1 381.5298 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_65_">
+			<g id="_x31__x5F_1_x5F_0_11_">
+				<path id="path_1_1_0_11_" class="stpdzc9" d="M334.8,10.2L334.8,10.2l7.5,5.3V5L334.8,10.2z"/>
+				<text id="Text_1_1_0_11_" transform="matrix(-0.9829 0 0 1 339.9951 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_11_">
+				<path id="path_1_1_1_11_" class="stpdzc9" d="M356.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_11_" transform="matrix(-0.9829 0 0 1 354.4165 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_64_">
+			<g id="_x31__x5F_2_x5F_0_11_">
+				<path id="path_1_2_0_11_" class="stpdzc9" d="M293.3,10.2L293.3,10.2l7.5,5.3V5L293.3,10.2z"/>
+				<text id="Text_1_2_0_11_" transform="matrix(-0.9829 0 0 1 298.4604 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_11_">
+				<path id="path_1_2_1_11_" class="stpdzc9" d="M315.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_11_" transform="matrix(-0.9829 0 0 1 312.8818 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_63_">
+			<g id="_x31__x5F_3_x5F_1_11_">
+				<path id="path_1_3_1_11_" class="stpdzc9" d="M273.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_11_" transform="matrix(-0.9829 0 0 1 271.3472 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_11_">
+				<path id="path_1_3_0_11_" class="stpdzc9" d="M251.7,10.2L251.7,10.2l7.5,5.3V5L251.7,10.2z"/>
+				<text id="Text_1_3_0_11_" transform="matrix(-0.9829 0 0 1 256.9253 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_62_">
+			<g id="_x31__x5F_4_x5F_0_11_">
+				<path id="path_1_4_0_11_" class="stpdzc9" d="M210.2,10.2L210.2,10.2l7.5,5.3V5L210.2,10.2z"/>
+				<text id="Text_1_4_0_11_" transform="matrix(-0.9829 0 0 1 215.3906 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_11_">
+				<path id="path_1_4_1_11_" class="stpdzc9" d="M232.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_11_" transform="matrix(-0.9829 0 0 1 229.8125 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_61_">
+			<g id="_x31__x5F_5_x5F_1_11_">
+				<path id="path_1_5_1_11_" class="stpdzc9" d="M190.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_11_" transform="matrix(-0.9829 0 0 1 188.2778 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_11_">
+				<path id="path_1_5_0_11_" class="stpdzc9" d="M168.7,10.2L168.7,10.2l7.5,5.3V5L168.7,10.2z"/>
+				<text id="Text_1_5_0_11_" transform="matrix(-0.9829 0 0 1 173.856 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_60_">
+			<g id="_x31__x5F_6_x5F_1_11_">
+				<path id="path_1_6_1_11_" class="stpdzc9" d="M149,12h-14.4V8.5H149V12z"/>
+				<text id="Text_1_6_1_11_" transform="matrix(-0.9829 0 0 1 146.7422 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_11_">
+				<path id="path_1_6_0_11_" class="stpdzc9" d="M127.1,10.2L127.1,10.2l7.5,5.3V5L127.1,10.2z"/>
+				<text id="Text_1_6_0_11_" transform="matrix(-0.9829 0 0 1 132.3203 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_59_">
+			<g id="_x31__x5F_7_x5F_1_11_">
+				<path id="path_1_7_1_11_" class="stpdzc9" d="M107.5,12H93.1V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_11_" transform="matrix(-0.9829 0 0 1 105.2075 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_11_">
+				<path id="path_1_7_0_11_" class="stpdzc9" d="M85.6,10.2L85.6,10.2l7.5,5.3V5L85.6,10.2z"/>
+				<text id="Text_1_7_0_11_" transform="matrix(-0.9829 0 0 1 90.7852 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_58_">
+			<g id="_x31__x5F_8_x5F_0_11_">
+				<path id="path_1_8_0_11_" class="stpdzc9" d="M44.1,10.2L44.1,10.2l7.5,5.3V5L44.1,10.2z"/>
+				<text id="Text_1_8_0_11_" transform="matrix(-0.9829 0 0 1 49.252 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_11_">
+				<path id="path_1_8_1_11_" class="stpdzc9" d="M66,12H51.6V8.5H66V12z"/>
+				<text id="Text_1_8_1_11_" transform="matrix(-0.9829 0 0 1 63.6729 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_47_">
+		<g id="XMLIDPDZC_56_">
+			<g id="_x31__x5F_0_x5F_1_6_">
+				<path id="path_1_0_1_6_" class="stpdzc9" d="M1153.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_6_" transform="matrix(-0.9829 0 0 1 1151.2847 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_6_">
+				<path id="path_1_0_0_6_" class="stpdzc9" d="M1131.7,10.2L1131.7,10.2l7.5,5.3V5L1131.7,10.2z"/>
+				<text id="Text_1_0_0_6_" transform="matrix(-0.9829 0 0 1 1136.8628 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_55_">
+			<g id="_x31__x5F_1_x5F_0_6_">
+				<path id="path_1_1_0_6_" class="stpdzc9" d="M1090.1,10.2L1090.1,10.2l7.5,5.3V5L1090.1,10.2z"/>
+				<text id="Text_1_1_0_6_" transform="matrix(-0.9829 0 0 1 1095.3281 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_6_">
+				<path id="path_1_1_1_6_" class="stpdzc9" d="M1112.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_6_" transform="matrix(-0.9829 0 0 1 1109.7495 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_54_">
+			<g id="_x31__x5F_2_x5F_0_6_">
+				<path id="path_1_2_0_6_" class="stpdzc9" d="M1048.6,10.2L1048.6,10.2l7.5,5.3V5L1048.6,10.2z"/>
+				<text id="Text_1_2_0_6_" transform="matrix(-0.9829 0 0 1 1053.7935 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_6_">
+				<path id="path_1_2_1_6_" class="stpdzc9" d="M1070.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_6_" transform="matrix(-0.9829 0 0 1 1068.2148 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_53_">
+			<g id="_x31__x5F_3_x5F_1_6_">
+				<path id="path_1_3_1_6_" class="stpdzc9" d="M1029,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_6_" transform="matrix(-0.9829 0 0 1 1026.6802 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_6_">
+				<path id="path_1_3_0_6_" class="stpdzc9" d="M1007.1,10.2L1007.1,10.2l7.5,5.3V5L1007.1,10.2z"/>
+				<text id="Text_1_3_0_6_" transform="matrix(-0.9829 0 0 1 1012.2583 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_52_">
+			<g id="_x31__x5F_4_x5F_0_6_">
+				<path id="path_1_4_0_6_" class="stpdzc9" d="M965.5,10.2L965.5,10.2l7.5,5.3V5L965.5,10.2z"/>
+				<text id="Text_1_4_0_6_" transform="matrix(-0.9829 0 0 1 970.7236 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_6_">
+				<path id="path_1_4_1_6_" class="stpdzc9" d="M987.5,12H973V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_6_" transform="matrix(-0.9829 0 0 1 985.1455 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_51_">
+			<g id="_x31__x5F_5_x5F_1_6_">
+				<path id="path_1_5_1_6_" class="stpdzc9" d="M945.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_6_" transform="matrix(-0.9829 0 0 1 943.6108 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_6_">
+				<path id="path_1_5_0_6_" class="stpdzc9" d="M924,10.2L924,10.2l7.5,5.3V5L924,10.2z"/>
+				<text id="Text_1_5_0_6_" transform="matrix(-0.9829 0 0 1 929.189 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_50_">
+			<g id="_x31__x5F_6_x5F_1_6_">
+				<path id="path_1_6_1_6_" class="stpdzc9" d="M904.4,12H890V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_6_" transform="matrix(-0.9829 0 0 1 902.0752 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_6_">
+				<path id="path_1_6_0_6_" class="stpdzc9" d="M882.5,10.2L882.5,10.2l7.5,5.3V5L882.5,10.2z"/>
+				<text id="Text_1_6_0_6_" transform="matrix(-0.9829 0 0 1 887.6533 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_49_">
+			<g id="_x31__x5F_7_x5F_1_6_">
+				<path id="path_1_7_1_6_" class="stpdzc9" d="M862.8,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_6_" transform="matrix(-0.9829 0 0 1 860.5405 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_6_">
+				<path id="path_1_7_0_6_" class="stpdzc9" d="M840.9,10.2L840.9,10.2l7.5,5.3V5L840.9,10.2z"/>
+				<text id="Text_1_7_0_6_" transform="matrix(-0.9829 0 0 1 846.1182 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_48_">
+			<g id="_x31__x5F_8_x5F_0_6_">
+				<path id="path_1_8_0_6_" class="stpdzc9" d="M799.4,10.2L799.4,10.2l7.5,5.3V5L799.4,10.2z"/>
+				<text id="Text_1_8_0_6_" transform="matrix(-0.9829 0 0 1 804.585 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_6_">
+				<path id="path_1_8_1_6_" class="stpdzc9" d="M821.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_6_" transform="matrix(-0.9829 0 0 1 819.0059 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_37_">
+		<g id="XMLIDPDZC_46_">
+			<g id="_x31__x5F_0_x5F_1_2_">
+				<path id="path_1_0_1_2_" class="stpdzc9" d="M2289.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_2_" transform="matrix(-0.9829 0 0 1 2286.8735 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_2_">
+				<path id="path_1_0_0_2_" class="stpdzc9" d="M2267.3,10.2L2267.3,10.2l7.5,5.3V5L2267.3,10.2z"/>
+				<text id="Text_1_0_0_2_" transform="matrix(-0.9829 0 0 1 2272.4517 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_45_">
+			<g id="_x31__x5F_1_x5F_0_2_">
+				<path id="path_1_1_0_2_" class="stpdzc9" d="M2225.7,10.2L2225.7,10.2l7.5,5.3V5L2225.7,10.2z"/>
+				<text id="Text_1_1_0_2_" transform="matrix(-0.9829 0 0 1 2230.917 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_2_">
+				<path id="path_1_1_1_2_" class="stpdzc9" d="M2247.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_2_" transform="matrix(-0.9829 0 0 1 2245.3384 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_44_">
+			<g id="_x31__x5F_2_x5F_0_2_">
+				<path id="path_1_2_0_2_" class="stpdzc9" d="M2184.2,10.2L2184.2,10.2l7.5,5.3V5L2184.2,10.2z"/>
+				<text id="Text_1_2_0_2_" transform="matrix(-0.9829 0 0 1 2189.3823 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_2_">
+				<path id="path_1_2_1_2_" class="stpdzc9" d="M2206.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_2_" transform="matrix(-0.9829 0 0 1 2203.8037 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_43_">
+			<g id="_x31__x5F_3_x5F_1_2_">
+				<path id="path_1_3_1_2_" class="stpdzc9" d="M2164.6,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_2_" transform="matrix(-0.9829 0 0 1 2162.269 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_2_">
+				<path id="path_1_3_0_2_" class="stpdzc9" d="M2142.7,10.2L2142.7,10.2l7.5,5.3V5L2142.7,10.2z"/>
+				<text id="Text_1_3_0_2_" transform="matrix(-0.9829 0 0 1 2147.8472 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_42_">
+			<g id="_x31__x5F_4_x5F_0_2_">
+				<path id="path_1_4_0_2_" class="stpdzc9" d="M2101.1,10.2L2101.1,10.2l7.5,5.3V5L2101.1,10.2z"/>
+				<text id="Text_1_4_0_2_" transform="matrix(-0.9829 0 0 1 2106.3125 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_2_">
+				<path id="path_1_4_1_2_" class="stpdzc9" d="M2123,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_2_" transform="matrix(-0.9829 0 0 1 2120.7344 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_41_">
+			<g id="_x31__x5F_5_x5F_1_2_">
+				<path id="path_1_5_1_2_" class="stpdzc9" d="M2081.5,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_2_" transform="matrix(-0.9829 0 0 1 2079.1997 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_2_">
+				<path id="path_1_5_0_2_" class="stpdzc9" d="M2059.6,10.2L2059.6,10.2l7.5,5.3V5L2059.6,10.2z"/>
+				<text id="Text_1_5_0_2_" transform="matrix(-0.9829 0 0 1 2064.7778 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_40_">
+			<g id="_x31__x5F_6_x5F_1_2_">
+				<path id="path_1_6_1_2_" class="stpdzc9" d="M2040,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_2_" transform="matrix(-0.9829 0 0 1 2037.6641 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_2_">
+				<path id="path_1_6_0_2_" class="stpdzc9" d="M2018.1,10.2L2018.1,10.2l7.5,5.3V5L2018.1,10.2z"/>
+				<text id="Text_1_6_0_2_" transform="matrix(-0.9829 0 0 1 2023.2422 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_39_">
+			<g id="_x31__x5F_7_x5F_1_2_">
+				<path id="path_1_7_1_2_" class="stpdzc9" d="M1998.4,12H1984V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_2_" transform="matrix(-0.9829 0 0 1 1996.1294 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_2_">
+				<path id="path_1_7_0_2_" class="stpdzc9" d="M1976.5,10.2L1976.5,10.2l7.5,5.3V5L1976.5,10.2z"/>
+				<text id="Text_1_7_0_2_" transform="matrix(-0.9829 0 0 1 1981.707 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_38_">
+			<g id="_x31__x5F_8_x5F_0_2_">
+				<path id="path_1_8_0_2_" class="stpdzc9" d="M1935,10.2L1935,10.2l7.5,5.3V5L1935,10.2z"/>
+				<text id="Text_1_8_0_2_" transform="matrix(-0.9829 0 0 1 1940.1738 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_2_">
+				<path id="path_1_8_1_2_" class="stpdzc9" d="M1956.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_2_" transform="matrix(-0.9829 0 0 1 1954.5947 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_27_">
+		<g id="XMLIDPDZC_36_">
+			<g id="_x31__x5F_0_x5F_1_1_">
+				<path id="path_1_0_1_1_" class="stpdzc9" d="M3793.4,12H3779V8.5h14.4V12z"/>
+				<text id="Text_1_0_1_1_" transform="matrix(-0.9829 0 0 1 3791.1079 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0_1_">
+				<path id="path_1_0_0_1_" class="stpdzc9" d="M3771.5,10.2L3771.5,10.2l7.5,5.3V5L3771.5,10.2z"/>
+				<text id="Text_1_0_0_1_" transform="matrix(-0.9829 0 0 1 3776.686 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_35_">
+			<g id="_x31__x5F_1_x5F_0_1_">
+				<path id="path_1_1_0_1_" class="stpdzc9" d="M3730,10.2L3730,10.2l7.5,5.3V5L3730,10.2z"/>
+				<text id="Text_1_1_0_1_" transform="matrix(-0.9829 0 0 1 3735.1514 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1_1_">
+				<path id="path_1_1_1_1_" class="stpdzc9" d="M3751.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1_1_" transform="matrix(-0.9829 0 0 1 3749.5728 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_34_">
+			<g id="_x31__x5F_2_x5F_0_1_">
+				<path id="path_1_2_0_1_" class="stpdzc9" d="M3688.4,10.2L3688.4,10.2l7.5,5.3V5L3688.4,10.2z"/>
+				<text id="Text_1_2_0_1_" transform="matrix(-0.9829 0 0 1 3693.6167 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1_1_">
+				<path id="path_1_2_1_1_" class="stpdzc9" d="M3710.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1_1_" transform="matrix(-0.9829 0 0 1 3708.0381 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_33_">
+			<g id="_x31__x5F_3_x5F_1_1_">
+				<path id="path_1_3_1_1_" class="stpdzc9" d="M3668.8,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1_1_" transform="matrix(-0.9829 0 0 1 3666.5034 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0_1_">
+				<path id="path_1_3_0_1_" class="stpdzc9" d="M3646.9,10.2L3646.9,10.2l7.5,5.3V5L3646.9,10.2z"/>
+				<text id="Text_1_3_0_1_" transform="matrix(-0.9829 0 0 1 3652.0815 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_32_">
+			<g id="_x31__x5F_4_x5F_0_1_">
+				<path id="path_1_4_0_1_" class="stpdzc9" d="M3605.4,10.2L3605.4,10.2l7.5,5.3V5L3605.4,10.2z"/>
+				<text id="Text_1_4_0_1_" transform="matrix(-0.9829 0 0 1 3610.5469 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1_1_">
+				<path id="path_1_4_1_1_" class="stpdzc9" d="M3627.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1_1_" transform="matrix(-0.9829 0 0 1 3624.9688 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_31_">
+			<g id="_x31__x5F_5_x5F_1_1_">
+				<path id="path_1_5_1_1_" class="stpdzc9" d="M3585.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1_1_" transform="matrix(-0.9829 0 0 1 3583.4341 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0_1_">
+				<path id="path_1_5_0_1_" class="stpdzc9" d="M3563.8,10.2L3563.8,10.2l7.5,5.3V5L3563.8,10.2z"/>
+				<text id="Text_1_5_0_1_" transform="matrix(-0.9829 0 0 1 3569.0122 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_30_">
+			<g id="_x31__x5F_6_x5F_1_1_">
+				<path id="path_1_6_1_1_" class="stpdzc9" d="M3544.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1_1_" transform="matrix(-0.9829 0 0 1 3541.8984 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0_1_">
+				<path id="path_1_6_0_1_" class="stpdzc9" d="M3522.3,10.2L3522.3,10.2l7.5,5.3V5L3522.3,10.2z"/>
+				<text id="Text_1_6_0_1_" transform="matrix(-0.9829 0 0 1 3527.4766 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_29_">
+			<g id="_x31__x5F_7_x5F_1_1_">
+				<path id="path_1_7_1_1_" class="stpdzc9" d="M3502.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_7_1_1_" transform="matrix(-0.9829 0 0 1 3500.3638 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0_1_">
+				<path id="path_1_7_0_1_" class="stpdzc9" d="M3480.7,10.2L3480.7,10.2l7.5,5.3V5L3480.7,10.2z"/>
+				<text id="Text_1_7_0_1_" transform="matrix(-0.9829 0 0 1 3485.9414 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_28_">
+			<g id="_x31__x5F_8_x5F_0_1_">
+				<path id="path_1_8_0_1_" class="stpdzc9" d="M3439.2,10.2L3439.2,10.2l7.5,5.3V5L3439.2,10.2z"/>
+				<text id="Text_1_8_0_1_" transform="matrix(-0.9829 0 0 1 3444.4082 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1_1_">
+				<path id="path_1_8_1_1_" class="stpdzc9" d="M3461.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1_1_" transform="matrix(-0.9829 0 0 1 3458.8291 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<g id="XMLIDPDZC_17_">
+		<g id="XMLIDPDZC_26_">
+			<g id="_x31__x5F_0_x5F_1">
+				<path id="path_1_0_1" class="stpdzc9" d="M3793.4,12H3779V8.5h14.4V12z"/>
+				<text id="Text_1_0_1" transform="matrix(-0.9829 0 0 1 3791.1079 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_0_x5F_0">
+				<path id="path_1_0_0" class="stpdzc9" d="M3771.5,10.2L3771.5,10.2l7.5,5.3V5L3771.5,10.2z"/>
+				<text id="Text_1_0_0" transform="matrix(-0.9829 0 0 1 3776.686 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_25_">
+			<g id="_x31__x5F_1_x5F_0">
+				<path id="path_1_1_0" class="stpdzc9" d="M3730,10.2L3730,10.2l7.5,5.3V5L3730,10.2z"/>
+				<text id="Text_1_1_0" transform="matrix(-0.9829 0 0 1 3735.1514 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_1_x5F_1">
+				<path id="path_1_1_1" class="stpdzc9" d="M3751.9,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_1_1" transform="matrix(-0.9829 0 0 1 3749.5728 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_24_">
+			<g id="_x31__x5F_2_x5F_0">
+				<path id="path_1_2_0" class="stpdzc9" d="M3688.4,10.2L3688.4,10.2l7.5,5.3V5L3688.4,10.2z"/>
+				<text id="Text_1_2_0" transform="matrix(-0.9829 0 0 1 3693.6167 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_2_x5F_1">
+				<path id="path_1_2_1" class="stpdzc9" d="M3710.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_2_1" transform="matrix(-0.9829 0 0 1 3708.0381 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_23_">
+			<g id="_x31__x5F_3_x5F_1">
+				<path id="path_1_3_1" class="stpdzc9" d="M3668.8,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_3_1" transform="matrix(-0.9829 0 0 1 3666.5034 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_3_x5F_0">
+				<path id="path_1_3_0" class="stpdzc9" d="M3646.9,10.2L3646.9,10.2l7.5,5.3V5L3646.9,10.2z"/>
+				<text id="Text_1_3_0" transform="matrix(-0.9829 0 0 1 3652.0815 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_22_">
+			<g id="_x31__x5F_4_x5F_0">
+				<path id="path_1_4_0" class="stpdzc9" d="M3605.4,10.2L3605.4,10.2l7.5,5.3V5L3605.4,10.2z"/>
+				<text id="Text_1_4_0" transform="matrix(-0.9829 0 0 1 3610.5469 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_4_x5F_1">
+				<path id="path_1_4_1" class="stpdzc9" d="M3627.3,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_4_1" transform="matrix(-0.9829 0 0 1 3624.9688 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_21_">
+			<g id="_x31__x5F_5_x5F_1">
+				<path id="path_1_5_1" class="stpdzc9" d="M3585.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_5_1" transform="matrix(-0.9829 0 0 1 3583.4341 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_5_x5F_0">
+				<path id="path_1_5_0" class="stpdzc9" d="M3563.8,10.2L3563.8,10.2l7.5,5.3V5L3563.8,10.2z"/>
+				<text id="Text_1_5_0" transform="matrix(-0.9829 0 0 1 3569.0122 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_20_">
+			<g id="_x31__x5F_6_x5F_1">
+				<path id="path_1_6_1" class="stpdzc9" d="M3544.2,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_6_1" transform="matrix(-0.9829 0 0 1 3541.8984 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_6_x5F_0">
+				<path id="path_1_6_0" class="stpdzc9" d="M3522.3,10.2L3522.3,10.2l7.5,5.3V5L3522.3,10.2z"/>
+				<text id="Text_1_6_0" transform="matrix(-0.9829 0 0 1 3527.4766 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_19_">
+			<g id="_x31__x5F_7_x5F_1">
+				<path id="path_1_7_1" class="stpdzc9" d="M3502.7,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_7_1" transform="matrix(-0.9829 0 0 1 3500.3638 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_7_x5F_0">
+				<path id="path_1_7_0" class="stpdzc9" d="M3480.7,10.2L3480.7,10.2l7.5,5.3V5L3480.7,10.2z"/>
+				<text id="Text_1_7_0" transform="matrix(-0.9829 0 0 1 3485.9414 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+		<g id="XMLIDPDZC_18_">
+			<g id="_x31__x5F_8_x5F_0">
+				<path id="path_1_8_0" class="stpdzc9" d="M3439.2,10.2L3439.2,10.2l7.5,5.3V5L3439.2,10.2z"/>
+				<text id="Text_1_8_0" transform="matrix(-0.9829 0 0 1 3444.4082 11.4088)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+			<g id="_x31__x5F_8_x5F_1">
+				<path id="path_1_8_1" class="stpdzc9" d="M3461.1,12h-14.4V8.5h14.4V12z"/>
+				<text id="Text_1_8_1" transform="matrix(-0.9829 0 0 1 3458.8291 14.9302)" class="stpdzc1 stpdzc4"> </text>
+			</g>
+		</g>
+	</g>
+	<animateMotion id="Rotate_1" begin="indefinite" end="indefinite"  attributeName="transform" attributeType="XML" type="translate" path="M 10 0 L -30 0 " dur="1.000000s" additive="replace" fill="freeze" accumulate="none" restart="whenNotActive" repeatCount="indefinite"/>
+</g>
+</svg>

@@ -1,0 +1,99 @@
+/**
+ * @author 贾康宁
+ * @date 2019-03-15
+ * @description 角色流程
+ */
+const Op = require('sequelize').Op
+const dbCtx = require('../../../database/dbCtx')
+const RoleMenuCommand = require('../../model/system/RoleMenuCommand')
+
+class RoleManager {
+  constructor (roleRepo) {
+    this.roleRepo = roleRepo || require('../../model/system/Role')
+    this.separator = '-'
+  }
+
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数！'))
+    } else {
+      if (Array.isArray(input)) {
+        this.roleRepo
+          .bulkCreate(input)
+          .then(roles => callback(null, roles))
+          .catch(callback)
+      } else {
+        this.roleRepo
+          .create(input)
+          .then(role => callback(null, role))
+          .catch(callback)
+      }
+    }
+  }
+
+  update (input, callback) {
+    const { id, ...raw } = input
+    this.roleRepo.isExist(id)
+      .then(role => {
+        return role ? role.update(raw) : Promise.reject(new Error('数据已被删除，无法修改！'))
+      })
+      .then(role => callback(null, role))
+      .catch(callback)
+  }
+
+  delete (input, callback) {
+    const rows = Array.isArray(input) ? input : [input]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    this.roleRepo.destroy(condition)
+      .then(count => callback(null, count))
+      .catch(callback)
+  }
+
+  findAll (input, callback) {
+    const options = this.roleRepo.buildOptions(input)
+    this.roleRepo
+      .findAndCountAll(options)
+      .then(result => callback(null, result))
+      .catch(callback)
+  }
+
+  /**
+   * 角色授权
+   * @param input
+   * @param shallInputs
+   * @param callback
+   * @return {Promise<T | never>}
+   */
+  authorization (input, shallInputs, callback) {
+    const { roleId } = input
+    if (roleId) {
+      return dbCtx.transaction(
+        t => RoleMenuCommand.destroy({ where: { roleId } }, { transaction: t })
+          .then(_ => {
+            if (shallInputs && shallInputs.length) return RoleMenuCommand.bulkCreate(shallInputs, { transaction: t })
+            else return RoleMenuCommand.create({ roleId, moduleId: null, cmdId: null })
+          }))
+        .then(results => callback(null, results))
+        .catch(callback)
+    } else {
+      callback(new Error('未传入角色！'))
+    }
+  }
+
+  /**
+   * 查看授权
+   * @param input
+   * @param callback
+   */
+  showAuthorization (input, callback) {
+    const { roleId } = input
+    let _this = this
+    RoleMenuCommand.findAll({ where: { roleId } }).then(roleMenuCommands => {
+      if (roleMenuCommands && roleMenuCommands.length) {
+        callback(null, [...new Set([...(RoleMenuCommand.spliceMenuAndCmd(roleMenuCommands, _this.separator))])])
+      }
+    }).catch(callback)
+  }
+}
+
+module.exports = RoleManager

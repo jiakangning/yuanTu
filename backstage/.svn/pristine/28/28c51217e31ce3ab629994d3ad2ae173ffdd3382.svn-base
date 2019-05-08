@@ -1,0 +1,59 @@
+export default [
+  {
+    path: '/system/contact',
+    name: 'system-contact',
+    component: () => import('@/apps/system/contact/index.vue')
+  },
+  {
+    path: '/system/job',
+    name: 'system-job',
+    component: () => import('@/apps/system/job/index.vue')
+  },
+  {
+    path: '/system/member',
+    name: 'system-member',
+    component: () => import('@/apps/system/member/index.vue')
+  },
+  {
+    path: '/system/role',
+    name: 'system-role',
+    component: () => import('@/apps/system/role/index.vue')
+  },
+  {
+    path: '/system/menu',
+    name: 'system-menu',
+    component: () => import('@/apps/system/menu/index.vue')
+  },
+  {
+    path: '/system/organization',
+    name: 'system-organization',
+    component: () => import('@/apps/system/organization/index.vue')
+  },
+  {
+    path: '/system/logLogin',
+    name: 'system-logLogin',
+    component: () => import('@/apps/system/logLogin/index.vue')
+  },
+  {
+    path: '/system/errorlog',
+    name: 'system-errorlog',
+    component: () => import("@/apps/system/errorlog/index.vue")
+  },
+  {
+    path: '/system/LogOperate',
+    name: 'system-LogOperate',
+    component: () => import('@/apps/system/logOperate/index.vue')
+  },
+  {
+    path: '/system/mobileModule',
+    name: 'system-mobileModule',
+    component: () => import('@/apps/system/mobileModule/index.vue')
+  },
+  {
+    path: '/system/dictionary',
+    name: 'system-dictionary',
+    meta: '字典',
+    component: () => import('@/apps/system/dictionary/index.vue')
+  }
+]
+

@@ -1,0 +1,9 @@
+const Classes = require('../../model/test/Classes.js')
+
+const Student = require('../../model/test/Student.js')
+
+Classes.hasMany(Student, { foreignKey: Student.foreignKey, sourceKey: Student.sourceKey })
+
+exports.Classes = Classes
+
+exports.Student = Student

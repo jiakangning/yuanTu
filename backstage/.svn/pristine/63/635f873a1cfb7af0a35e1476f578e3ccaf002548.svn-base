@@ -1,0 +1,177 @@
+const DrainageManager = require('../service/monitor/DrainageManager')
+const MainCoalFlowManager = require('../service/monitor/MainCoalFlowManager')
+const SafeManager = require('../service/monitor/SafeManager')
+const MinePressureManager = require('../service/monitor/MinePressureManager')
+const MainFanManger = require('../service/monitor/MainFanManager')
+const MonitorManger = require('../service/monitor/MonitorManager')
+
+// 定时器集合
+const timer = {
+  drainage: null,
+  mainCoalFlow: null,
+  minePressure: null,
+  safe: null,
+  mainFan: null,
+  alarm: null
+}
+
+/* 排水 */
+exports.getAllDrainages = (req, res, next) => {
+  const drainageManager = new DrainageManager()
+  drainageManager.getAll({}, (error, drainages) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(drainages)
+    }
+  })
+}
+
+exports.pushAllDrainages = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  const drainageChannel = io.of('/monitor/drainages')
+  if (timer.drainage) clearInterval(timer.drainage)
+  const drainageManager = new DrainageManager()
+  timer.drainage = setInterval(() => {
+    drainageManager.getAll({}, (error, drainages) => {
+      if (error) return drainageChannel.emit('error', error.message || '无法获取排水监测数据')
+      drainageChannel.emit('data', { type: 'show', payload: drainages })
+    })
+  }, interval)
+}
+
+/* 主煤流 */
+exports.getAllMainCoalFlow = (req, res, next) => {
+  const mainCoalFlowManager = new MainCoalFlowManager()
+  mainCoalFlowManager.getAll({}, (error, mainCoalFlows) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(mainCoalFlows)
+    }
+  })
+}
+
+exports.pushAllMainCoalFlows = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  const flowChannel = io.of('/monitor/main-coal-flows')
+  if (timer.mainCoalFlow) clearInterval(timer.mainCoalFlow)
+  const mainCoalFlowManager = new MainCoalFlowManager()
+  timer.mainCoalFlow = setInterval(() => {
+    mainCoalFlowManager.getAll({}, (error, mainCoalFlows) => {
+      if (error) return flowChannel.emit('error', error.message || '无法获取主煤流监测数据')
+      flowChannel.emit('data', { type: 'show', payload: mainCoalFlows })
+    })
+  }, interval)
+}
+
+/** 安全监控 */
+exports.getAllSafty = (req, res, next) => {
+  const safeManager = new SafeManager()
+  safeManager.getAll({}, (error, result) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(result)
+    }
+  })
+}
+// 推送全部安全监控值
+exports.pushAllSafty = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  const safeChannel = io.of('/monitor/safties')
+  if (timer.safe) clearInterval(timer.safe)
+  const safeManager = new SafeManager()
+  timer.safe = setInterval(() => {
+    safeManager.getAll({}, (error, result) => {
+      if (error) {
+        return safeChannel.emit('error', error.message || '无法获取安全监控数据')
+      } else {
+        return safeChannel.emit('data', { type: 'show', payload: result })
+      }
+    })
+  }, interval)
+}
+
+/** 矿压监测 */
+exports.getAllMinePressures = (req, res, next) => {
+  const minePressureManager = new MinePressureManager()
+  minePressureManager.getAll((error, result) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(result)
+    }
+  })
+}
+// 推送全部矿压监测值
+exports.pushAllMinePressures = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  const pressureChannel = io.of('/monitor/mine-pressures')
+  if (timer.minePressure) clearInterval(timer.minePressure)
+  const minePressureManager = new MinePressureManager()
+  timer.minePressure = setInterval(() => {
+    minePressureManager.getAll({}, (error, result) => {
+      if (error) {
+        return pressureChannel.emit('error', error.message || '无法获取矿压监测数据')
+      } else {
+        return pressureChannel.emit('data', { type: 'show', payload: result })
+      }
+    })
+  }, interval)
+}
+
+/** 主扇风机 */
+exports.getAllMainFan = (req, res, next) => {
+  const mainFanManger = new MainFanManger()
+  mainFanManger.getAll((error, result) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(result)
+    }
+  })
+}
+exports.pushAllMainFan = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  const fanChannel = io.of('/monitor/main-fans')
+  if (timer.mainFan) clearInterval(timer.mainFan)
+  const mainFanManger = new MainFanManger()
+  timer.mainFan = setInterval(() => {
+    mainFanManger.getAll({}, (error, result) => {
+      if (error) {
+        return fanChannel.emit('error', error.message || '无法获取主扇风机监测数据')
+      } else {
+        return fanChannel.emit('data', { type: 'show', payload: result })
+      }
+    })
+  }, interval)
+}
+
+// 获取全部监控系统的报警数据
+exports.getAllAlarms = (req, res, next) => {
+  const monitorManger = new MonitorManger()
+  monitorManger.getAlarms({}, (error, result) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(result)
+    }
+  })
+}
+// 推送全部监测系统的报警数据
+exports.pushAllAlarms = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  const alarmChannel = io.of('/monitor/alarm')
+  if (timer.alarm) clearInterval(timer.alarm)
+  const monitorManger = new MonitorManger()
+  timer.alarm = setInterval(() => {
+    monitorManger.getAlarms({}, (error, result) => {
+      if (error) {
+        return alarmChannel.emit('error', error.message || '无法获取报警的监测数据')
+      } else {
+        return alarmChannel.emit('data', { type: 'show', payload: result })
+      }
+    })
+  }, interval)
+}

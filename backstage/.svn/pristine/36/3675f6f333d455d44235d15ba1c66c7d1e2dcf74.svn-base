@@ -1,0 +1,159 @@
+<template>
+  <div class="run-search-popup">
+    <column-single
+      @search="onSearch"
+      @input="onInput"
+      :options="options"
+      :column="currentPrimaryColumn"/>
+    <el-button
+      icon="el-icon-search"
+      type="primary"
+      @click="onSearch">查询
+    </el-button>
+    <template
+      v-if="currentPopupColumns.length">
+      <span
+        class="run-search-popup-link"
+        @click="onShow">
+        &nbsp;高级搜索&nbsp;
+      </span>
+      <div
+        class="run-search-popup-wrap">
+        <div
+          class="run-search-popup-wrap-mask"
+          @click="onHide"
+          v-show="open"/>
+        <div
+          :class="{ 'is-open': open }"
+          class="run-search-popup-wrap-container">
+          <column-popup
+            v-for="(column, index) in currentPopupColumns"
+            v-model="params[column.field]"
+            :options="options"
+            :column="column"
+            :key="index"/>
+          <div class="run-search-popup-wrap-button">
+            <el-button
+              @click="onReset"
+              round>重置
+            </el-button>
+            <el-button
+              @click="onSearch"
+              type="primary"
+              icon="el-icon-search"
+              round>查询
+            </el-button>
+          </div>
+        </div>
+      </div>
+    </template>
+  </div>
+</template>
+
+<script>
+  import basic from './basic.vue'
+
+  export default {
+    extends: basic,
+    data() {
+      return {
+        open: false,
+        params: {}
+      }
+    },
+    computed: {
+      currentPrimaryField() {
+        const first = this.currentColumns[0] || {}
+        return this.options.getConfig('primary') || first.field
+      },
+      currentPrimaryColumn() {
+        return this.currentColumns.find(v => v.field === this.currentPrimaryField)
+      },
+      currentPopupColumns() {
+        return this.currentColumns.filter(v => v.field !== this.currentPrimaryField)
+      }
+    },
+    methods: {
+      onHide() {
+        this.open = false
+      },
+      onShow() {
+        this.open = true
+      },
+      onReset() {
+        this.options.initParams({})
+      }
+    }
+  }
+</script>
+
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus">
+  .run-search-popup
+    display: inline-flex
+    align-items: center
+
+    &-link
+      position: relative
+      top: -1px
+      font-size: 12px
+      margin-left: 15px
+      cursor: pointer
+      text-decoration: underline
+      color: #409eff
+      line-height: 25px
+
+    &-wrap
+      position: fixed
+      top: 0
+      left: 0
+      width: 0
+      height: 0
+      z-index: 100
+
+      &-container
+        position: fixed
+        top: 0
+        right: 0
+        bottom: 0
+        width: 320px
+        padding: 24px 15px
+        box-sizing: border-box
+        background: #fff
+        z-index: 1000
+        transform: translate3d(100%, 0, 0)
+        transition: all 0.3s ease
+        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)
+        overflow: auto
+
+        &.is-open
+          transform: translate3d(0, 0, 0)
+
+      &-mask
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background: #00
+        opacity: 0.3
+
+      &-switch.el-button
+        position: absolute
+        top: 25%
+        left: 0
+        font-size: 22px
+        padding: 12px 15px 12px 20px
+        transform: translateX(-100%)
+        border-top-right-radius: 0
+        border-bottom-right-radius: 0
+        box-shadow: -2px 0 8px rgba(0, 0, 0, .15)
+
+      &-button
+        display: flex
+        align-items: center
+        justify-content: center
+        margin-top: 50px
+</style>

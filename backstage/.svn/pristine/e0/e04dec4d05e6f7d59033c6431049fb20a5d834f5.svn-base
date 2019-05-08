@@ -1,0 +1,14 @@
+/**
+ * author:赵赛赛
+ * created_at:2019/3/15
+ * */
+const router = require('express').Router()
+const { create, update, destroy, findByPk, findAll } = require('../../controller/system/PositionController')
+
+router.post('/position/create', create)
+router.post('/position/update', update)
+router.post('/position/delete', destroy)
+router.post('/position/getAll', findAll)
+router.get('/position/getById', findByPk)
+
+module.exports = router

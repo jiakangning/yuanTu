@@ -1,0 +1,3 @@
+exports.formatPagination = function (pagination, data = [], total = 0) {
+  return !pagination ? data : { total: total, rows: data }
+}

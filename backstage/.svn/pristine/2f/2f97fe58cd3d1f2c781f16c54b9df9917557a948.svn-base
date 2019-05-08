@@ -1,0 +1,208 @@
+<template>
+  <div class="run-layer-container">
+    <div ref="layer">
+      <template v-if="value && submit">
+        <div class="run-layer-content">
+          <slot/>
+        </div>
+        <div class="run-layer-btn">
+          <el-button
+	          @click="cancel">关闭
+          </el-button>
+          <el-button
+	          @click="confirm"
+	          :loading="loading"
+	          type="primary">提交
+          </el-button>
+        </div>
+      </template>
+      <template v-if="value && !submit">
+        <slot></slot>
+      </template>
+    </div>
+  </div>
+</template>
+
+<script type="text/jsx">
+  if (typeof jQuery === 'undefined') window.jQuery = require('jquery')
+  require('layui-layer/dist/theme/default/layer.css')
+  const layer = require('layui-layer/dist/layer.js')
+  const doms = ['layui-layer', 'layui-layer-title', 'layui-layer-content']
+  export default {
+    name: 'run-layer',
+    props: {
+      title: {
+        type: String,
+        required: true,
+        default: '信息'
+      },
+      value: {
+        type: Boolean,
+        default: false
+      },
+      option: {
+        type: Object,
+        default () {
+          return {}
+        }
+      },
+      submit: {}
+    },
+    data () {
+      return {
+        currentLayerIndex: null,
+        loading: false
+      }
+    },
+    methods: {
+      confirm () {
+        this.loading = true
+        this.$emit('confirm', this.done)
+      },
+      cancel () {
+        this.$emit('input', false)
+        this.$emit('cancel')
+      },
+      done (err) {
+        this.loading = false
+        if (err) return
+        this.$emit('input', false)
+        this.$message.success('提交成功！')
+      },
+      auto () {
+        if (!this.dom) return
+        setTimeout(() => {
+          this.dom.style.transition = 'all .3s ease'
+          this.dom.style.left = (window.innerWidth - this.dom.offsetWidth) / 2 + 'px'
+          this.dom.style.top = (window.innerHeight - this.dom.offsetHeight) / 2 + 'px'
+          setTimeout(() => {
+            this.dom.style.transition = ''
+          }, 300)
+        }, 0)
+      },
+      open () {
+        let { cancel, ...obj } = this.option
+        this.currentLayerIndex = layer.open({
+          type: 1,
+          title: this.title,
+          skin: 'run-layer',
+          content: window.jQuery(this.$refs.layer),
+          zIndex: 10,
+          shade: 0,
+          area: '55%',
+          maxHeight: 600,
+          maxmin: true,
+          cancel: (index) => {
+            if (cancel) {
+              cancel(this)
+            }
+            this.$emit('input', !this.value)
+            this.$nextTick(() => {
+              layer.close(index)
+            })
+          },
+          resizing: this.resizing,
+          full: this.resizing,
+          min: this.resizing,
+          restore: this.resizing,
+          ...obj
+        })
+        this.dom = document.getElementById(doms[0] + this.currentLayerIndex)
+      },
+      close () {
+        if (this.currentLayerIndex) {
+          layer.close(this.currentLayerIndex)
+        }
+      },
+      resizing (dom) {
+        let title = null
+        let content = null
+        Array.from(dom[0].childNodes).forEach(node => {
+          if (!title && Array.from(node.classList).indexOf(doms[1]) > -1) {
+            title = node
+          }
+          if (!content && Array.from(node.classList).indexOf(doms[2]) > -1) {
+            content = node
+          }
+        })
+        if (content) {
+          let wrapHeight = dom[0].offsetHeight
+          let titleHeight = title ? title.offsetHeight : 0
+          let contentHeight = wrapHeight - titleHeight
+          content.style.height = contentHeight + 'px'
+        }
+      },
+      handler (val) {
+        this.$el.style.visibility = 'hidden'
+        setTimeout(() => {
+          val ? this.open() : this.close()
+          this.$el.style.visibility = 'visible'
+        }, 0)
+      },
+      destroyed () {
+        this.$emit('input', false)
+        this.close()
+        if (this.$el && this.$el.parentNode) {
+          this.$el.parentNode.removeChild(this.$el)
+        }
+      },
+      created () {
+        this.handler(this.value)
+        document.body.appendChild(this.$el)
+      }
+    },
+    activated () {
+      this.created()
+    },
+    mounted () {
+      this.created()
+    },
+    deactivated () {
+      this.destroyed()
+    },
+    destroyed () {
+      this.destroyed()
+    },
+    watch: {
+      title (val) {
+        layer.title(val, this.currentLayerIndex)
+      },
+      value (val) {
+        this.handler(val)
+      }
+    }
+  }
+</script>
+
+<style
+	lang="stylus"
+	type="text/stylus">
+  .run-layer-container
+	  position: absolute
+	  bottom: 0
+	  left: 0
+	  overflow visible
+
+  .run-layer
+	  .layui-layer-wrap
+		  width: 100%
+		  height: 100%
+		  overflow: auto
+
+  .run-layer-content
+	  width: 100%
+	  height: 100%
+	  padding-bottom: 50px
+	  box-sizing: border-box
+	  overflow: auto
+
+  .run-layer-btn
+	  position: absolute
+	  left: 0
+	  bottom: 0
+	  right: 0
+	  text-align: right
+	  background: #ffffff
+	  padding: 10px 20px
+	  z-index: 10
+</style>

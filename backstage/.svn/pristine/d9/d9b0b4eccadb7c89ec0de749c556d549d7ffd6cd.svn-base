@@ -1,0 +1,126 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门流程
+*/
+// const User = require('../../model/membership/User')
+// const dbCtx = require('../../../database/dbCtx')
+// const ER = require('../../model/system/ER')
+const Op = require('sequelize').Op
+
+class DepartmentManager {
+  constructor (depotRepo) {
+    this.depotRepo = depotRepo || require('../../model/system/DepartmentModel')
+  }
+
+  /**
+   * @desc 创建部门
+   * @param input
+   * @param callback
+   */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数！'))
+    } else {
+      if (Array.isArray(input)) {
+        this.depotRepo.bulkCreate(input)
+          .then(depots => callback(null, depots))
+          .catch(callback)
+      } else {
+        const { author, slIndex, parentId, editor, supervisor, isValid } = input
+        input.author = Number(author)
+        input.slIndex = Number(slIndex)
+        input.parentId = parentId ? Number(parentId) : null
+        input.editor = Number(editor)
+        input.supervisor = Number(supervisor)
+        input.isValid = Number(isValid)
+        this.depotRepo.build(input)
+          .save()
+          .then(depot => callback(null, depot))
+          .catch(callback)
+      }
+    }
+  }
+
+  /**
+   * @desc 依据id修改部门
+   * @param input
+   * @param callback
+   */
+  update (input, callback) {
+    const { id, name, parentId, supervision, inCharges, telphone, address, description, isValid, editor, slIndex } = input
+    this.depotRepo.isExist(id)
+      .then(depot => {
+        if (depot) {
+          if (name) depot.name = name
+          if (parentId) depot.parentId = parentId ? Number(supervision) : null
+          if (supervision) depot.supervision = Number(supervision)
+          if (inCharges) depot.inCharges = inCharges
+          if (isValid) depot.isValid = Number(isValid)
+          if (telphone) depot.telphone = telphone
+          if (address) depot.address = address
+          if (description) depot.description = description
+          if (editor) depot.editor = Number(editor)
+          if (slIndex) depot.slIndex = Number(slIndex)
+          return depot.save()
+        } else {
+          return Promise.reject(new Error('数据已被删除，无法修改！'))
+        }
+      }).then(depot => callback(null, depot)).catch(callback)
+  }
+
+  /**
+   * desc 依据id删除部门
+   * @param input
+   * @param callback
+   */
+  delete (input, callback) {
+    const rows = Array.isArray(input) ? input : input[0]
+    const id = rows.id
+    const condition = {
+      where: {
+        [Op.or]: [
+          {
+            rt_path: {
+              [Op.like]: '%,' + id + ',%'
+            }
+          },
+          {
+            id: id
+          }
+        ]
+      }
+    }
+    this.depotRepo.destroy(condition)
+      .then(count => callback(null, count))
+      .catch(callback)
+  }
+
+  /**
+   *@desc 获取所有部门
+   * @param input
+   * @param callback
+   */
+  findAll (input, callback) {
+    const options = this.depotRepo.buildOptions(input)
+    this.depotRepo
+      .findAndCountAll(options)
+      .then(result => callback(null, result))
+      .catch(callback)
+  }
+
+  /**
+   * @desc 获取级联部门
+   * @param input
+   * @param callback
+   */
+  showDepotsByCcade (input, callback) {
+    this.depotRepo.findParents(input).then(data => {
+      callback(null, data)
+    }).catch(err => {
+      callback(err)
+    })
+  }
+}
+
+module.exports = DepartmentManager

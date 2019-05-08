@@ -1,0 +1,39 @@
+/**
+ * author:甄岩岩,
+ * createdAt:2019-3-15
+ */
+const Menu = require('./Menu')
+const Command = require('./Command')
+const Position = require('./Position')
+const Department = require('./Department')
+const User = require('./User')
+const Contact = require('./Contact')
+const Role = require('./Role')
+const RoleMenuCommand = require('./RoleMenuCommand')
+const Dictionary = require('./Dictionary')
+const MobileModule = require('./MobileModule')
+
+Menu.hasMany(Command, { foreignKey: 'menu_id', sourceKey: 'id', onDelete: 'CASCADE' })
+Command.belongsTo(Menu, { foreignKey: 'menu_id', targetKey: 'id', onDelete: 'CASCADE' })
+
+User.belongsTo(Contact)
+
+Role.belongsToMany(Command, { through: { model: RoleMenuCommand, unique: false }, foreignKey: 'role_id', constraints: false })
+
+Command.belongsToMany(Role, { through: { model: RoleMenuCommand, unique: false }, foreignKey: 'cmd_id', constraints: false })
+
+MobileModule.belongsToMany(Role, { through: 'system_role_mobile_permission', as: 'Roles', foreignKey: 'mobile_id', constraints: false })
+
+Role.belongsToMany(MobileModule, { through: 'system_role_mobile_permission', as: 'MobileModules', foreignKey: 'role_id', constraints: false })
+
+
+exports.Command = Command
+exports.Menu = Menu
+exports.Position = Position
+exports.Department = Department
+exports.User = User
+exports.Contact = Contact
+exports.Role = Role
+exports.RoleMenuCommand = RoleMenuCommand
+exports.Dictionary = Dictionary
+exports.MobileModule = MobileModule

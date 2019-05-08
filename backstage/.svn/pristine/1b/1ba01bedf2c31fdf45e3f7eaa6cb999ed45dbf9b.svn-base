@@ -1,0 +1,52 @@
+<template>
+  <div>
+    <!-- 主地图窗口 -->
+    <Map />
+    <!-- 左上角搜索 -->
+    <SearchTool/>
+    <!-- 右上角工具 -->
+    <LayerAndTools/>
+    <!-- 右下角地图切换 -->
+    <ToggleTool/>
+    <!-- 弹窗 -->
+    <Dialog v-if="showDialog" :dialogType="dialogType" :dialogTitle="dialogTitle" :options="dialogOptions" />
+  </div>
+</template>
+
+<script>
+import {mapState, mapActions} from 'vuex'
+import Map from './Map'
+import LayerAndTools from "./LayerAndTools";
+import SearchTool from "./tools/SearchTool";
+import ToggleTool from "./tools/ToggleMapTool";
+import Dialog from './Dialog'
+export default {
+  data() {
+    return {
+      dialogType: '',
+      showDialog: false,
+      dialogTitle: '',
+      dialogOptions: null
+      
+    };
+  },
+  computed: {
+    ...mapState({
+      isInUnity: state => state.isInUnity
+    })
+  },
+  components: {
+    Map,
+    LayerAndTools,
+    SearchTool,
+    ToggleTool,
+    Dialog
+  },
+  mounted() {
+    
+  },
+  methods: {
+    
+  }
+};
+</script>

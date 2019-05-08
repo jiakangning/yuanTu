@@ -1,0 +1,40 @@
+/**
+ * @author 刘腾腾
+ * @date 2019-03-22
+ * @type {Sequelize}
+ */
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+
+const Classes = dbCtx.define('classes', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  name: { type: Sequelize.STRING(50), allowNull: false, unique: true }
+}, {
+  tableName: 'test_classes',
+  underscored: true
+})
+
+Classes.buildOptions = function (raw = {}) {
+  return buildDefaultOption(raw)
+}
+
+Classes.createClassesAndStudents = function (input, { Classes, Student }) {
+  return dbCtx.transaction(t => {
+    return Classes.create(input, { include: [Student], transaction: t })
+  })
+}
+
+Classes.updateClassesAndStudents = function (input, { Classes, Student }) {
+  const { id, students, ...raw } = input
+  return Classes.findByPk(id, { include: [Student] })
+    .then((classes) => {
+      return dbCtx.transaction(t => {
+        const process = Student.batchProcess({ classes, students }, { transaction: t })
+        const main = classes.update(raw, { where: { id }, transaction: t })
+        return Promise.all([process, main])
+      })
+    })
+}
+
+module.exports = Classes

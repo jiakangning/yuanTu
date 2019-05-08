@@ -1,0 +1,5 @@
+const User = require('./User')
+const Contact = require('./Contact')
+
+const userContact = User.belongsTo(Contact)
+module.exports = userContact

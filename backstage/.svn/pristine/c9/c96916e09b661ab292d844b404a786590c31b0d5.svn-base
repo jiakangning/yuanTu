@@ -1,0 +1,43 @@
+/**
+ * author:赵赛赛
+ * created_at:2019/3/15
+ * */
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+
+const Position = dbCtx.define('position', {
+  text: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    field: 'text'
+  },
+  mLevel: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    field: 'm_level',
+    validate: {
+      max: 25,
+      min: 1
+    }
+  },
+  pIndex: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    field: 'p_index'
+  },
+  remarks: {
+    type: Sequelize.STRING,
+    field: 'remarks'
+  }
+}, {
+  tableName: 'system_membership_job',
+  underscored: true,
+  paranoid: true
+})
+
+Position.isExist = function (id) {
+  return Position.findByPk(id)
+}
+
+module.exports = Position

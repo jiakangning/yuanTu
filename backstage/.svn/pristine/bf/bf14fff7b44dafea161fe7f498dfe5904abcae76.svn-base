@@ -1,0 +1,342 @@
+<template>
+  <div class="screen-page">
+    <div class="screen-main">
+      <div class="screen-toolbar">
+        <el-button-group>
+          <el-button
+            @click="onToolbar('panelCars')"
+            :type="panelCars ? 'primary': ''">用车</el-button>
+          <el-button
+            @click="onToolbar('panelOrders')"
+            :type="panelOrders ? 'primary': ''">订单</el-button>
+          <el-button
+            @click="onToolbar('panelDownPersons')"
+            :type="panelDownPersons ? 'primary': ''">井下人员</el-button>
+          <el-button
+            @click="onToolbar('panelDownCars')"
+            :type="panelDownCars ? 'primary': ''">井下车辆</el-button>
+          <el-button @click="open = !open">{{ open ? '关闭' : '打开' }}面板</el-button>
+        </el-button-group>
+      </div>
+    </div>
+    <div
+      class="screen-panel-wrap"
+      v-show="open">
+      <!-- 用车 -->
+      <div
+        class="screen-panel"
+        v-show="panelCars">
+        <div class="screen-panel-title">用车申请（<el-button type="text">{{ cars.length }}</el-button>）</div>
+        <div class="screen-panel-header">
+          <span>起点</span>
+          <span>终点</span>
+          <span>用车时段</span>
+          <span>操作</span>
+        </div>
+        <div class="screen-panel-content">
+          <run-marquee
+            :speed="cars.length"
+            @loaded="copyCars">
+            <p class="screen-panel-line" v-for="(car, index) in afterCars" :key="index">
+              <span>{{ car.startText }}</span>
+              <span>{{ car.endText }}</span>
+              <span>{{ car.time }}</span>
+              <span><el-button type="warning" size="mini" round>派单</el-button></span>
+            </p>
+          </run-marquee>
+        </div>
+      </div>
+      <!-- 订单 -->
+      <div
+        class="screen-panel"
+        v-show="panelOrders">
+        <div class="screen-panel-title">
+          订单信息（<el-button type="text">{{ orders.length }}</el-button>）
+          <el-input
+              style="width:50%; margin-left: 10px"
+              size="mini"
+              placeholder="搜索订单号"
+              suffix-icon="el-icon-search"
+              v-model="orderNumber">
+          </el-input>
+        </div>
+        <div class="screen-panel-header">
+          <span>下单人</span>
+          <span>下单时间</span>
+          <span>订单状态</span>
+          <span>操作</span>
+        </div>
+        <div class="screen-panel-content">
+          <run-marquee
+            :speed="orders.length"
+            @loaded="copyOrders">
+            <p class="screen-panel-line" v-for="(order, index) in afterOrders" :key="index">
+              <span>{{ order.orderPerson }}</span>
+              <span>{{ order.date }}</span>
+              <span>{{ order.state }}</span>
+              <span><el-button type="primary" size="mini" round>详情</el-button></span>
+            </p>
+          </run-marquee>
+        </div>
+      </div>
+      <!-- 井下人员 -->
+      <div
+        class="screen-panel"
+        v-show="panelDownPersons">
+        <div class="screen-panel-title">
+          井下人员（<el-button type="text">{{ downPersons.length }}</el-button>）
+          <el-input
+            style="width:50%; margin-left: 10px"
+            size="mini"
+            placeholder="搜索姓名"
+            suffix-icon="el-icon-search"
+            v-model="downPersonName">
+          </el-input>
+        </div>
+        <div class="screen-panel-header">
+          <span>姓名</span>
+          <span>部门</span>
+          <span>操作</span>
+        </div>
+        <div class="screen-panel-content">
+          <run-marquee
+            :speed="downPersons.length"
+            @loaded="copyDownPersons">
+            <p class="screen-panel-line" v-for="(downPerson, index) in afterDownPersons" :key="index">
+              <span>{{ downPerson.name }}</span>
+              <span>{{ downPerson.department }}</span>
+              <span><el-button type="primary" size="mini" round>详情</el-button></span>
+            </p>
+          </run-marquee>
+        </div>
+      </div>
+      <!-- 井下车辆 -->
+      <div
+        class="screen-panel"
+        v-show="panelDownCars">
+        <div class="screen-panel-title">
+          井下车辆（<el-button type="text">{{ downCars.length }}</el-button>）
+          <el-input
+            style="width:50%; margin-left: 10px"
+            size="mini"
+            placeholder="搜索车牌号"
+            suffix-icon="el-icon-search"
+            v-model="downPersonName">
+          </el-input>
+        </div>
+        <div class="screen-panel-header">
+          <span>序号</span>
+          <span>车牌号</span>
+          <span>部门</span>
+          <span>操作</span>
+        </div>
+        <div class="screen-panel-content">
+          <run-marquee
+            :speed="downCars.length"
+            @loaded="copyDownCars">
+            <p class="screen-panel-line" v-for="(downCar, index) in afterDownCars" :key="index">
+              <span>{{ downCar.id }}</span>
+              <span>{{ downCar.number }}</span>
+              <span>{{ downCar.department }}</span>
+              <span><el-button type="primary" size="mini" round>详情</el-button></span>
+            </p>
+          </run-marquee>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import Mock from 'mockjs'
+  import runMarquee from './marquee.vue'
+
+  export default {
+    name: 'screen-page',
+    components: { runMarquee },
+    data () {
+      return {
+        msg: 'screen-page',
+        open: true,
+        items: [],
+        panelCars: true,
+        panelOrders: true,
+        panelDownPersons: true,
+        panelDownCars: true,
+        cars: [],
+        orders: [],
+        downPersons: [],
+        downCars: [],
+        afterCars: [],
+        afterOrders: [],
+        afterDownPersons: [],
+        afterDownCars: [],
+        orderNumber: '',
+        downPersonName: ''
+      }
+    },
+    computed: {
+      currentPanelCount () {
+        let count = 0
+        this.panelCars ? count++ : null
+        this.panelOrders ? count++ : null
+        this.panelDownCars ? count++ : null
+        this.panelDownPersons ? count++ : null
+        return count
+      }
+    },
+    created () {
+      const { cars, orders, downPersons, downCars } = Mock.mock({
+        'cars|10': [
+          {
+            'id|+1': 1,
+            'startText': () => Mock.Random.ctitle(3, 5),
+            'endText': () => Mock.Random.ctitle(3, 5),
+            'time'() {
+              return `${Mock.Random.date('hh:mm')}-${Mock.Random.date('hh:mm')}`
+            }
+          }
+        ],
+        'orders|20': [
+          {
+            'id|+1': 1,
+            'orderPerson': () => Mock.Random.cname(),
+            'date': () => Mock.Random.date('MM-dd hh:mm'),
+            'state|1': [0, 1]
+          }
+        ],
+        'downPersons|20': [
+          {
+            'id|+1': 1,
+            'name': () => Mock.Random.cname(),
+            'department': () => Mock.Random.ctitle(3, 5)
+          }
+        ],
+        'downCars|20': [
+          {
+            'id|+1': 1,
+            'number|22222-8888': 1,
+            'department': () => Mock.Random.ctitle(3, 5)
+          }
+        ]
+      })
+      this.cars = cars
+      this.orders = orders
+      this.downPersons = downPersons
+      this.downCars = downCars
+      this.afterCars = cars
+      this.afterOrders = orders
+      this.afterDownPersons = downPersons
+      this.afterDownCars = downCars
+    },
+    methods: {
+      copyCars() {
+        this.afterCars = [].concat(this.cars, this.afterCars)
+      },
+      copyOrders() {
+        this.afterOrders = [].concat(this.orders, this.orders)
+      },
+      copyDownPersons() {
+        this.afterDownPersons = [].concat(this.downPersons, this.downPersons)
+      },
+      copyDownCars() {
+        this.afterDownCars = [].concat(this.downCars, this.downCars)
+      },
+      onToolbar(panel) {
+        switch (panel) {
+          case 'panelCars':
+            this.panelCars = !this.panelCars
+            break
+          case 'panelOrders':
+            this.panelOrders = !this.panelOrders
+            break
+          case 'panelDownPersons':
+            this.panelDownPersons = !this.panelDownPersons
+            break
+          case 'panelDownCars':
+            this.panelDownCars = !this.panelDownCars
+            break
+          default:
+            break
+        }
+      }
+    }
+  }
+</script>
+
+<style
+  type="text/stylus"
+  rel="stylesheet/stylus"
+  scoped
+  lang="stylus">
+  .el-button-group > .el-button:last-child
+    border-radius 0
+
+  .screen-page
+    width 100%
+    height 100%
+    overflow hidden
+    display flex
+    flex-direction column
+
+  .screen-main
+    flex 1
+    position relative
+    background-color lightgoldenrodyellow
+
+  .screen-toolbar
+    position absolute
+    bottom 0
+    right 0
+    &-close
+      width 50px
+      height 50px
+      background-color blue
+      text-align center
+      vertical-align middle
+      .runicon
+        position relative
+        bottom 0px
+        font-size 25px
+        color #fff
+
+  .screen-panel-wrap
+    display flex
+    height 300px
+    color rgba(0,0,0,0.45)
+  .screen-panel
+    flex 1
+    display flex
+    flex-direction column
+    margin-right 10px
+    overflow hidden
+    color rgba(0,0,0,0.45)
+    &-title
+      text-align center
+      background-color #fafafa
+      display flex
+      justify-content center
+      align-items center
+    &-header
+      display flex
+      padding-bottom 10px
+      background-color #fafafa
+      font-size 14px
+      span
+        flex 1
+        text-align center
+    &-content
+      height 100%
+      overflow-y scroll
+      font-size 12px
+    &-line
+      display flex
+      align-items center
+      margin-bottom 5px
+      span
+        flex 1
+        text-align center
+
+  .screen-panel:last-child
+    margin-right 0
+</style>

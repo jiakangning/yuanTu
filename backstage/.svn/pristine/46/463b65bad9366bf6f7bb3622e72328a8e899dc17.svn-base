@@ -1,0 +1,68 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 角色控制器
+*/
+const MenuMenuManager = require('../../service/system/MenuManager')
+const RoleManage = require('../../service/system/RoleManager')
+const formatResponse = require('../../util/formatResponse.js')
+
+exports.create = function (req, res) {
+  new RoleManage().create(req.body, formatResponse(res))
+}
+
+exports.update = function (req, res) {
+  new RoleManage().update(req.body, formatResponse(res))
+}
+
+exports.destroy = function (req, res) {
+  new RoleManage().delete(req.body, formatResponse(res))
+}
+
+exports.findAll = function (req, res) {
+  new RoleManage().findAll(req.body, formatResponse(res))
+}
+/**
+ * @description 授权pc端
+ * @param req
+ * @param res
+ */
+exports.authorize = function (req, res) {
+  const { menus, commands } = new MenuMenuManager().splitCode(req.body.menuIds)
+  new RoleManage().authorize({ menus, commands, roleId: req.body.roleId }, formatResponse(res))
+}
+/**
+ * @description 获取权限ID集合
+ * @param req
+ * @param res
+ */
+exports.getCode = function (req, res) {
+  new RoleManage().getPermission(req.body, (err, results) => {
+    results = err ? results : new MenuMenuManager().buildCode(results)
+    formatResponse(res)(err, results)
+  })
+}
+/**
+ * @description 获取权限pc端
+ * @param req
+ * @param res
+ */
+exports.getPermission = function (req, res) {
+  new RoleManage().getPermission(req.body, formatResponse(res))
+}
+/**
+ * @description 移动端授权
+ * @param req
+ * @param res
+ */
+exports.authorizeMobile = function (req, res) {
+  new RoleManage().authorizeMobile(req.body, formatResponse(res))
+}
+/**
+ * @description 获取移动端模块集合
+ * @param req
+ * @param res
+ */
+exports.getMobileModules = function (req, res) {
+  new RoleManage().getMobileModules(req.body, formatResponse(res))
+}

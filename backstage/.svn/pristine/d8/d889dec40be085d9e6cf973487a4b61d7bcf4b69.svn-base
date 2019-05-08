@@ -1,0 +1,30 @@
+<script type="text/jsx">
+  import Form from '../../model/Form'
+  import columnBasic from '../columns/index.vue'
+
+  export default {
+    components: { columnBasic },
+    props: {
+      options: {}
+    },
+    methods: {
+      getColumns(h) {
+        let columns = this.options.getColumns().map(item => {
+          return {
+            field: item.field,
+            vNode: (
+              <column-basic
+                options={ this.options }
+                column={ item }
+              />
+            )
+          }
+        })
+        return {
+          config: columns,
+          slot: Form.GetColumnsFormSlots(this.$slots.default)
+        }
+      }
+    }
+  }
+</script>

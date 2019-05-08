@@ -1,0 +1,22 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+let CommandManager = require('../../service/system/CommandManager')
+const formatResponse = require('../../util/formatResponse.js')
+
+exports.create = function (req, res, next) {
+  new CommandManager().create(req.body, formatResponse(res))
+}
+
+exports.update = function (req, res, next) {
+  new CommandManager().update(req.body, formatResponse(res))
+}
+
+exports.destroy = function (req, res, next) {
+  new CommandManager().destroy(req.body, formatResponse(res))
+}
+
+exports.findAll = function (req, res, next) {
+  new CommandManager().findAll(req.body, formatResponse(res))
+}

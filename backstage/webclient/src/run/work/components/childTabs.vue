@@ -1,0 +1,82 @@
+<template>
+  <div
+    class="work-tabs"
+    v-if="currentTabs.length">
+    <div
+      class="work-tabs-item"
+      @click="onClick(index, tab)"
+      v-for="(tab, index) in currentTabs"
+      :class="{ 'is-active': index === currentIndex }"
+      :key="index">
+      {{ tab.label }}
+    </div>
+  </div>
+</template>
+
+<script>
+  import Tabs from '../../model/Tabs'
+
+  export default {
+    props: {
+      options: {}
+    },
+    computed: {
+      currentTabs() {
+        return this.options.getTabs()
+      },
+      currentParams() {
+        const { params = {} } = this.currentTabs[this.currentIndex] || {}
+        return params
+      }
+    },
+    data() {
+      return {
+        currentIndex: 0
+      }
+    },
+    methods: {
+      onClick(index, { params }) {
+        this.currentIndex = index
+        this.options.setParams(params)
+        this.$emit(Tabs.EVENTS.search, params)
+        this.options.emit(Tabs.EVENTS.search, params)
+      }
+    },
+    watch: {
+      currentParams: {
+        immediate: true,
+        handler(params) {
+          this.options.setParams(params)
+        }
+      }
+    }
+  }
+</script>
+
+<style
+  scoped
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus">
+  .work-tabs
+    display: inline-flex
+    background: #edf3f8
+    padding: 3px
+    border-radius: 18px
+
+    &-item
+      padding: 0 25px
+      height: 34px
+      line-height: 34px
+      font-size: 12px
+      color: #666666
+      font-weight: bold
+      white-space nowrap
+      border-radius: 17px
+      cursor: pointer
+      transition: all .3s cubic-bezier(.645, .045, .355, 1)
+
+      &.is-active
+        color: #ffffff
+        background #378bf7
+</style>

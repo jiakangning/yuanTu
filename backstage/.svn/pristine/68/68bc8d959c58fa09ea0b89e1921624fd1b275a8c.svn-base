@@ -1,0 +1,27 @@
+<template>
+  <component
+    :options="options"
+    :is="currentName"/>
+</template>
+
+<script type="text/ecmascript-6">
+  import Search from "../model/Search.js"
+  import components from './templates'
+
+  export default {
+    components,
+    name: "run-search",
+    props: {
+      options: {
+        default() {
+          return new Search({})
+        }
+      }
+    },
+    computed: {
+      currentName() {
+        return 'template-' + this.options.getConfig('layout')
+      }
+    }
+  }
+</script>

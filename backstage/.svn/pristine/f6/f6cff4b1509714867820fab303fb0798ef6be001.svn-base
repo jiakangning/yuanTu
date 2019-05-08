@@ -1,0 +1,8 @@
+/**
+ * author: 甄岩岩 2019-3-21
+ * @type {Router}
+ */
+const uploadFile = require('./upload')
+module.exports = function (path, app) {
+  app.use(path, uploadFile)
+}

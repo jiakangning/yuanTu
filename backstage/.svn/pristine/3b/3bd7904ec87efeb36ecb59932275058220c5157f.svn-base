@@ -1,0 +1,133 @@
+/**
+ * @author 甄岩岩
+ * @date 2019-03-15
+ */
+const Op = require('sequelize').Op
+const { Command, Menu } = require('../../model/system/index.js')
+const uniqueArr = require('../../util/uniqueArr')
+
+class MenuManager {
+  constructor (MenuRepo = Menu, CommandRepo = Command) {
+    this.menuRepo = MenuRepo
+    this.commandRepo = CommandRepo
+    this.separator = '-'
+  }
+
+  /**
+   * 创建菜单
+   * @param {Object}  input
+   * @param {Function} callback
+   */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数'))
+    } else {
+      this.menuRepo.createMenuAndCommandCascade(input,
+        { Menu: this.menuRepo, Command: this.commandRepo })
+        .then((res) => callback(null, res))
+        .catch(callback)
+    }
+  }
+
+  /**
+   * 修改菜单
+   * @param {Object|Array<Object>}  input
+   * @param {Function} callback
+   */
+  update (input, callback) {
+    if (!input) {
+      callback(new Error('请输入参数'))
+    } else {
+      this.menuRepo.updateMenuAndCommandCascade(input, {
+        Menu: this.menuRepo,
+        Command: this.commandRepo
+      })
+        .then(() => {callback(null, '修改成功')})
+        .catch(callback)
+    }
+  }
+
+  /**
+   * 删除菜单
+   * @param input {Array, Number}
+   * @param callback
+   */
+  destroy (input, callback) {
+    this.menuRepo.destroyMenuAndCommandCascade(input,
+      { Menu: this.menuRepo, Command: this.commandRepo })
+      .then(() => {callback(null, '删除成功')})
+      .catch(callback)
+  }
+
+  /**
+   * 获取能构建成树形结构的数据
+   * @param input
+   * @param callback
+   */
+  findAll (input, callback) {
+    const options = this.menuRepo.buildOptions(input)
+    this.menuRepo.findAll(options)
+      .then(instances => {
+        const rows = instances.reduce((results, item) => {
+          return results.concat(item.getParentIds())
+        }, instances.map(v => v.id))
+        const params = {
+          where: { id: { [Op.in]: rows } },
+          include: { model: this.commandRepo, required: false },
+          distinct: true
+        }
+        return this.menuRepo.findAndCountAll(params)
+      })
+      .then(result => (callback(null, result)))
+      .catch(callback)
+  }
+
+  /**
+   * 获取部门和指令的组合集合
+   * @param input
+   * @param callback
+   */
+  getMenuAndCmd (input, callback) {
+    let _this = this
+    this.findAll(input, (err, datas) => {
+      if (err) callback(err)
+      else {
+        let { rows } = datas
+        let targetArr = rows.reduce((acc, current) => {
+          let accArr = acc.concat({
+            id: `${current.id}`,
+            label: current.text,
+            parentId: current.parentId ? `${current.parentId}` : null
+          })
+          if (current.commands && current.commands.length) {
+            return accArr.concat(current.commands.map(item => {
+              return { id: `${current.id} ${_this.separator} ${item.id}`, label: item.text, parentId: `${current.id}` }
+            }))
+          } else return accArr
+        }, [])
+        callback(null, targetArr)
+      }
+    })
+  }
+  /**
+   * 拆分指令和菜单
+   * @param inputs
+   * @return {Array}
+   */
+  splitMenuAndCmd (inputs) {
+    const { roleId, moduleId } = inputs
+    let _this = this
+    if (moduleId && moduleId.length) {
+      let results = moduleId.reduce((acc, current) => {
+        let currentSeparator = current.split(_this.separator)
+        if (currentSeparator.length > 1) return acc.concat({ roleId: roleId, cmdId: currentSeparator[1], moduleId: currentSeparator[0] })
+        else return acc.concat({ roleId: roleId, cmdId: null, moduleId: currentSeparator[0] })
+      }, [])
+      return uniqueArr(results)
+    } else {
+      return []
+    }
+  }
+}
+
+module.exports = MenuManager

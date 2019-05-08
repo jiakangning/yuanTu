@@ -1,0 +1,12 @@
+/**
+ * @author 刘腾腾
+ * @date 2019-03-22
+ */
+const router = require('express').Router()
+const { create, update, findAll } = require('../../controller/test/classes.js')
+
+router.post('/classes/create', create)
+router.post('/classes/update', update)
+router.post('/classes/findAll', findAll)
+
+module.exports = router

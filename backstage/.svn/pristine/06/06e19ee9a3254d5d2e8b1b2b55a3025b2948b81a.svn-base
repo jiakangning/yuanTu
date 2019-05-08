@@ -1,0 +1,8 @@
+const express = require('express')
+const { getAllStaffs } = require('../controller/location')
+
+const router = express.Router()
+
+router.get('/staffs', getAllStaffs)
+
+module.exports = router

@@ -1,0 +1,43 @@
+// 三维模块
+const state = {
+  // 是否为三维场景
+  isInUnity: false,
+  // 浏览模式
+  unityBrowser: 'Free',
+  // 当前激活的工具名称
+  unityToolType: '',
+  // 当前激活的控制开关
+  controlSwitch: '',
+  // 当前选中实体的id
+  currentMarkGuid: '',
+  // 当前选中点的类型
+  checkedPointType: '',
+  // 图层集合
+  layerList: []
+}
+
+const mutations = {
+  /* 是否在unity中打开 */
+  updateIsInUnity(state, data) {
+    state.isInUnity = data
+  },
+  // 保存三维浏览方式
+  saveUnityBrowser(state, data) {
+    state.unityBrowser = data
+  },
+  // 保存三维选中工具
+  saveUnityToolType(state, data) {
+    state.unityToolType = data
+  }
+}
+
+const actions = {
+
+}
+
+export default {
+  namespaced: true,
+  state,
+  mutations,
+  actions
+}

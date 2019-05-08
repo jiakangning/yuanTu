@@ -1,0 +1,35 @@
+exports.server = {
+  http: {
+    port: 3000
+  },
+  websocket: {
+    port: 3721
+  }
+}
+
+exports.logger = {
+  mode: 'dev'
+}
+
+exports.redis = {
+  host: '127.0.0.1',
+  port: 6379,
+  password: ''
+}
+
+exports.session = {
+  secret: 'my secret'
+}
+
+exports.sequelize = {
+  username: 'postgres',
+  password: 'yt123456',
+  database: 'smartmine',
+  host: '113.200.208.198',
+  dialect: 'postgres'
+}
+
+exports.jwt = {
+  secret: 'callofduty',
+  expires: '30 days'
+}

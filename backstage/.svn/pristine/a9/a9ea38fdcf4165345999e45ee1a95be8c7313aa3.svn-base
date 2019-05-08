@@ -1,0 +1,6 @@
+export const system_job = {
+  create: "system/job/create",
+  update: "system/job/update",
+  search: "system/job/search",
+  delete: "system/job/delete"
+}

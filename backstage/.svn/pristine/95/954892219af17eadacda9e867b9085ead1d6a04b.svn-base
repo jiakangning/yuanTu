@@ -1,0 +1,91 @@
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  /**
+   * @create 韩连杰
+   * @date 2019-03-15
+   * @description 职位管理
+   */
+  /**
+   * @update 赵赛赛，刘腾腾
+   * @date 2019-03-17
+   * 对接接口
+   */
+  import Run from 'run'
+  import Mock from 'mockjs'
+  import { system_job as JOB } from "@/store/action-types.js"
+
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    mounted() {
+      this.options = new Run.Work({
+        config: {
+          title: '职位管理'
+        },
+        actions: ['create', 'update', 'delete', 'see'],
+        list: [
+          'text',
+          'mLevel',
+          'pIndex',
+          'remarks'
+        ],
+        form: [
+          'text',
+          'mLevel',
+          'pIndex',
+          'remarks'
+        ],
+        search: {
+          layout: 'multiple',
+          columns: [
+            'mLevel',
+            'text'
+          ]
+        },
+        columns: [
+          { label: '职位名称', field: 'text', layout: 'text', rules: true, _sortable: true },
+          { label: '职位说明', field: 'remarks', layout: 'textarea', rules: true },
+          { label: '职级', field: 'mLevel', layout: 'select', source: 'level', rin_chargesules: true, rules: true },
+          { label: '排序', field: 'pIndex', layout: 'number', rules: true }
+        ],
+        events: {
+          loading: (store, done) => {
+            const { level } = Mock.mock({
+              "level|25": [{
+                "label|+1": 1,
+                "value|+1": 1
+              }]
+            })
+            this.sources.set("level", level)
+            done()
+          },
+          search: (params) => {
+            this.$store.dispatch(JOB.search, params)
+              .then(({ rows, count }) => {
+                this.sources.set('rows', rows)
+                this.sources.set('count', count)
+              })
+          },
+          delete: (rows, done) => {
+            this.$store.dispatch(JOB.delete, rows.map(v => v.id)).then(() => done()).catch(done)
+          },
+          submit: (form, done) => {
+            const action = !form.id ? JOB.create : JOB.update
+            this.$store.dispatch(action, form).then(() => done()).catch(done)
+          }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

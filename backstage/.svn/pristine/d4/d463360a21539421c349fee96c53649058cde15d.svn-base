@@ -1,0 +1,85 @@
+/*
+ * @Author: zhaoqinglong
+ * @Date: 2019-03-20 15:26:01
+ * @Last Modified by: zhaoqinglong
+ * @Last Modified time: 2019-03-20 15:28:46
+ */
+const Op = require('sequelize').Op
+const Dictionary = require('../../model/system/Dictionary')
+
+class DictionaryManager {
+  constructor (dicRepo = Dictionary) {
+    this.dicRepo = dicRepo
+  }
+
+  /**
+   * @desc 创建字典
+   * @param input
+   * @param callback
+   */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数！'))
+    } else {
+      if (Array.isArray(input)) {
+        this.dicRepo
+          .bulkCreate(input)
+          .then(depots => callback(null, depots))
+          .catch(callback)
+      } else {
+        this.dicRepo
+          .create(input)
+          .then(depot => callback(null, depot))
+          .catch(callback)
+      }
+    }
+  }
+
+  /**
+   * @desc 依据id修改字典
+   * @param input
+   * @param callback
+   */
+  update (input, callback) {
+    const { id, ...raw } = input
+    this.dicRepo.isExist(id)
+      .then(dic => {
+        return dic ? dic.update(raw) : Promise.reject(new Error('数据已被删除，无法修改！'))
+      })
+      .then(dic => callback(null, dic))
+      .catch(callback)
+  }
+
+  /**
+   * desc 依据id删除字典
+   * @param input
+   * @param callback
+   */
+  delete (input, callback) {
+    const rows = Array.isArray(input) ? input : [input]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    this.dicRepo.destroy(condition)
+      .then(count => callback(null, count))
+      .catch(callback)
+  }
+
+  /**
+   *@desc 获取所有字典
+   * @param input
+   * @param callback
+   */
+  findAll (input, callback) {
+    const options = this.dicRepo.buildOptions(input)
+    this.dicRepo.findAll(options)
+      .then(instances => {
+        const rows = instances.reduce((results, instance) => {
+          return results.concat(instance.getParentIds())
+        }, instances.map(v => v.id))
+        return this.dicRepo.findAndCountAll({ where: { id: { [Op.in]: rows } } })
+      })
+      .then(result => callback(null, result))
+      .catch(callback)
+  }
+}
+
+module.exports = DictionaryManager

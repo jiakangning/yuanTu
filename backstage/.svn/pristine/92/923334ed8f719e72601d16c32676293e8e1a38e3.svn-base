@@ -1,0 +1,31 @@
+/**
+ * @author 魏婷
+ * @date 2019-03-18
+ * @description 用户管理
+ */
+
+import http from '@/store/http.js'
+export default {
+  namespaced: true,
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {
+    create({ commit, state }, form) {
+      console.log('发送新增用户http请求，表单数据为：')
+      console.log(form)
+    },
+    update({ commit, state }, form) {
+      console.log('发送更新用户http请求，表单数据为：')
+      console.log(form)
+    },
+    search({ commit, state }, params) {
+      console.log('发送查询用户http请求，查询参数为：')
+      console.log(params)
+    },
+    delete({ commit, state }, rows) {
+      console.log('发送删除用户http请求，表单数据为：')
+      console.log(rows)
+    }
+  }
+}

@@ -1,0 +1,54 @@
+<template>
+  <div class="page">
+    <run-chart-widge :options="options"/>
+  </div>
+</template>
+
+<script>
+  import Run from 'run'
+
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    created() {
+      this.initOptions()
+      this.initSources()
+    },
+    methods: {
+      initOptions() {
+        this.options = new Run.ChartWidge({
+          config: {
+            layout: "simple",
+            source: "level",
+            _total: "total",
+            _name: "name",
+            _desc: "desc"
+          },
+          sources: this.sources
+        })
+      },
+      initSources() {
+        this.sources.set("level", [
+          { total: 5, name: "一级隐患", desc: "占比5%" },
+          { total: 20, name: "二级隐患", desc: "占比20%" },
+          { total: 40, name: "三级隐患", desc: "占比40%" },
+          { total: 40, name: "三级隐患", desc: "占比40%" },
+          { total: 35, name: "四级隐患", desc: "占比35%" }
+        ])
+      }
+    }
+  }
+</script>
+
+<style scoped>
+  .page {
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+</style>

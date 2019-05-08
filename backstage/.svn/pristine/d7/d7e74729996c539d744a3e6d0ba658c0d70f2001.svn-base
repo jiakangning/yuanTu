@@ -1,0 +1,134 @@
+{
+  "result": [
+    {
+      "name": "一氧化碳",
+      "imgSrc": "./static/images/unityModelLibrary/一氧化碳.png"
+    },
+    {
+      "name": "二氧化碳",
+      "imgSrc": "./static/images/unityModelLibrary/二氧化碳.png"
+    },
+    {
+      "name": "人员分站",
+      "imgSrc": "./static/images/unityModelLibrary/人员分站.png"
+    },
+    {
+      "name": "刮板输送机",
+      "imgSrc": "./static/images/unityModelLibrary/刮板输送机.png"
+    },
+    {
+      "name": "压差",
+      "imgSrc": "./static/images/unityModelLibrary/压差.png"
+    },
+    {
+      "name": "广播电话",
+      "imgSrc": "./static/images/unityModelLibrary/广播电话.png"
+    },
+    {
+      "name": "开停",
+      "imgSrc": "./static/images/unityModelLibrary/开停.png"
+    },
+    {
+      "name": "控制",
+      "imgSrc": "./static/images/unityModelLibrary/控制.png"
+    },
+    {
+      "name": "摄像机",
+      "imgSrc": "./static/images/unityModelLibrary/摄像机.png"
+    },
+    {
+      "name": "氧气",
+      "imgSrc": "./static/images/unityModelLibrary/氧气.png"
+    },
+    {
+      "name": "液位",
+      "imgSrc": "./static/images/unityModelLibrary/液位.png"
+    },
+    {
+      "name": "液压支架",
+      "imgSrc": "./static/images/unityModelLibrary/液压支架.png"
+    },
+    {
+      "name": "温度",
+      "imgSrc": "./static/images/unityModelLibrary/温度.png"
+    },
+    {
+      "name": "烟雾",
+      "imgSrc": "./static/images/unityModelLibrary/烟雾.png"
+    },
+    {
+      "name": "甲烷",
+      "imgSrc": "./static/images/unityModelLibrary/甲烷.png"
+    },
+    {
+      "name": "电压",
+      "imgSrc": "./static/images/unityModelLibrary/电压.png"
+    },
+    {
+      "name": "电流",
+      "imgSrc": "./static/images/unityModelLibrary/电流.png"
+    },
+    {
+      "name": "监控分站",
+      "imgSrc": "./static/images/unityModelLibrary/监控分站.png"
+    },
+    {
+      "name": "转载机",
+      "imgSrc": "./static/images/unityModelLibrary/转载机.png"
+    },
+    {
+      "name": "破碎机",
+      "imgSrc": "./static/images/unityModelLibrary/破碎机.png"
+    },
+    {
+      "name": "移变列车",
+      "imgSrc": "./static/images/unityModelLibrary/移变列车.png"
+    },{
+      "name": "端头支架",
+      "imgSrc": "./static/images/unityModelLibrary/端头支架.png"
+    },
+    {
+      "name": "粉尘",
+      "imgSrc": "./static/images/unityModelLibrary/粉尘.png"
+    },
+    {
+      "name": "识别器R",
+      "imgSrc": "./static/images/unityModelLibrary/识别器R.png"
+    },
+    {
+      "name": "负压",
+      "imgSrc": "./static/images/unityModelLibrary/负压.png"
+    },
+    {
+      "name": "采煤机",
+      "imgSrc": "./static/images/unityModelLibrary/采煤机1.png"
+    },
+    {
+      "name": "防爆有线电话",
+      "imgSrc": "./static/images/unityModelLibrary/防爆有线电话.png"
+    },
+    {
+      "name": "频率",
+      "imgSrc": "./static/images/unityModelLibrary/频率.png"
+    },
+    {
+      "name": "风机",
+      "imgSrc": "./static/images/unityModelLibrary/风机.png"
+    },{
+      "name": "风筒",
+      "imgSrc": "./static/images/unityModelLibrary/风筒.png"
+    },
+    {
+      "name": "风速",
+      "imgSrc": "./static/images/unityModelLibrary/风速.png"
+    },
+    {
+      "name": "风门",
+      "imgSrc": "./static/images/unityModelLibrary/风门.png"
+    },
+    {
+      "name": "馈电",
+      "imgSrc": "./static/images/unityModelLibrary/馈电.png"
+    }
+  ]
+}

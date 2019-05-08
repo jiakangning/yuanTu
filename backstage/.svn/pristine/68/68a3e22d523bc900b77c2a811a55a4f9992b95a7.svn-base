@@ -1,0 +1,32 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+const Op = require('sequelize').Op
+
+const Command = dbCtx.define('command', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  text: { type: Sequelize.STRING(50), allowNull: false },
+  cmdKey: { type: Sequelize.STRING(50), allowNull: false, field: 'cmd_key' },
+  menuType: { type: Sequelize.STRING(50), allowNull: false, field: 'menu_type' }
+}, {
+  tableName: 'system_menu_command',
+  underscored: true,
+  paranoid: true
+})
+
+Command.buildOptions = function (options = {}) {
+  const { text = '' } = options
+  let result = buildDefaultOption(options)
+  text && (result.where.text = { [Op.like]: '%' + text + '%' })
+  return result
+}
+
+Command.isExist = function (id) {
+  return Command.findByPk(id)
+}
+
+module.exports = Command

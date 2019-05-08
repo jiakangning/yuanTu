@@ -1,0 +1,90 @@
+<template>
+  <div class="page">
+    <div class="wrap">
+      <div class="row">
+         <run-search :options="options"/>
+      </div>
+      <div class="row">
+         <run-search :options="options2"/>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import Run from 'run'
+
+  export default {
+    data() {
+      return {
+        options: null,
+        options2: null,
+        sources: new Run.Source()
+      }
+    },
+    created() {
+      this.options = new Run.Search({
+        config: {
+          layout: "single",
+          width: "500px"
+        },
+        columns: [
+          { label: "名称", field: "name", layout: "text" },
+          { label: "检查形式", field: "category", layout: "select", source: "category" },
+          { label: "检查日期", field: "date", layout: "date" }
+        ],
+        events: {
+          search: (params) => console.log(params, 'search'),
+          input: (params) => console.log(params, 'input')
+        },
+        sources: this.sources
+      })
+      this.options2 = new Run.Search({
+        config: {
+          layout: "multiple"
+        },
+        columns: [
+          { label: "名称", field: "name", layout: "text" },
+          { label: "检查形式", field: "category", layout: "select", source: "category" },
+          { label: "检查日期", field: "date", layout: "date" }
+        ],
+        events: {
+          search: (params) => console.log(params, 'search'),
+          input: (params) => console.log(params, 'input')
+        },
+        sources: this.sources
+      })
+      this.sources.set("category", [
+        { D_text: "基础检查", D_code: 1 },
+        { D_text: "安全大检查", D_code: 2 },
+        { D_text: "榆北煤业", D_code: 3 },
+        { D_text: "上级领导检查", D_code: 4 }
+      ])
+    }
+  }
+</script>
+
+<style scoped>
+.page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  background: #f2f4f6;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.wrap {
+  width: 100%;
+  height: 100%;
+  padding: 20px 20px 0 20px;
+  box-sizing: border-box;
+  background: #ffffff;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+</style>

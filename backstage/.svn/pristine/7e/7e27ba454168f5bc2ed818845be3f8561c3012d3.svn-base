@@ -1,0 +1,181 @@
+<template>
+  <div class="run-work">
+    <div class="run-work-wrap">
+      <div class="run-work-title">
+        <child-title
+          :options="options"/>
+        <child-tabs
+          :options="currentTabsOptions"/>
+      </div>
+      <div class="run-work-header">
+        <child-actions
+          @action="onAction"
+          :options="options"/>
+        <run-search
+          :options="currentSearchOptions"/>
+      </div>
+      <div class="run-work-list">
+        <run-list
+          :options="currentListOptions">
+          <slot/>
+        </run-list>
+      </div>
+      <run-layer
+        v-model="currentLayer"
+        :title="currentLayerTitle"
+        :option="currentLayerOption">
+        <run-form
+          @cancel="onCancel"
+          @success="onSuccess"
+          :options="currentFormOptions">
+          <slot/>
+        </run-form>
+      </run-layer>
+    </div>
+  </div>
+</template>
+
+<script>
+  import childTitle from './childTitle.vue'
+  import childTabs from './childTabs.vue'
+  import childActions from './childActions.vue'
+  import Work, { WorkAction } from '../model/Work'
+
+  export default {
+    name: "run-work",
+    components: { childTitle, childTabs, childActions },
+    props: {
+      options: {
+        default() {
+          return new Work({})
+        }
+      }
+    },
+    computed: {
+      currentTabsOptions() {
+        return this.options.getTabs()
+      },
+      currentSearchOptions() {
+        return this.options.getSearch()
+      },
+      currentListOptions() {
+        return this.options.getList()
+      },
+      currentLayerOption() {
+        return this.options.getLayer()
+      },
+      currentFormOptions() {
+        return this.options.getForm()
+      }
+    },
+    data() {
+      return {
+        currentLayer: false,
+        currentLayerTitle: ""
+      }
+    },
+    methods: {
+      onCancel() {
+        this.currentLayer = false
+      },
+      onSuccess() {
+        this.currentLayer = false
+        this.options.emit(Work.EVENTS.search)
+      },
+      onAction(btn) {
+        switch (btn.action) {
+          case WorkAction.DEFAULT.create.action:
+            this.onCreate(btn)
+            break
+          case WorkAction.DEFAULT.update.action:
+            this.onUpdate(btn)
+            break
+          case WorkAction.DEFAULT.delete.action:
+            this.onDelete()
+            break
+          default:
+            this.onCustom(btn)
+            break
+        }
+      },
+      onCreate(btn) {
+        this.currentLayer = true
+        this.currentLayerTitle = btn.text
+        this.currentFormOptions.create()
+      },
+      onUpdate(btn) {
+        const row = this.currentListOptions.getRow()
+        if (!row) return this.$message.error('请先选中一行数据！!')
+        this.currentLayer = true
+        this.currentLayerTitle = btn.text
+        this.currentFormOptions.update(row)
+      },
+      onDelete() {
+        const rows = this.currentListOptions.getDeleteRows()
+        if (rows.length === 0) return this.$message.error("请选择要删除的数据！")
+        const text = `此操作将永久删除所选中行,共计${ rows.length }条数据。是否继续?`
+        const title = '提示'
+        const options = { confirmButtonText: '确定', cancelButtonText: '取消', type: 'warning' }
+        this.$confirm(text, title, options).then(() => {
+          this.options.emit(Work.EVENTS.delete, rows, (err) => {
+            if (err) return
+            this.$message.success("删除成功！！")
+            this.options.emit(Work.EVENTS.search)
+          })
+        })
+      },
+      onCustom(btn) {
+        if (!btn || !btn.click) return
+        btn.click.call(this, {
+          row: this.currentListOptions.getRow(),
+          selection: this.currentListOptions.getSelection()
+        })
+      }
+    }
+  }
+</script>
+
+<style
+  lang="stylus"
+  type="text/stylus"
+  rel="stylesheet/stylus">
+  .run-work
+    display: flex
+    width: 100%
+    height: 100%
+    padding: 20px
+    background: #f2f4f6
+    justify-content: center
+    align-items: center
+    box-sizing: border-box
+
+    &-title
+      display: flex
+      justify-content: space-between
+      align-items: center
+      padding: 8px 20px
+      border-bottom: 1px solid #ebeef5
+
+    &-wrap
+      display: flex
+      flex-direction: column
+      width: 100%
+      height: 100%
+      box-sizing: border-box
+      background: #ffffff
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1)
+      border-radius: 4px
+
+    &-header
+      display: flex
+      justify-content: space-between
+      align-items: center
+      padding: 20px
+
+    &-list
+      margin: 0 20px
+      position: relative
+      flex: 1
+      overflow: hidden
+
+</style>

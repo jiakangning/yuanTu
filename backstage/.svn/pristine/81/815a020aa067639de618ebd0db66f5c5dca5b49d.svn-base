@@ -1,0 +1,33 @@
+export default [
+  {
+    path: '/system/contact',
+    name: 'system-contact',
+    component: () => import('@/apps/system/contact/index.vue')
+  },
+  {
+    path: '/system/job',
+    name: 'system-job',
+    component: () => import('@/apps/system/job/index.vue')
+  },
+  {
+    path: '/system/meber',
+    name: 'system-meber',
+    component: () => import('@/apps/system/meber/index.vue')
+  },
+  {
+    path: '/system/menu',
+    name: 'system-menu',
+    component: () => import('@/apps/system/menu/index.vue')
+  },
+  {
+    path: '/system/organization',
+    name: 'system-organization',
+    component: () => import('@/apps/system/organization/index.vue')
+  },
+  {
+    path: '/system/logLogin',
+    name: 'system-logLogin',
+    component: () => import('@/apps/system/logLogin/index.vue')
+  }
+]
+

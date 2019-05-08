@@ -1,0 +1,37 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-19
+  description: role-menu-command中间表
+*/
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+
+const RoleMenuCommand = dbCtx.define('roleMenuCommand', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  roleId: { type: Sequelize.INTEGER, allowNull: false, unique: 'roleMenuCommand', field: 'role_id' },
+  cmdId: { type: Sequelize.INTEGER, unique: 'roleMenuCommand', allowNull: true, field: 'cmd_id' },
+  moduleId: { type: Sequelize.INTEGER, unique: 'roleMenuCommand', allowNull: true, field: 'module_id' }
+},
+{
+  freezeTableName: true,
+  timestamps: true,
+  paranoid: true,
+  underscored: true,
+  tableName: 'system_role_module_permission'
+})
+
+/**
+ * 拼接指令和菜单
+ * @param inputs
+ * @return {*}
+ */
+RoleMenuCommand.spliceMenuAndCmd = function (inputs, partring) {
+  if (Array.isArray(inputs)) {
+    return inputs.reduce((acc, current) => {
+      let sum = current.moduleId ? acc.concat(`${current.moduleId}`) : acc
+      return current.cmdId ? sum.concat(`${current.moduleId}${partring}${current.cmdId}`) : sum
+    }, [])
+  } else return []
+}
+
+module.exports = RoleMenuCommand

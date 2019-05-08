@@ -1,0 +1,16 @@
+/** 主扇风机 */
+
+const redisCtx = require('../../../config/plugin.redis')
+
+class MainFanRepo {
+  getAll (callback) {
+    redisCtx.smembers(MainFanRepo.Key, callback)
+  }
+  get (key, callback) {
+    redisCtx.hgetall(key, callback)
+  }
+}
+
+MainFanRepo.Key = '陕西陕煤曹家滩矿业有限公司:主扇风机监测系统'
+
+module.exports = MainFanRepo

@@ -1,0 +1,37 @@
+/*
+ * @Author: zhaoqinglong
+ * @Date: 2019-03-19 13:30:25
+ * @Last Modified by: zhaoqinglong
+ * @Last Modified time: 2019-03-19 13:41:32
+ */
+
+const UserContactManager = require('../../service/system/UserContactManager')
+const formatResponse = require('../../util/formatResponse')
+
+// 添加用户和联系人
+exports.addUserAndContact = (req, res, next) => {
+  let userManager = new UserContactManager()
+  userManager.addUserAndContact(req.body, formatResponse(res))
+}
+
+// 修改用户和联系人
+exports.updateUserAndContact = (req, res, next) => {
+  let userManager = new UserContactManager()
+  userManager.updateUserAndContact(req.body, formatResponse(res))
+}
+// 修改用户和联系人
+exports.deleteUserAndContact = (req, res, next) => {
+  let userManager = new UserContactManager()
+  userManager.deleteUserAndContact(req.body, formatResponse(res))
+}
+
+// 查询用户和联系人
+exports.getUserAndContactById = (req, res, next) => {
+  let userManager = new UserContactManager()
+  userManager.getUserContact(req.body, formatResponse(res))
+}
+// 查询用户和联系人列表
+exports.getUsersIncludeContact = (req, res, next) => {
+  let userManager = new UserContactManager()
+  userManager.getUserContacts(req.body, formatResponse(res))
+}

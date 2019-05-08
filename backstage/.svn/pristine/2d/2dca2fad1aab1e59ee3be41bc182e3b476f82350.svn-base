@@ -1,0 +1,69 @@
+<template>
+  <run-work :options='options'/>
+</template>
+
+<script>
+  import Run from 'run'
+  import { system_department as DEPARTMENT } from "@/store/action-types.js"
+
+  /**
+   * @author zhang pan
+   * @date 03-15-2019
+   * @description 组织机构静态页面
+   */
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    created() {
+      this.options = new Run.Work({
+        config: {
+          title: '组织机构管理'
+        },
+        actions: ['create', 'update', 'delete', 'see'],
+        list: {
+          layout: 'treegrid',
+          nodeOrder: "slIndex",
+          columns: ['name', 'supervisor', 'inCharges', 'description', 'isValid']
+        },
+        form: ['parentId:select', 'name', 'supervisor:select', 'inCharges:select', 'telphone', 'address', 'slIndex', 'isValid:switch', 'description:textarea'],
+        columns: [
+          { label: '部门名称', field: 'name', layout: 'text' },
+          { label: '主管', field: 'supervisor', layout: 'text', source: 'supervisor' },
+          { label: '分管', field: 'inCharges', layout: 'text', source: 'supervisor' },
+          { label: '描述', field: 'description', layout: 'text' },
+          { label: '上级部门', field: 'parentId', layout: 'text', source: 'parentId' },
+          { label: '创建人', field: 'author', layout: 'text' },
+          { label: '创建时间', field: 'createdAt', layout: 'date' },
+          { label: '修改人', field: 'editor', layout: 'text' },
+          { label: '最后修改时间', field: 'updatedAt', layout: 'text' },
+          { label: '是否启用', field: 'isValid', layout: 'text' },
+          { label: '电话', field: 'telphone', layout: 'text' },
+          { label: '地址', field: 'address', layout: 'text' },
+          { label: '上级部门id集合', field: 'rtPath', layout: 'text' },
+          { label: '排序', field: 'slIndex', layout: 'text' },
+          { label: '是否启用', field: 'isValid', layout: 'switch' }
+        ],
+        events: {
+          search: (params) => {
+            console.log(this.$store)
+            this.$store.dispatch(DEPARTMENT.search, params).then(({ rows, total }) => {
+              this.sources.set({ 'rows': rows, 'total': total })
+            })
+          }
+          // delete: (rows, done) => {
+          //   this.$store.dispatch(DEPARTMENT.delete, rows.map(v => v.id)).then(() => done()).catch(done)
+          // },
+          // submit: (form, done) => {
+          //   const action = !form.id ? DEPARTMENT.create : DEPARTMENT.update
+          //   this.$store.dispatch(action, form).then(() => done()).catch(done)
+          // }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>

@@ -1,0 +1,48 @@
+import Base from './Base'
+import PopupSearch from './PopupSearch'
+import ChartWidge from './ChartWidge'
+import ChartCard from './ChartCard'
+
+class Chart extends Base {
+  constructor({ columns = [], search, widge = {}, events = {}, sources = {} }) {
+    super({ events, sources })
+    this.initSearch(search)
+    this.initWidge(widge)
+    this.initColumns(columns)
+  }
+
+  initSearch(search) {
+    this.search = PopupSearch.Transform(search)
+    this.search.initSources(this.sources)
+    this.search.initEvents(this.events)
+  }
+
+  initWidge(widge) {
+    this.widge = ChartWidge.Transform(widge)
+    this.widge.initSources(this.sources)
+    this.widge.initEvents(this.events)
+  }
+
+  initColumns(columns) {
+    this.columns = columns.map(column => {
+      let instance = column instanceof ChartCard ? column : new ChartCard({ config: column })
+      instance.initSources(this.sources)
+      instance.initEvents(this.events)
+      return instance
+    })
+  }
+
+  getSearch() {
+    return this.search
+  }
+
+  getWidge() {
+    return this.widge
+  }
+
+  getColumns() {
+    return this.columns || []
+  }
+}
+
+export default Chart

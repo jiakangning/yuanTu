@@ -1,0 +1,169 @@
+<template>
+  <run-work :options="options"></run-work>
+</template>
+
+<script>
+import Run from 'run'
+import {
+  system_contact as CONTACT,
+  system_job as JOB,
+  system_department as DEPARTMENT
+} from '@/store/action-types.js'
+
+/**
+ * @author: 魏婷
+ * @date: 2019-03-15
+ * @description: 人员管理
+ */
+
+// TODO: 新增人员时组织机构、职位、是否启用字段存不到数据库
+
+export default {
+  name: 'contact',
+  data() {
+    return {
+      options: null,
+      sources: new Run.Source()
+    }
+  },
+  created() {
+    this.options = new Run.Work({
+      config: {
+        title: "通讯录管理"
+      },
+      actions: ["create", "update", "delete"],
+      list: [
+        'name',
+        'capital',
+        'sex:text',
+        'identityNumber',
+        'uniqueCode',
+        'cardNumber',
+        'privatePhone',
+        'downholePhone',
+        'departmentId',
+        'birthPlace',
+        'birthDate',
+        'workTime'
+      ],
+      form: [
+        'name',
+        'pinyin',
+        'capital',
+        'sex',
+        'identityNumber',
+        'uniqueCode',
+        'cardNumber',
+        'departmentId:select',
+        'downholePhone',
+        'jobId',
+        'privatePhone',
+        'address',
+        'email',
+        'birthPlace',
+        'birthDate',
+        'workTime',
+        'educationLevel',
+        'major',
+        'nationality',
+        'maritalStatus',
+        'politicalStatus',
+        'workKind',
+        'inserviceStatus',
+        'status',
+        'description',
+        'photo'
+      ],
+      search: {
+        layout: "multiple",
+        columns: ['departmentId:select', 'keywords']
+      },
+      columns: [
+        { label: "姓名", field: "name", layout: "text", cols: 12, rules: true },
+        { label: "首字母", field: "capital", layout: "text", cols: 12 },
+        { label: "拼音", field: "pinyin", layout: "text", cols: 12 },
+        { label: "性别", field: "sex", layout: "select", source: 'sex', cols: 12, _value: 'label' },
+        { label: '身份证号', field: 'identityNumber', layout: 'text', cols: 12 },
+        { label: '人员唯一编码', field: 'uniqueCode', layout: 'text', cols: 12 },
+        { label: '卡号', field: 'cardNumber', layout: 'text', cols: 12 },
+        { label: "组织机构", field: "departmentId", layout: "text", source: 'departments', cols: 12, _label: 'name', _value: 'id' },
+        { label: "井下电话", field: "downholePhone", layout: "text", cols: 12 },
+        { label: "职位", field: "jobId", layout: "select", source: 'jobs', cols: 12, _label: 'text', _value: 'id' },
+        { label: "井上电话", field: "privatePhone", layout: "text", cols: 12 },
+        { label: "住址", field: "address", layout: "text", cols: 12 },
+        { label: "邮箱", field: "email", layout: "text", cols: 12 },
+        { label: "籍贯", field: "birthPlace", layout: "text", cols: 12 },
+        { label: "出生日期", field: "birthDate", layout: "date", cols: 12 },
+        { label: "参加工作时间", field: "workTime", layout: "date", cols: 12 },
+        { label: "教育程度", field: "educationLevel", layout: "select", source: 'educationLevel', cols: 12, _value: 'label' },
+        { label: "专业", field: "major", layout: "text", cols: 12 },
+        { label: "民族", field: "nationality", layout: "text", cols: 12 },
+        { label: "婚姻状况", field: "maritalStatus", layout: "select", source: 'maritalStatus', cols: 12, _value: 'label' },
+        { label: "政治面貌", field: "politicalStatus", layout: "select", source: 'politicalStatus', cols: 12, _value: 'label' },
+        { label: "工种名称", field: "workKind", layout: "text", cols: 12 },
+        { label: "就职状态", field: "inserviceStatus", layout: "select", source: 'inserviceStatus', cols: 12, _value: 'label' },
+        { label: "是否启用", field: "status", layout: "switch", cols: 12 },
+        { label: "备注", field: "description", layout: "textarea" },
+        { label: "头像", field: "photo", layout: "text" },
+        { label: '关键词', field: 'keywords', _placeholder: '搜索姓名、身份证、卡号、人员唯一编号', width: '300px' },
+      ],
+      events: {
+        search: async (params) => {
+          this.$store.dispatch(CONTACT.search, params)
+            .then(res => {
+              this.sources.set('rows', res.rows)
+              this.sources.set('count', res.count)
+            })
+        },
+        delete: (rows, done) => {
+          this.$store.dispatch(CONTACT.delete, rows).then(() => done()).catch(done)
+        },
+        submit: (form, done) => {
+          const action = form.id ? CONTACT.update : CONTACT.create
+          this.$store.dispatch(action, form).then(() => done()).catch(done)
+        },
+        edit(form) { }
+      },
+      sources: this.sources
+    })
+
+    this.initData()
+    this.$store.dispatch(JOB.search).then(res => this.sources.set('jobs', res.rows))
+    this.$store.dispatch(DEPARTMENT.search).then(res => this.sources.set('departments', res.rows))
+  },
+  methods: {
+    initData() {
+      const sex = [
+        { label: '男', value: '1' },
+        { label: '女', value: '2' },
+      ]
+      const educationLevel = [
+        { label: '博士及以上', value: '4' },
+        { label: '硕士', value: '3' },
+        { label: '本科', value: '2' },
+        { label: '专科', value: '1' }
+      ]
+      const maritalStatus = [
+        { label: '已婚', value: '1' },
+        { label: '未婚', value: '2' },
+        { label: '离异', value: '3' }
+      ]
+      const politicalStatus = [
+        { label: '党员', value: '1' },
+        { label: '团员', value: '2' },
+        { label: '群众', value: '3' }
+      ]
+      const inserviceStatus = [
+        { label: '就职', value: '1' },
+        { label: '离职', value: '2' }
+      ]
+      this.sources.set('sex', sex)
+      this.sources.set('educationLevel', educationLevel)
+      this.sources.set('maritalStatus', maritalStatus)
+      this.sources.set('politicalStatus', politicalStatus)
+      this.sources.set('inserviceStatus', inserviceStatus)
+    }
+  }
+}
+</script>
+

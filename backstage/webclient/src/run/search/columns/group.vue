@@ -1,0 +1,105 @@
+<template>
+  <div class="column-group">
+    <el-select
+      class="column-group-select"
+      placeholder="请选择"
+      v-if="columns.length > 0"
+      v-model="columnValue">
+      <el-option
+        v-for="(column, index) in columns"
+        :label="column.label"
+        :value="index"
+        :key="index"/>
+    </el-select>
+    <component
+      class="column-group-wrap"
+      @search="onSearch"
+      @input="onInput"
+      :options="options"
+      :column="currentColumn"
+      :is="componentName"
+      v-model="currentForm"/>
+  </div>
+</template>
+
+<script>
+  import components from '../columns/index.js'
+  import Search from '../../model/Search.js'
+
+  export default {
+    components: components,
+    props: {
+      options: {},
+      columns: {}
+    },
+    data() {
+      return {
+        columnValue: 0
+      }
+    },
+    computed: {
+      currentColumn() {
+        return this.columns[this.columnValue] || {}
+      },
+      currentField() {
+        return this.currentColumn.field
+      },
+      componentName() {
+        let layout = this.currentColumn.layout
+        return typeof layout === "object" ? layout : `column-${ layout }`
+      },
+      currentForm: {
+        get() {
+          return this.options.getParams(this.currentField)
+        },
+        set(val) {
+          this.options.initParams({ [this.currentField]: val })
+        }
+      }
+    },
+    methods: {
+      onSearch() {
+        this.$emit(Search.EVENTS.search)
+      },
+      onInput() {
+        this.$emit(Search.EVENTS.input)
+      }
+    }
+  }
+</script>
+
+<style
+  scoped
+  lang="stylus"
+  type="text/stylus"
+  rel="stylesheet/stylus">
+  .column-group
+    display: inline-flex
+    position: relative
+
+    >>> .el-input__inner
+      border-radius: 0
+
+    &-select
+      width: 110px
+
+      >>> .el-input__inner
+        border-color: #dcdfe6 !important
+        padding: 0 25px 0 10px
+        border-top-right-radius 0
+        border-bottom-right-radius 0
+        background-color #f5f7fa
+
+      >>> .el-input.is-disabled .el-input__inner
+        background-color: #f5f7fa
+        border-color: #e4e7ed
+        color: #606266
+        cursor: pointer
+
+      >>> .el-input.is-disabled .el-input__icon
+        cursor: pointer
+
+    &-wrap
+      flex: 1
+
+</style>

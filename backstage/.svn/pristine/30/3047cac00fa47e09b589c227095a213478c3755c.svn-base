@@ -1,0 +1,165 @@
+<template>
+  <div class="run-popupSearch">
+    <div
+      class="run-popupSearch-mask"
+      @click="onHide"
+      v-show="open"/>
+    <div
+      :class="{ 'is-open': open }"
+      class="run-popupSearch-wrap">
+      <el-button
+        class="run-popupSearch-switch"
+        @click="onToggle"
+        v-if="currentSwitch"
+        :icon="currentIcon"
+        type="primary"/>
+      <component
+        v-for="(column, index) in currentColumns"
+        v-model="params[column.field]"
+        :options="options"
+        :column="column"
+        :is="getLayout(column)"
+        :key="index">
+      </component>
+      <div class="run-popupSearch-button">
+        <el-button
+          @click="onReset"
+          round>重置
+        </el-button>
+        <el-button
+          @click="onSearch"
+          type="primary"
+          icon="el-icon-search"
+          round>查询
+        </el-button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+  import components from './column'
+  import PopupSearch from '../model/PopupSearch'
+
+  export default {
+    name: "run-popup-search",
+    components: components,
+    props: {
+      options: {
+        default() {
+          return new PopupSearch({})
+        }
+      },
+      value: {}
+    },
+    computed: {
+      open: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
+      },
+      currentIcon() {
+        let icon = this.options.getConfig("icon")
+        return this.open ? icon[0] : icon[1]
+      },
+      currentColumns() {
+        return this.options.getColumns()
+      },
+      currentSwitch() {
+        return this.options.getConfig("switch")
+      }
+    },
+    data() {
+      return {
+        params: {}
+      }
+    },
+    methods: {
+      getLayout(column) {
+        return `column-${ column.layout }`
+      },
+      onToggle() {
+        this.open = !this.open
+      },
+      onHide() {
+        this.open = false
+      },
+      onReset() {
+        this.params = {}
+        this.$emit(PopupSearch.EVENTS.reset)
+        this.options.emit(PopupSearch.EVENTS.reset)
+      },
+      onSearch() {
+        this.onHide()
+        this.$emit(PopupSearch.EVENTS.search, this.params)
+        this.options.emit(PopupSearch.EVENTS.search, this.params)
+      }
+    }
+  }
+</script>
+
+<style
+  type="text/stylus"
+  rel="stylesheet/stylus"
+  lang="stylus"
+  scoped>
+  .run-popupSearch {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    z-index: 100;
+
+    &-wrap {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 320px;
+      padding: 24px 15px;
+      box-sizing: border-box;
+      background: #fff;
+      z-index: 1000;
+      transform: translate3d(100%, 0, 0);
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+      &.is-open {
+        transform: translate3d(0, 0, 0);
+      }
+    }
+
+    &-mask {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #000;
+      opacity: 0.3;
+    }
+
+    &-switch {
+      position: absolute;
+      top: 25%;
+      left: 0;
+      font-size: 22px;
+      padding: 12px 15px 12px 20px;
+      transform: translateX(-100%);
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      box-shadow: -2px 0 8px rgba(0, 0, 0, .15);
+    }
+
+    &-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 50px;
+    }
+  }
+</style>

@@ -1,0 +1,25 @@
+import _ from "lodash"
+
+export default class Column {
+
+  static TAG = "run-column"
+
+  static POSITION = {
+    list: ["list", "run-list"],
+    form: ["form", "run-form"],
+    chart: ["chart", "run-chart"],
+    layer: ["layer", "run-layer"]
+  }
+
+  static GetColumnsFormSlots(slots = [], pos) {
+    return slots.reduce((results, item) => {
+      let tag = _.get(item, "componentOptions.tag")
+      let position = _.get(item, "componentOptions.propsData.position")
+      let after = _.get(item, "componentOptions.propsData.after")
+      if (tag === Column.TAG && pos.indexOf(position) > -1) {
+        results.push({ field: after, vNode: item })
+      }
+      return results
+    }, [])
+  }
+}

@@ -1,0 +1,54 @@
+/**
+ * @author  赵赛赛
+ * @date 2019/03/18
+ */
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const Op = require('sequelize').Op
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+
+const LogLogin = dbCtx.define('LogLogin', {
+  account: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    field: 'account'
+  },
+  member: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    field: 'member'
+  },
+  lTime: {
+    type: Sequelize.DATE,
+    allowNull: false,
+    field: 'l_time'
+  },
+  isPass: {
+    type: Sequelize.BOOLEAN,
+    field: 'is_pass'
+  },
+  ip: {
+    type: Sequelize.STRING,
+    field: 'ip'
+  },
+  browser: {
+    type: Sequelize.STRING,
+    field: 'browser'
+  }
+}, {
+  tableName: 'system_log_login',
+  underscored: true,
+  paranoid: true
+})
+
+LogLogin.buildOptions = function (options = {}) {
+  const {account = '', lTime} = options
+  console.log(lTime)
+  let result = buildDefaultOption(options)
+  account && (result.where.account = {[Op.like]: '%' + account + '%'})
+  lTime && lTime.length && (result.where.lTime = {[Op.gt]: lTime[0], [Op.lt]: lTime[1]})
+  console.log(result)
+  return result
+}
+
+module.exports = LogLogin

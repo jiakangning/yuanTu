@@ -1,0 +1,16 @@
+<template>
+  <div class="login">
+    这里是字典页
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'login',
+  data() {
+    return {
+      input: ""
+    }
+  }
+}
+</script>

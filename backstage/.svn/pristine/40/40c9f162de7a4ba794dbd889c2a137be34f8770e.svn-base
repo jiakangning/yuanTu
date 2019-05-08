@@ -1,0 +1,208 @@
+<template>
+  <el-container>
+    <el-header class="header">
+      <img
+          src="../login/img/logo.png"
+          style="float: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <el-button
+          icon="runicon iconoutdent"
+          size="mini"
+          plain
+          v-if="!btn"
+          @click="leftMenu"></el-button>
+      <el-button
+          icon="runicon iconindent"
+          size="mini"
+          v-if="btn"
+          @click="leftMenu"></el-button>
+    </el-header>
+    <el-container>
+      <left-menu
+          :data="menuData"
+          ref="menu"
+          :curActive="curActive"></left-menu>
+      <el-main>
+        <router-view/>
+      </el-main>
+    </el-container>
+  </el-container>
+</template>
+
+<script type="text/ecmascript-6">
+  import leftMenu from './components/menu'
+
+  export default {
+    components: {
+      leftMenu
+    },
+    data() {
+      return {
+        btn: false,
+        curActive: 'home',
+        menuData: [
+          {
+            id: 1,
+            icon: 'el-icon-location',
+            name: '系统管理',
+            children: [
+              {
+                id: 2,
+                icon: 'el-icon-location',
+                name: '职位管理',
+                router: '/system/job'
+              },
+              {
+                id: 3,
+                icon: 'el-icon-location',
+                name: '帐号管理',
+                router: '/system/member'
+              },
+              {
+                id: 4,
+                icon: 'el-icon-location',
+                name: '通讯录管理',
+                router: '/system/contact'
+              },
+              {
+                id: 5,
+                icon: 'el-icon-location',
+                name: '角色管理',
+                router: '/system/role'
+              },
+              {
+                id: 6,
+                icon: 'el-icon-location',
+                name: '菜单管理',
+                router: '/system/menu'
+              },
+              {
+                id: 7,
+                icon: 'el-icon-location',
+                name: '组织机构管理',
+                router: '/system/organization'
+              },
+              {
+                id: 8,
+                icon: 'el-icon-location',
+                name: '登录日志管理',
+                router: '/system/logLogin'
+              },
+              {
+                id: 9,
+                icon: 'el-icon-location',
+                name: '操作日志管理',
+                router: '/system/logOperate'
+              },
+              {
+                id: 10,
+                icon: 'el-icon-location',
+                name: '移动端菜单管理',
+                router: '/system/mobileModule'
+              },
+              {
+                id: 11,
+                icon: 'el-icon-location',
+                name: '字典项管理',
+                router: '/system/dictionary'
+              }
+            ]
+          },
+          {
+            id: 2,
+            icon: 'el-icon-location',
+            name: 'run组件示例',
+            children: [
+              {
+                id: 222,
+                icon: 'el-icon-location',
+                name: 'form组件',
+                router: '/run/form'
+              },
+              {
+                id: 223,
+                icon: 'el-icon-location',
+                name: 'list组件',
+                router: '/run/list'
+              },
+              {
+                id: 224,
+                icon: 'el-icon-location',
+                name: 'search组件',
+                router: '/run/search'
+              },
+              {
+                id: 225,
+                icon: 'el-icon-location',
+                name: 'popup-search组件',
+                router: '/run/popupSearch'
+              },
+              {
+                id: 226,
+                icon: 'el-icon-location',
+                name: 'chart组件',
+                router: '/run/chart'
+              },
+              {
+                id: 227,
+                icon: 'el-icon-location',
+                name: 'chartWidge组件',
+                router: '/run/chartWidge'
+              },
+              {
+                id: 228,
+                icon: 'el-icon-location',
+                name: 'chartCard组件',
+                router: '/run/chartCard'
+              },
+              {
+                id: 229,
+                icon: 'el-icon-location',
+                name: 'work组件',
+                router: '/run/work'
+              }
+            ]
+          }
+        ]
+      }
+    },
+    created() {
+    },
+    methods: {
+      leftMenu() {
+        this.btn = !this.btn
+        this.$refs.menu.leftMenu()
+      }
+    },
+    mounted() {
+
+    }
+  }
+</script>
+
+<style
+    lang="less"
+    scoped>
+  .header {
+    height: 64px;
+    line-height: 64px;
+    background-color: #002140;
+    color: #FFFFFF;
+  }
+
+  .leftMenu {
+    background-color: #fff;
+  }
+
+  .el-container.is-vertical {
+    height: 100%;
+  }
+
+  .el-container {
+    height: 100%;
+  }
+
+  .el-main {
+    flex-basis: 0;
+    padding: 0;
+  }
+</style>

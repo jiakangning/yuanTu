@@ -1,0 +1,21 @@
+const async = require('async')
+const StaffRepo = require('../../model/location/StaffRepo')
+
+class StaffManager {
+  constructor (staffRepo) {
+    this.staffRepo = staffRepo || new StaffRepo()
+  }
+  getAll ({ limit = 50 } = {}, callback) {
+    async.waterfall(
+      [
+        this.staffRepo.getAll,
+        (staffs, cb) => {
+          async.mapLimit(staffs, limit, this.staffRepo.get, cb)
+        }
+      ],
+      callback
+    )
+  }
+}
+
+module.exports = StaffManager

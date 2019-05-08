@@ -1,0 +1,69 @@
+import _ from "lodash"
+import Base from './Base'
+import Config from './Config'
+
+class PopupSearchConfig {
+
+  static DEFAULT = {
+    switch: true,
+    icon: ["el-icon-close", "el-icon-search"]
+  }
+
+  constructor(options) {
+    this.switch = _.get(options, "switch", PopupSearchConfig.DEFAULT.switch)
+    this.icon = _.get(options, "icon", PopupSearchConfig.DEFAULT.icon)
+  }
+
+  get(field) {
+    return field ? this[field] : this
+  }
+}
+
+class PopupSearchColumn {
+
+  static DEFAULT = {
+    layout: "time"
+  }
+
+  constructor(options) {
+    this.rawOption = Config.GetOptionsByStartKey(options, Config.RAWKEY.option)
+    this.rawListener = Config.GetOptionsByStartKey(options, Config.RAWKEY.listener)
+    this.layout = _.get(options, "layout", PopupSearchColumn.DEFAULT.layout)
+    this.label = _.get(options, "label")
+    this.field = _.get(options, "field")
+    this.source = _.get(options, "source")
+  }
+}
+
+class PopupSearch extends Base {
+
+  static EVENTS = {
+    search: "search",
+    reset: "reset"
+  }
+
+  constructor({ columns = [], events = {}, config = {}, sources = {} }) {
+    super({ sources, events })
+    this.initColumns(columns)
+    this.initConfig(config)
+  }
+
+  initColumns(columns) {
+    this.columns = columns.map(column => column instanceof PopupSearchColumn ? column : new PopupSearchColumn(column))
+  }
+
+  initConfig(config) {
+    this.config = config instanceof PopupSearchConfig ? config : new PopupSearchConfig(config)
+  }
+
+  getColumns() {
+    return this.columns || []
+  }
+
+  getConfig(field) {
+    return this.config.get(field)
+  }
+
+}
+
+export default PopupSearch

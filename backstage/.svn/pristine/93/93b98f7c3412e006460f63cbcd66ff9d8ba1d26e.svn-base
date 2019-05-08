@@ -1,0 +1,57 @@
+/**
+ * author:Zyy
+ * created_at:2019/3/15
+ * */
+let CommandManager = require('../../service/system/CommandManager')
+
+exports.createCommand = function (req, res, next) {
+  if (!req.body) {
+    res.sendStatus(400)
+  }
+  let commandManager = new CommandManager()
+  commandManager.create(req.body, function (err, result) {
+    if (err) {
+      res.sendStatus(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+
+exports.updateCommand = function (req, res, next) {
+  if (!req.body) {
+    res.sendStatus(400)
+  }
+  let commandManager = new CommandManager()
+  commandManager.update(req.body, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}
+
+exports.destroyCommand = function (req, res, next) {
+  if (req.params.id) {
+    let commandManager = new CommandManager()
+    commandManager.destroy(req.params, function (err, result) {
+      if (err) {
+        res.send(err)
+      } else {
+        res.json(result)
+      }
+    })
+  }
+}
+
+exports.findByPk = function (req, res, next) {
+  let commandManager = new CommandManager()
+  commandManager.findByPk(req.params, function (err, result) {
+    if (err) {
+      res.send(err)
+    } else {
+      res.json(result)
+    }
+  })
+}

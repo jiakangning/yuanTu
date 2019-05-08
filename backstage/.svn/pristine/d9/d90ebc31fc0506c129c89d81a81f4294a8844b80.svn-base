@@ -1,0 +1,43 @@
+export default [
+  {
+    path: '/run/form',
+    name: 'run-form',
+    component: () => import("@/apps/run/form.vue")
+  },
+  {
+    path: '/run/list',
+    name: 'run-list',
+    component: () => import("@/apps/run/list.vue")
+  },
+  {
+    path: '/run/search',
+    name: 'run-search',
+    component: () => import("@/apps/run/search.vue")
+  },
+  {
+    path: '/run/popupSearch',
+    name: 'run-popup-search',
+    component: () => import("@/apps/run/popupSearch.vue")
+  },
+  {
+    path: '/run/chart',
+    name: 'run-chart',
+    component: () => import("@/apps/run/chart.vue")
+  },
+  {
+    path: '/run/chartWidge',
+    name: 'run-chart-widge',
+    component: () => import("@/apps/run/chartWidge.vue")
+  },
+  {
+    path: '/run/chartCard',
+    name: 'run-chart-card',
+    component: () => import("@/apps/run/chartCard.vue")
+  },
+  {
+    path: '/run/work',
+    name: 'run-work',
+    component: () => import("@/apps/run/work.vue")
+  }
+]
+

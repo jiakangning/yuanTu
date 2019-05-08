@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 882 69" width="882" height="69" hape-rendering="geometricPrecision" xmlns:a="http://www.adobe.com/svg10-extensions" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ 
+<style type="text/css">
+	.stpmb0{fill:url(#XMLIDPMB_108_);stroke:#231815;stroke-width:6;stroke-miterlimit:10;}
+	.stpmb1{fill:none;}
+	.stpmb2{fill:#BABDD9;}
+	.stpmb3{fill:url(#XMLIDPMB_109_);stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
+	.stpmb4{fill:url(#XMLIDPMB_110_);stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
+	.stpmb5{fill:url(#XMLIDPMB_111_);stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
+	.stpmb6{fill:url(#XMLIDPMB_112_);stroke:#000000;stroke-width:3;stroke-miterlimit:10;}
+</style>
+<g>
+	
+		<linearGradient id="XMLIDPMB_108_" gradientUnits="userSpaceOnUse" x1="3" y1="-164.3625" x2="880" y2="-164.3625" gradientTransform="matrix(1 0 0 -1 0 -129.725)">
+		<stop  offset="0" style="stop-color:#0D4A90"/>
+		<stop  offset="0.4182" style="stop-color:#2B7ACA"/>
+		<stop  offset="1" style="stop-color:#0D4A90"/>
+	</linearGradient>
+	<path id="XMLIDPMB_727_" class="stpmb0" d="M880,56.2c0,1.7-1.3,3-3,3H6c-1.7,0-3-1.3-3-3V13.1c0-1.7,1.3-3,3-3h871c1.7,0,3,1.3,3,3V56.2
+		z"/>
+	  <rect id="XMLIDPMB_726_" x="62" y="23.4" class="stpmb1" width="21.3" height="21.9"/>
+	<g>
+		<polygon id="XMLIDPMB_22_" class="stpmb2" points="8.9,45.3 19.2,34.4 8.9,23.4 19.9,23.4 30.2,34.4 19.9,45.3 				"/>
+		<polygon id="XMLIDPMB_20_" class="stpmb2" points="37.1,45.3 47.5,34.4 37.1,23.4 48.1,23.4 58.5,34.4 48.1,45.3 				"/>
+		<polygon id="XMLIDPMB_24_" class="stpmb2" points="65.4,45.3 75.8,34.4 65.4,23.4 76.4,23.4 86.8,34.4 76.4,45.3 				"/>
+		<polygon id="XMLIDPMB_18_" class="stpmb2" points="93.6,45.3 104,34.4 93.6,23.4 104.6,23.4 115.1,34.4 104.6,45.3 				"/>
+		<polygon id="XMLIDPMB_16_" class="stpmb2" points="179.1,45.3 189.4,34.4 179.1,23.4 190.1,23.4 200.4,34.4 190.1,45.3 				"/>	
+		<polygon id="XMLIDPMB_14_" class="stpmb2" points="122.6,45.3 132.9,34.4 122.6,23.4 133.6,23.4 143.9,34.4 133.6,45.3 				"/>	
+		<polygon id="XMLIDPMB_12_" class="stpmb2" points="150.8,45.3 161.2,34.4 150.8,23.4 161.8,23.4 172.2,34.4 161.8,45.3 				"/>	
+		<polygon id="XMLIDPMB_10_" class="stpmb2" points="207.3,45.3 217.7,34.4 207.3,23.4 218.3,23.4 228.7,34.4 218.3,45.3 				"/>	
+		<polygon id="XMLIDPMB_56_" class="stpmb2" points="518.9,45.3 529.2,34.4 518.9,23.4 529.9,23.4 540.2,34.4 529.9,45.3 				"/>	
+		<polygon id="XMLIDPMB_54_" class="stpmb2" points="462.4,45.3 472.7,34.4 462.4,23.4 473.4,23.4 483.7,34.4 473.4,45.3 				"/>	
+		<polygon id="XMLIDPMB_52_" class="stpmb2" points="490.6,45.3 501,34.4 490.6,23.4 501.6,23.4 512,34.4 501.6,45.3 				"/>	
+		<polygon id="XMLIDPMB_50_" class="stpmb2" points="547.1,45.3 557.5,34.4 547.1,23.4 558.1,23.4 568.5,34.4 558.1,45.3 				"/>	
+		<polygon id="XMLIDPMB_48_" class="stpmb2" points="630.5,45.3 640.8,34.4 630.5,23.4 641.5,23.4 651.8,34.4 641.5,45.3 				"/>	
+		<polygon id="XMLIDPMB_46_" class="stpmb2" points="574,45.3 584.2,34.4 574,23.4 585,23.4 595.2,34.4 585,45.3 				"/>	
+		<polygon id="XMLIDPMB_44_" class="stpmb2" points="602.1,45.3 612.5,34.4 602.1,23.4 613.1,23.4 623.5,34.4 613.1,45.3 				"/>	
+		<polygon id="XMLIDPMB_42_" class="stpmb2" points="658.6,45.3 669,34.4 658.6,23.4 669.6,23.4 680,34.4 669.6,45.3 				"/>		
+		<polygon id="XMLIDPMB_40_" class="stpmb2" points="853,45.6 863.3,34.7 853,23.7 864,23.7 874.3,34.7 864,45.6 			"/>
+		<polygon id="XMLIDPMB_38_" class="stpmb2" points="796.5,45.6 806.8,34.7 796.5,23.7 807.5,23.7 817.8,34.7 807.5,45.6 			"/>
+		<polygon id="XMLIDPMB_36_" class="stpmb2" points="824.7,45.6 835.1,34.7 824.7,23.7 835.7,23.7 846.1,34.7 835.7,45.6 			"/>
+		<polygon id="XMLIDPMB_32_" class="stpmb2" points="404.5,45.3 414.9,34.4 404.5,23.4 415.5,23.4 425.9,34.4 415.5,45.3 				"/>	
+		<polygon id="XMLIDPMB_30_" class="stpmb2" points="348,45.3 358.4,34.4 348,23.4 359,23.4 369.4,34.4 359,45.3 				"/>	
+		<polygon id="XMLIDPMB_28_" class="stpmb2" points="376.2,45.3 386.6,34.4 376.2,23.4 387.2,23.4 397.6,34.4 387.2,45.3 				"/>
+		<polygon id="XMLIDPMB_26_" class="stpmb2" points="432.8,45.3 443.1,34.4 432.8,23.4 443.8,23.4 454.1,34.4 443.8,45.3 				"/>
+		<polygon id="XMLIDPMB_8_" class="stpmb2" points="293.4,45.3 303.8,34.4 293.4,23.4 304.4,23.4 314.8,34.4 304.4,45.3 				"/>
+		<polygon id="XMLIDPMB_6_" class="stpmb2" points="236.9,45.3 247.2,34.4 236.9,23.4 247.9,23.4 258.2,34.4 247.9,45.3 				"/>
+		<polygon id="XMLIDPMB_4_" class="stpmb2" points="265.1,45.3 275.5,34.4 265.1,23.4 276.1,23.4 286.5,34.4 276.1,45.3 				"/>
+		<polygon id="XMLIDPMB_2_" class="stpmb2" points="321.6,45.3 332,34.4 321.6,23.4 332.6,23.4 343,34.4 332.6,45.3 				"/>
+		<polygon id="XMLIDPMB_658_" class="stpmb2" points="741.2,45.3 751.5,34.4 741.2,23.4 752.2,23.4 762.5,34.4 752.2,45.3 				"/>
+		<polygon id="XMLIDPMB_725_" class="stpmb2" points="684.7,45.3 695,34.4 684.7,23.4 695.7,23.4 706,34.4 695.7,45.3 				"/>
+		<polygon id="XMLIDPMB_660_" class="stpmb2" points="712.9,45.3 723.3,34.4 712.9,23.4 723.9,23.4 734.3,34.4 723.9,45.3 				"/>
+		<polygon id="XMLIDPMB_656_" class="stpmb2" points="769.4,45.3 779.8,34.4 769.4,23.4 780.4,23.4 790.8,34.4 780.4,45.3 				"/>
+		<animateMotion id="Rotate_1" begin="indefinite" end="indefinite"  attributeName="transform" attributeType="XML" type="translate" path="M -22 0 L 8 0 " dur="1.000000s" additive="replace" fill="freeze" accumulate="none" restart="whenNotActive" repeatCount="indefinite"/>
+	</g>
+	
+		<linearGradient id="XMLIDPMB_109_" gradientUnits="userSpaceOnUse" x1="30.4636" y1="-192.1125" x2="64.2216" y2="-192.1125" gradientTransform="matrix(1 0 0 -1 0 -129.725)">
+		<stop  offset="0" style="stop-color:#727171"/>
+		<stop  offset="0.503" style="stop-color:#DCDDDD"/>
+		<stop  offset="0.8" style="stop-color:#898989"/>
+	</linearGradient>
+	<path id="XMLIDPMB_558_" class="stpmb3" d="M64.2,67.3c0,0.5-0.5,1-1,1H31.5c-0.6,0-1-0.4-1-1v-9.8c0-0.5,0.5-1,1-1h31.7c0.6,0,1,0.4,1,1
+		V67.3L64.2,67.3z"/>
+	
+		<linearGradient id="XMLIDPMB_110_" gradientUnits="userSpaceOnUse" x1="30.4636" y1="-137.2125" x2="64.2216" y2="-137.2125" gradientTransform="matrix(1 0 0 -1 0 -129.725)">
+		<stop  offset="0" style="stop-color:#727171"/>
+		<stop  offset="0.503" style="stop-color:#DCDDDD"/>
+		<stop  offset="0.8" style="stop-color:#898989"/>
+	</linearGradient>
+	<path id="XMLIDPMB_557_" class="stpmb4" d="M64.2,12.4c0,0.5-0.5,1-1,1H31.5c-0.6,0-1-0.4-1-1V2.6c0-0.5,0.5-1,1-1h31.7c0.6,0,1,0.4,1,1
+		V12.4L64.2,12.4z"/>
+	
+		<linearGradient id="XMLIDPMB_111_" gradientUnits="userSpaceOnUse" x1="825" y1="-192.1125" x2="858.758" y2="-192.1125" gradientTransform="matrix(1 0 0 -1 0 -129.725)">
+		<stop  offset="0" style="stop-color:#727171"/>
+		<stop  offset="0.503" style="stop-color:#DCDDDD"/>
+		<stop  offset="0.8" style="stop-color:#898989"/>
+	</linearGradient>
+	<path id="XMLIDPMB_556_" class="stpmb5" d="M858.7,67.3c0,0.5-0.5,1-1,1H826c-0.6,0-1-0.4-1-1v-9.8c0-0.5,0.5-1,1-1h31.7c0.6,0,1,0.4,1,1
+		V67.3z"/>
+	
+		<linearGradient id="XMLIDPMB_112_" gradientUnits="userSpaceOnUse" x1="825" y1="-137.2125" x2="858.758" y2="-137.2125" gradientTransform="matrix(1 0 0 -1 0 -129.725)">
+		<stop  offset="0" style="stop-color:#727171"/>
+		<stop  offset="0.503" style="stop-color:#DCDDDD"/>
+		<stop  offset="0.8" style="stop-color:#898989"/>
+	</linearGradient>
+	<path id="XMLIDPMB_555_" class="stpmb6" d="M858.7,12.4c0,0.5-0.5,1-1,1H826c-0.6,0-1-0.4-1-1V2.6c0-0.5,0.5-1,1-1h31.7c0.6,0,1,0.4,1,1
+		V12.4z"/>
+</g>
+</svg>

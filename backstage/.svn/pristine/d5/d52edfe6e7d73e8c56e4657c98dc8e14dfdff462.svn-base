@@ -1,0 +1,48 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门控制器
+*/
+const DepotManage = require('../../service/system/DepartmentManager')
+const formatResponse = require('../../util/formatResponse.js')
+/**
+ * @desc 创建部门
+ * @param req
+ * @param res
+ */
+exports.create = function (req, res) {
+  new DepotManage().create(req.body, formatResponse(res))
+}
+/**
+ * @desc 修改部门
+ * @param req
+ * @param res
+ */
+exports.update = function (req, res) {
+  new DepotManage().update(req.body, formatResponse(res))
+}
+/**
+ *@desc 依据id删除
+ * @param req
+ * @param res
+ */
+exports.destroy = function (req, res) {
+  new DepotManage().delete(req.body, formatResponse(res))
+}
+/**
+ * @desc 展示所有部门
+ * @param req
+ * @param res
+ */
+exports.findAll = function (req, res) {
+  new DepotManage().findAll(req.body, formatResponse(res))
+}
+
+/**
+ * @desc 获取级联部门
+ * @param req
+ * @param res
+ */
+exports.getDepotByCcade = function (req, res) {
+  new DepotManage().showDepotsByCcade(req.body, formatResponse(res))
+}

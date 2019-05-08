@@ -1,0 +1,241 @@
+<template>
+  <run-work :options="options"></run-work>
+</template>
+
+<script>
+import Run from 'run'
+import Mock from 'mockjs'
+import axios from 'axios'
+import _ from 'lodash'
+
+/**
+ * @author: 魏婷
+ * @date: 2019-03-15
+ * @description: 人员管理
+ */
+// TODO: form 组件 treeselect 渲染不出来，后端返回数据格式 [{ id: 1, parentId: null, name: '这是根目录' }]
+// TODO: form 组件里没有file类型
+// TODO: 新增人员时首字母、卡号、组织机构、职位、教育程度、是否启用、备注字段存不到数据库
+
+axios.defaults.baseURL = '/api'
+
+export default {
+  name: 'contact',
+  data() {
+    return {
+      options: null,
+      sources: new Run.Source()
+    }
+  },
+  created() {
+    this.options = new Run.Work({
+      config: {
+        title: "通讯录管理"
+      },
+      actions: ["create", "update", "delete"],
+      list: [
+        'name',
+        'capital',
+        'sex:text',
+        'identityNumber',
+        'uniqueCode',
+        'cardNumber',
+        'privatePhone',
+        'downholePhone',
+        'organizationId',
+        'birthPlace',
+        'birthDate',
+        'workTime'
+      ],
+      form: [
+        'name',
+        'pinyin',
+        'capital',
+        'sex',
+        'identityNumber',
+        'uniqueCode',
+        'cardNumber',
+        'organizationId:select',
+        'downholePhone',
+        'jobId',
+        'privatePhone',
+        'address',
+        'email',
+        'birthPlace',
+        'birthDate',
+        'workTime',
+        'educationLevel',
+        'major',
+        'nationality',
+        'maritalStatus',
+        'politicalStatus',
+        'workKind',
+        'inserviceStatus',
+        'status',
+        'description',
+        'photo'
+      ],
+      search: {
+        layout: "multiple",
+        columns: ['organizationId:select', 'keywords']
+      },
+      columns: [
+        { label: "姓名", field: "name", layout: "text", cols: 12 },
+        { label: "首字母", field: "capital", layout: "text", cols: 12 },
+        { label: "拼音", field: "pinyin", layout: "text", cols: 12 },
+        { label: "性别", field: "sex", layout: "select", source: 'sex', cols: 12, _value: 'label' },
+        { label: '身份证号', field: 'identityNumber', layout: 'text', cols: 12 },
+        { label: '人员唯一编码', field: 'uniqueCode', layout: 'text', cols: 12 },
+        { label: '卡号', field: 'cardNumber', layout: 'text', cols: 12 },
+        { label: "组织机构", field: "organizationId", layout: "text", source: 'organization', cols: 12, _label: 'name', _value: 'id' },
+        { label: "井下电话", field: "downholePhone", layout: "text", cols: 12 },
+        { label: "职位", field: "jobId", layout: "select", source: 'job', cols: 12, _label: 'text', _value: 'id' },
+        { label: "井上电话", field: "privatePhone", layout: "text", cols: 12 },
+        { label: "住址", field: "address", layout: "text", cols: 12 },
+        { label: "邮箱", field: "email", layout: "text", cols: 12 },
+        { label: "籍贯", field: "birthPlace", layout: "text", cols: 12 },
+        { label: "出生日期", field: "birthDate", layout: "date", cols: 12 },
+        { label: "参加工作时间", field: "workTime", layout: "date", cols: 12 },
+        { label: "教育程度", field: "educationLevel", layout: "select", source: 'educationLevel', cols: 12, _value: 'label' },
+        { label: "专业", field: "major", layout: "text", cols: 12 },
+        { label: "民族", field: "nationality", layout: "text", cols: 12 },
+        { label: "婚姻状况", field: "maritalStatus", layout: "select", source: 'maritalStatus', cols: 12, _value: 'label' },
+        { label: "政治面貌", field: "politicalStatus", layout: "select", source: 'politicalStatus', cols: 12, _value: 'label' },
+        { label: "工种名称", field: "workKind", layout: "text", cols: 12 },
+        { label: "就职状态", field: "inserviceStatus", layout: "select", source: 'inserviceStatus', cols: 12, _value: 'label' },
+        { label: "是否启用", field: "status", layout: "switch", cols: 12 }, 
+        { label: "备注", field: "description", layout: "textarea" },
+        { label: "头像", field: "photo", layout: "text" },
+        { label: '关键词', field: 'keywords', _placeholder: '搜索姓名、身份证、卡号、人员唯一编号', width: '300px' },
+      ],
+      events: {
+        search: async (params) => {
+          try {
+            let res = await axios.get('/system/contacts', { params })
+            let { rows, count } = res.data.data
+            if (rows && rows.length) {
+              this.sources.set('rows', rows)
+              this.sources.set('total', count)
+            }
+          } catch (e) {
+            this.$message.error('服务器连接错误！' + e)
+          }
+        },
+        delete: (rows, done) => {
+          // 删除数据
+          if (rows.length && rows.length === 1) {
+            axios.delete('/system/contact/' + rows[0].id)
+              .then(res => {
+                done()
+              })
+              .catch(e => {
+                done()
+              })
+          } else {
+            this.$message.error('请选中一行数据！')
+          }
+        },
+        submit: (form, done) => {
+          if (form.id) {
+            // 更新数据
+            axios.post('/system/contact/' + form.id, form)
+              .then(res => {
+                if (res.data.count && res.data.count.length) {
+                  done()
+                } else {
+                  done('服务器错误！')
+                }
+              })
+              .catch(e => {
+                done('系统错误！')
+              })
+          } else {
+            // 新增数据
+            axios.post('/system/contact', form)
+              .then((res) => {
+                if (res.data) {
+                  done()
+                }
+                if (res.data.errors) {
+                  done('服务器错误！')
+                }
+              })
+              .catch(e => {
+                done('系统错误！')
+              })
+          }
+        },
+        edit(form) {
+          console.log('edit')
+        }
+      },
+      sources: this.sources
+    })
+
+    this.initData()
+    this.fetchData()
+  },
+  methods: {
+    initData() {
+      const { sex, educationLevel, maritalStatus, politicalStatus, inserviceStatus } = Mock.mock({
+        "sex|2": [
+          {
+            "label|+1": ['男', '女'],
+            "value|+1": ['1', '2']
+          }
+        ],
+        "educationLevel|4": [
+          {
+            "label|+1": ['博士及以上', '硕士', '本科', '专科'],
+            "value|+1": ['4', '3', '2', '1']
+          }
+        ],
+        "maritalStatus|3": [
+          {
+            "label|+1": ['已婚', '未婚', '离异'],
+            "value|+1": ['1', '2', '3']
+          }
+        ],
+        "politicalStatus|3": [
+          {
+            "label|+1": ['党员', '团员', '群众'],
+            "value|+1": ['1', '2', '3']
+          }
+        ],
+        "inserviceStatus|2": [
+          {
+            "label|+1": ['就职', '离职'],
+            "value|+1": ['1', '2']
+          }
+        ]
+      })
+      this.sources.set('sex', sex)
+      this.sources.set('educationLevel', educationLevel)
+      this.sources.set('maritalStatus', maritalStatus)
+      this.sources.set('politicalStatus', politicalStatus)
+      this.sources.set('inserviceStatus', inserviceStatus)
+    },
+    fetchOrgnizations() {
+      return axios.get('/system/depots')
+    },
+    fetchJobs() {
+      return axios.post('/system/findPositionAll', { pagination: false })
+    },
+    fetchData() {
+      axios.all([this.fetchOrgnizations(), this.fetchJobs()])
+        .then(axios.spread((resFirst, resSecond) => {
+          if(resFirst.data.length) {
+            this.sources.set('organization', resFirst.data)
+          }
+          if(resSecond.data.success) {
+            this.sources.set('job', resSecond.data.result.rows)
+          }
+        }))
+        .catch(e => {
+
+        })
+    }
+  }
+}
+</script>
+

@@ -1,0 +1,7 @@
+const Command = require('./CommandModel')
+const Menu = require('./MenuModel')
+exports.ER1 = Menu.hasMany(Command, {as: 'command', foreignKey: 'menu_id'})
+
+
+
+

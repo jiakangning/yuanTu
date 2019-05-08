@@ -1,0 +1,40 @@
+const UserManager = require('../service/membership/UserManager')
+const { sign } = require('../../config/plugin.jwt')
+
+exports.renderLogin = (req, res, next) => {
+  res.send(req.csrfToken())
+}
+
+exports.signup = (req, res, next) => {
+  const userManager = new UserManager()
+  userManager.create(req.body, (err, user) => {
+    if (err) {
+      return res.send(err)
+    } else {
+      return res.json(user)
+    }
+  })
+}
+
+exports.postLogin = (req, res, next) => {
+  const userManager = new UserManager()
+  userManager.login(req.body, (err, user) => {
+    if (err) {
+      return res.send(err)
+    } else {
+      const token = sign(user)
+      return res.json({ token })
+    }
+  })
+}
+
+exports.update = (req, res, next) => {
+  const userManager = new UserManager()
+  userManager.update(req.body, (err, user) => {
+    if (err) {
+      res.json({ error: true, message: '更新失败' })
+    } else {
+      res.json({ message: '更新成功' })
+    }
+  })
+}

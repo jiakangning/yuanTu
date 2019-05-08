@@ -1,0 +1,69 @@
+<template>
+  <div class="columnSelect">
+    <h3 class="columnSelect-title">{{ column.label }}</h3>
+    <div class="columnSelect-content">
+      <run-select
+        v-on="currentListener"
+        v-bind="currentOption"
+        v-model="currentValue"/>
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: {
+      options: {},
+      column: {},
+      value: {}
+    },
+    computed: {
+      currentListener() {
+        return this.column.rawListener
+      },
+      currentSource() {
+        let { source } = this.column
+        return source ? this.options.getSources(source) : []
+      },
+      currentOption() {
+        return {
+          multiple: true,
+          filterable: true,
+          collapseTags: true,
+          placeholder: `请选择${ this.column.label }`,
+          source: this.currentSource,
+          label: "label",
+          ...this.column.rawOption
+        }
+      },
+      currentValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit("input", val)
+        }
+      }
+    }
+  }
+</script>
+
+<style
+  scoped
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus">
+  .columnSelect
+    >>> .el-input__inner
+      height: 34px
+
+    &-title
+      margin: 10px 0
+      font-size: 14px
+      color: rgba(0, 0, 0, 0.85)
+      line-height: 22px
+
+    &-content
+      padding: 12px 10px
+
+</style>

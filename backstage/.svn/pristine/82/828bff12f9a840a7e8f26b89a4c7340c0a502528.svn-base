@@ -1,0 +1,14 @@
+import Vue from 'vue'
+import Vuex from 'vuex'
+
+import system from './system'
+import unity from './modules/unity'
+
+Vue.use(Vuex)
+
+const modules = {
+  system,
+  unity
+}
+
+export default new Vuex.Store({ modules })

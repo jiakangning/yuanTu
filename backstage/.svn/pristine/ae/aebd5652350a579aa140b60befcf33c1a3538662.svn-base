@@ -1,0 +1,58 @@
+/**
+ * @author 贾康宁
+ * @date 2019-03-15
+ * @description 角色流程
+ */
+const Op = require('sequelize').Op
+
+class RoleManager {
+  constructor (roleRepo) {
+    this.roleRepo = roleRepo || require('../../model/system/Role')
+  }
+
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数！'))
+    } else {
+      if (Array.isArray(input)) {
+        this.roleRepo
+          .bulkCreate(input)
+          .then(roles => callback(null, roles))
+          .catch(callback)
+      } else {
+        this.roleRepo
+          .create(input)
+          .then(role => callback(null, role))
+          .catch(callback)
+      }
+    }
+  }
+
+  update (input, callback) {
+    const { id, ...raw } = input
+    this.roleRepo.isExist(id)
+      .then(role => {
+        return role ? role.update(raw) : Promise.reject(new Error('数据已被删除，无法修改！'))
+      })
+      .then(role => callback(null, role))
+      .catch(callback)
+  }
+
+  delete (input, callback) {
+    const rows = Array.isArray(input) ? input : [input]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    this.roleRepo.destroy(condition)
+      .then(count => callback(null, count))
+      .catch(callback)
+  }
+
+  findAll (input, callback) {
+    const options = this.roleRepo.buildOptions(input)
+    this.roleRepo
+      .findAndCountAll(options)
+      .then(result => callback(null, result))
+      .catch(callback)
+  }
+}
+
+module.exports = RoleManager

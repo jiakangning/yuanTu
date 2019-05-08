@@ -1,0 +1,53 @@
+/**
+ * @author: 赵赛赛
+ * @date 2019/3/15
+ */
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const Op = require('sequelize').Op
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+
+const Position = dbCtx.define('position', {
+  text: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    unique: true,
+    field: 'text'
+  },
+  mLevel: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    field: 'm_level',
+    validate: {
+      max: 25,
+      min: 1
+    }
+  },
+  pIndex: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    field: 'p_index'
+  },
+  remarks: {
+    type: Sequelize.STRING,
+    field: 'remarks'
+  }
+}, {
+  tableName: 'system_membership_job',
+  underscored: true,
+  paranoid: false
+})
+
+Position.buildOptions = function (options = {}) {
+  const { text = '', mLevel } = options
+  let result = buildDefaultOption(options)
+  text && (result.where.text = { [Op.like]: '%' + text + '%' })
+  mLevel && mLevel.length && (result.where.mLevel = { [Op.in]: mLevel })
+  return result
+}
+
+Position.isExist = function (id) {
+  return Position.findByPk(id)
+}
+
+module.exports = Position

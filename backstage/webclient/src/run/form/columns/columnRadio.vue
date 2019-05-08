@@ -1,0 +1,41 @@
+<template>
+  <el-radio-group
+    v-on="currentListener"
+    v-bind="currentOption"
+    v-model="currentValue">
+    <el-radio
+      v-for="(item, index) in currentSource"
+      :label="item[currentOption.value]"
+      :key="index">
+      {{item[currentOption.label]}}
+    </el-radio>
+  </el-radio-group>
+</template>
+
+<script>
+  import { BasicFormColumn } from "./basic.js"
+
+  export default {
+    extends: BasicFormColumn,
+    computed: {
+      currentOption() {
+        return {
+          label: 'label',
+          value: 'value',
+          ...this.currentRawOption
+        }
+      },
+      currentListener() {
+        return this.currentRawListener
+      },
+      currentValue: {
+        get() {
+          return this.value
+        },
+        set(val) {
+          this.$emit('input', val)
+        }
+      }
+    }
+  }
+</script>

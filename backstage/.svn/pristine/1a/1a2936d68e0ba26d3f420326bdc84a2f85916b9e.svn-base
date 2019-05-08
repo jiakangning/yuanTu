@@ -1,0 +1,26 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+const router = require('express').Router()
+const {
+  createMenu,
+  updateMenu,
+  destroyMenu,
+  createMenuAndCommand,
+  findMenuByPk,
+  findMenuCmdToTree,
+  destroyMenuById,
+  destroyMenuCommandCascade
+} = require('../../../app/controller/system/menuController')
+// 菜单路由
+router.post('/menus', createMenu)
+router.post('/menus/commands', createMenuAndCommand) // 级联创建
+router.put('/menus', updateMenu)
+router.patch('/menus', updateMenu)
+router.delete('/menus', destroyMenu)
+router.delete('/menus/:id', destroyMenuById)
+router.delete('/menus/:id/commands', destroyMenuCommandCascade)
+router.get('/menus/commands', findMenuCmdToTree) // 返回级联树结构
+router.get('/menus/:id', findMenuByPk)
+module.exports = router

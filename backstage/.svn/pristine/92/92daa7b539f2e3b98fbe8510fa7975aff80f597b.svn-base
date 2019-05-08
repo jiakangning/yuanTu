@@ -1,0 +1,35 @@
+exports.server = {
+  http: {
+    port: 8060
+  },
+  websocket: {
+    port: 8060
+  }
+}
+
+exports.logger = {
+  mode: 'tiny'
+}
+
+exports.redis = {
+  host: '192.168.0.155',
+  port: 6379,
+  password: 'yt123456'
+}
+
+exports.session = {
+  secret: 'my secret'
+}
+
+exports.sequelize = {
+  username: 'postgres',
+  password: 'libragy',
+  database: 'aims',
+  host: '127.0.0.1',
+  dialect: 'postgres'
+}
+
+exports.jwt = {
+  secret: 'callofduty',
+  expires: '30 days'
+}

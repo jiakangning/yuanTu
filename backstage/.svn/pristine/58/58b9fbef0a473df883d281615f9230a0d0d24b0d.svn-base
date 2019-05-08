@@ -1,0 +1,126 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门流程
+*/
+// const User = require('../../model/membership/User')
+const dbCtx = require('../../../database/dbCtx')
+
+class DepartmentManager {
+  constructor (depotRepo) {
+    this.depotRepo = depotRepo || require('../../model/system/DepartmentModel')
+  }
+
+  create (input, callback) {
+    const { parentId, name, isValid, telphone, address, description, slIndex, author, editor, supervisor, inCharges } = input
+    let tempParentId = null
+    if (parentId) tempParentId = parentId
+    this.depotRepo.build({
+      slIndex: Number(slIndex),
+      parentId: tempParentId,
+      name,
+      telphone,
+      address,
+      description,
+      isValid,
+      author: Number(author),
+      editor: Number(editor),
+      supervisor: Number(supervisor),
+      inCharges
+    })
+      .save()
+      .then(depot => {
+        callback(null, depot)
+      })
+      .catch(err => {
+        callback(err)
+      })
+  }
+
+  findByPk (id, callback) {
+    this.depotRepo.findByPk(id)
+      .then(depot => {
+        callback(null, depot.get({ plain: true }))
+      })
+      .catch(err => {
+        callback(err, null)
+      })
+  }
+
+  update (input, callback) {
+    const { id, name, parentId, supervision, inCharges, telphone, address, description, isValid, editor } = input
+    if (id) {
+      this.depotRepo.findByPk(id)
+        .then(depot => {
+          if (depot) {
+            if (name) depot.name = name
+            if (parentId) depot.parentId = parentId
+            if (supervision) depot.supervision = supervision
+            if (inCharges) depot.inCharges = inCharges
+            if (isValid) depot.isValid = isValid
+            if (telphone) depot.telphone = telphone
+            if (address) depot.address = address
+            if (description) depot.address = description
+            if (editor) depot.editor = editor
+            depot.save()
+              .then(() => callback(null, depot))
+              .catch(err => callback(err, null))
+          } else {
+            callback(new Error('部门不存在！'))
+          }
+        })
+        .catch(err => callback(err))
+    } else {
+      callback(new Error('未传入id'), null)
+    }
+  }
+
+  delete (id, callback) {
+    if (id) {
+      let _this = this
+      return dbCtx.transaction(function (t) {
+        return _this.depotRepo.findByPk(id, { transaction: t }).then(depot => {
+          return depot.destroy({ transaction: t }).then(() => {
+            return _this.depotRepo.destroy({
+              where: {
+                rt_path: {
+                  $like: '%,' + id + ',%'
+                }
+              }
+            }, { transaction: t }).then(effectRows => {
+              callback(null, effectRows)
+            })
+          }).catch(err => {
+            callback(err)
+          })
+        })
+      })
+    } else {
+      callback(new Error('未找到相关部门'))
+    }
+  }
+
+  showAllDepot (input, callback) {
+    this.depotRepo.findAll().then(
+      allDepot => {
+        callback(null, {
+          data: allDepot
+        })
+      }
+    ).catch(err => {
+      callback(err, {
+        msg: `系统出错了,${err}`
+      })
+    })
+  }
+
+  showDepotsByCcade (input, callback) {
+    this.depotRepo.findParents(input).then(data => {
+      callback(null, data)
+    }).catch(err => {
+      callback(err)
+    })
+  }
+}
+
+module.exports = DepartmentManager

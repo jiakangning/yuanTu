@@ -1,0 +1,7 @@
+/**
+ * author:甄岩岩,
+ * createdAt:2019-3-15
+ * */
+const Command = require('./CommandModel')
+const Menu = require('./MenuModel')
+exports.ER1 = Menu.hasMany(Command, { as: 'command', foreignKey: 'menu_id' })

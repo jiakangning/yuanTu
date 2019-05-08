@@ -1,0 +1,14 @@
+const Redis = require('ioredis')
+const config = require('./config.loader').load()
+
+const redisCtx = new Redis({
+  host: config.redis.host,
+  port: config.redis.port,
+  password: config.redis.password,
+  retryStrategy: times => (Math.min(times * 50, 2000))
+})
+redisCtx.on('error', (err) => {
+  // console.log(`Redis缓存服务出现问题，故障描述：${err}`)
+})
+
+module.exports = redisCtx

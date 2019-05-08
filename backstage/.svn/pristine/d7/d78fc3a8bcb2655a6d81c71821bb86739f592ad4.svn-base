@@ -1,0 +1,285 @@
+<template>
+  <run-work :options="workOptions">
+    <run-column
+      position="list"
+      after="organization"
+      label="是否启用"
+      field="status">
+      <el-tooltip
+        v-if="scope"
+        slot-scope="scope"
+        :content="scope.row.status ? '正常使用' : '已禁用'"
+        placement="top">
+        <el-switch
+          v-model="scope.row.status"
+          active-color="#67C23A"
+          inactive-color="#ff4949"
+          :active-value="true"
+          :inactive-value="false"
+          @change="updateAccount(scope.row)"/>
+      </el-tooltip>
+    </run-column>
+    <run-column
+      @confirm="onConfirm"
+      :submit="true"
+      position="layer"
+      title="设置角色"
+      :option="{ area: ['60%', '600px'] }"
+      v-model="show">
+      <run-list :options="roleListOptions"/>
+    </run-column>
+  </run-work>
+</template>
+
+<script type="text/jsx">
+import Run from 'run'
+import Mock from 'mockjs'
+
+/**
+ * @author: 魏婷
+ * @date: 2019-03-15
+ * @description: 帐号管理
+ */
+export default {
+  name: "member",
+  data() {
+    return {
+      show: false,
+      options: null,
+      sources: new Run.Source(),
+      roleListOptions: null,
+      currentSelectedAccounts: [],
+      currentSelectedRoles: []
+    }
+  },
+  created() {
+    this.workOptions = new Run.Work({
+      config: { title: '账户管理' },
+      actions: [
+        'create',
+        'update',
+        'delete',
+        {
+          text: "设置角色",
+          type: 'primary',
+          plain: true,
+          icon: 'runicon iconuser',
+          click: ({ row, selection }) => {
+            // 勾选才会修改 selection
+            if (selection.length) {
+              this.currentSelectedAccounts = selection
+              this.show = true
+            } else {
+              this.$message.error('请至少选中一行数据！')
+            }
+          }
+        }
+      ],
+      list: {
+        serial: false,
+        columns: [
+          'account',
+          'name',
+          'called',
+          'email',
+          'job_id',
+          'downhole_phone',
+          'privatep_phone',
+          'organization:text'
+        ]
+      },
+      form: [
+        'account',
+        'pwd',
+        'name',
+        'organization',
+        'downhole_phone',
+        'job_id',
+        'privatep_phone',
+        'address',
+        'email',
+        'description',
+        'status',
+        'photo'
+      ],
+      search: {
+        layout: "multiple",
+        columns: ['organization:select', 'keywords']
+      },
+      columns: [
+        { label: '用户名', field: 'account', layout: 'text', cols: 12 },
+        { label: '密码', field: 'pwd', layout: 'text', cols: 12 },
+        { label: '真实姓名', field: 'name', layout: 'text', cols: 12 },
+        { label: '组织机构', field: 'organization', layout: 'treeselect', source: 'organizations', cols: 12 },
+        { label: '井下电话', field: 'downhole_phone', layout: 'text', cols: 12 },
+        { label: '职位', field: 'job_id', layout: 'select', source: 'jobs', cols: 12 },
+        { label: '井上电话', field: 'privatep_phone', layout: 'text', cols: 12 },
+        { label: '住址', field: 'address', layout: 'text', cols: 12 },
+        { label: '邮箱', field: 'email', layout: 'text', cols: 12 },
+        { label: '备注', field: 'description', layout: 'textarea', cols: 12 },
+        { label: "是否启用", field: "status", layout: "switch", cols: 24 },
+        { label: "头像", field: "photo", layout: "textarea", cols: 24 },
+        { label: '性别', field: 'called', layout: 'text' },
+        { label: '关键字', field: 'keywords', layout: 'text', _placeholder: '搜索用户名、真实姓名、井上电话、井下电话', width: '300px' }
+      ],
+      events: {
+        search: (params) => {
+          console.log('work options search')
+          console.log('查询参数：')
+          console.log(params)
+
+          setTimeout(() => {
+            const { rows, total } = Mock.mock({
+              "rows|1-2": [
+                {
+                  "id|+1": 1,
+                  "account": () => Mock.Random.cname(),
+                  "pwd": () => Mock.Random.string('lower', 1, 6),
+                  "name": () => Mock.Random.cname(),
+                  "organization|1": ['曹家滩矿山'],
+                  "downhole_phone": /^1[34578]\d{9}$/,
+                  "job_id|1": ['1', '2'],
+                  "privatep_phone": /^1[34578]\d{9}$/,
+                  "address": () => Mock.Random.county(true),
+                  "email": () => Mock.Random.email(),
+                  "description": () => Mock.Random.ctitle(),
+                  "status|1": [true, false],
+                  "photo": () => Mock.Random.url(),
+                  "called|1": ['男', '女']
+                }
+              ],
+              "total"() {
+                return this.rows.length
+              }
+            })
+
+            this.sources.set("rows", rows)
+            this.sources.set("total", total)
+          }, 2000)
+        },
+        delete(rows, done) {
+          // 删除数据
+          done()
+        },
+        submit(form, done) {
+          if (form.id) {
+            // 更新数据
+            console.log(form)
+            done()
+
+          } else {
+            // 新增数据
+            console.log(form)
+            done()
+          }
+        },
+        edit(form) {
+          console.log('edit')
+        }
+      },
+      sources: this.sources
+    })
+
+    this.roleListOptions = new Run.List({
+      config: {
+        rows: "roles",
+        total: "rolesTotal",
+        pagination: false
+      },
+      columns: [
+        { label: '名称', field: 'text', layout: 'text' },
+        { label: '说明', field: 'description', layout: 'text' }
+      ],
+      sources: this.sources,
+      events: {
+        search: (params) => {
+          const { roles, rolesTotal } = Mock.mock({
+            "roles|100": [
+              {
+                "id|+1": 0,
+                "text": () => Mock.Random.ctitle(3, 5),
+                "description": () => Mock.Random.ctitle(10, 15)
+              }
+            ],
+            "rolesTotal"() {
+              return this.roles.length
+            }
+          })
+          this.sources.set('roles', roles)
+          this.sources.set('rolesTotal', rolesTotal)
+        },
+        selectionChange: (selection) => {
+          this.currentSelectedRoles = selection
+        }
+      }
+    })
+  },
+  methods: {
+    onConfirm(done) {
+      let accountIds = this.currentSelectedAccounts.map(v => v.id)
+      let roleIds = this.currentSelectedRoles.map(v => v.id)
+      console.log('用户id集合')
+      console.log(accountIds)
+      console.log('角色id集合')
+      console.log(roleIds)
+      // TODO: http 请求接口为用户设置角色
+      setTimeout(() => {
+        done('错误啊')
+      }, 1000)
+    },
+    fetchJobs() {
+      const { jobs } = Mock.mock({
+        "jobs|2": [
+          {
+            "label|+1": ['总经理', '职员'],
+            "value|+1": ['1', '2']
+          }
+        ]
+      })
+      this.sources.set('jobs', jobs)
+    },
+    fetchOrganizations() {
+      const { organizations } = Mock.mock({
+        "organizations|1": [
+          {
+            "value": 'cjt',
+            "label": '曹家滩',
+            "children|2": [
+              {
+                "value|+1": ['web', 'serve'],
+                "label|+1": ['前端开发', '后端开发']
+              }
+            ]
+          }
+        ]
+      })
+      this.sources.set('organizations', [organizations])
+    },
+    getVnode(h) {
+      return (
+        <div style="width: 100%; display: flex; align-items: center; justify-content: space-between;">
+          <p class="el-message__content">操作成功！</p>
+          <el-button
+            type="text"
+            size="small"
+            style="padding-top: 0px; padding-bottom: 0px; float: right;"
+            round
+            onClick={ this.revert }>撤销</el-button>
+        </div>
+      )
+    },
+    updateAccount(row) {
+      // TODO: 启用或禁用账户信息 row.status = true / false
+      this.$message({
+        dangerouslyUseHTMLString: true,
+        type: 'success',
+        duration: '60000',
+        message: this.getVnode(this.$createElement)
+      })
+    },
+    revert() {
+      console.log('撤销操作')
+    }
+  }
+}
+</script>

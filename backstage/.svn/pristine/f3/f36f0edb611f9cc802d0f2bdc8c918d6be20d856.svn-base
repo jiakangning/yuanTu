@@ -1,0 +1,25 @@
+<script>
+import Search from '../../model/Search.js'
+import columnSingle from '../columns/single.vue'
+import columnGroup from '../columns/group.vue'
+
+export default {
+  components: { columnSingle, columnGroup },
+  props: {
+    options: {}
+  },
+  computed: {
+    currentColumns() {
+      return this.options.getColumns()
+    }
+  },
+  methods: {
+    onSearch() {
+      this.options.emit(Search.EVENTS.search, this.options.getParams())
+    },
+    onInput() {
+      this.options.emit(Search.EVENTS.input, this.options.getParams())
+    }
+  }
+}
+</script>

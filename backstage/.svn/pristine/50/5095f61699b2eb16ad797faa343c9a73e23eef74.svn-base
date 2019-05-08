@@ -1,0 +1,83 @@
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const {
+  phoneNum
+} = require('../../util/validator.regex')
+const bcrypt = require('bcryptjs')
+const buildDefaultOption = require('../../util/buildDefaultOption')
+const User = dbCtx.define('user', {
+  username: {
+    type: Sequelize.STRING,
+    unique: true,
+    allowNull: false
+  },
+  password: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  email: {
+    type: Sequelize.STRING,
+    unique: true,
+    validate: {
+      isEmail: true
+    }
+  },
+  mobile: {
+    type: Sequelize.STRING,
+    unique: true,
+    validate: {
+      is: phoneNum
+    }
+  },
+  lastLoginTime: {
+    type: Sequelize.DATE,
+    field: 'last_login_time'
+  },
+  isLocked: {
+    type: Sequelize.BOOLEAN,
+    field: 'is_locked'
+  },
+  description: {
+    type: Sequelize.STRING
+  }
+}, {
+  timestamps: true,
+  paranoid: true,
+  underscored: true,
+  tableName: 'system_user'
+})
+
+User.beforeSave((user, options) => {
+  if (user.changed('password')) {
+    return bcrypt.hash(user.password, 12)
+      .then(hashedPwd => {
+        user.password = hashedPwd
+      })
+  }
+})
+/**
+ * 判断用户名是否存在
+ */
+User.isExist = async function (name) {
+  try {
+    let flag = await User.count({
+      where: {
+        name
+      }
+    })
+    return flag > 0
+  } catch (err) {
+    throw new Error(err)
+  }
+}
+User.prototype.comparePassword = function (password) {
+  return bcrypt.compareSync(password, this.password)
+}
+
+User.buildOptions = function ({ text = '', mLevel, ...raw } = {}) {
+  let result = buildDefaultOption(raw)
+  // text && (result.where.text = { [Op.like]: '%' + text + '%' })
+  // mLevel && mLevel.length && (result.where.mLevel = { [Op.in]: mLevel })
+  return result
+}
+module.exports = User

@@ -1,0 +1,20 @@
+import job from './job.js'
+import contact from './contact.js'
+import member from './member'
+import role from './role'
+import department from './department'
+import menu from './menu'
+import logLogin from './logLogin'
+
+export default {
+  namespaced: true,
+  modules: {
+    job,
+    contact,
+    member,
+    role,
+    department,
+    menu,
+    logLogin
+  }
+}

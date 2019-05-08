@@ -1,0 +1,135 @@
+<template>
+<div>
+  <el-col class="top" style="box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);padding:10px;height:96%;">
+        <el-button icon="el-icon-plus" @click='add()'>增加</el-button>
+        <el-button icon="el-icon-edit" @click='edit()'>修改</el-button>
+        <el-button icon="el-icon-delete" type="danger" @click='deleteBtn()'>删除</el-button>
+        <el-button type="primary" icon="el-icon-download">设置角色</el-button>
+        <el-form  class="demo-form-inline" :inline="true">
+            <el-form-item>
+                <el-input placeholder="关键字"></el-input>
+            </el-form-item>
+            <el-form-item class="add">
+                <el-button type="primary" class="searchOne" icon="el-icon-search">查询</el-button>
+            </el-form-item>
+        </el-form>
+  </el-col>
+   <el-table
+      :data="tableData"
+      style="width: 100%"
+      ref = 'list'
+      @select = 'select'
+      >
+      <el-table-column
+      type="selection"
+      width="55">
+    </el-table-column>
+      <el-table-column
+        prop="account"
+        label="登录名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="name"
+        label="真实姓名"
+        width="180">
+      </el-table-column>
+      <el-table-column
+        prop="sex"
+        label="性别">
+      </el-table-column>
+       <el-table-column
+        prop="email"
+        label="邮箱">
+      </el-table-column>
+       <el-table-column
+        prop="job_id"
+        label="职位">
+      </el-table-column>
+       <el-table-column
+        prop="downhole_phone"
+        label="井下电话">
+      </el-table-column>
+       <el-table-column
+        prop="uphole_phone"
+        label="井上电话">
+      </el-table-column>
+       <el-table-column
+        prop="organize"
+        label="组织机构">
+      </el-table-column>
+       <el-table-column
+        prop="is_valid"
+        label="是否使用">
+      </el-table-column>
+    </el-table>
+    <el-dialog class="formStyle" :title= title :visible.sync="centerDialogVisible" width="70%">
+        <popup :action="action" :currentData="currentData" @addform = 'addform'  @onCancel = 'cancel'></popup>
+    </el-dialog>
+</div>
+</template>
+<script>
+import popup from "./popup/index.vue"
+import Mock from "mockjs"
+export default {
+  name: "login",
+  data() {
+    return {
+      title: "",
+      action: "", // 增加、修改弹窗
+      tableData: [],
+      currentData: {},
+      input: "",
+      centerDialogVisible: false
+    }
+  },
+  components: {
+    popup
+  },
+  created() {
+    this.init()
+    // 初始化，list显示接口，数据保存到tableData
+  },
+  methods: {
+    add() {
+      this.action = "add"
+      this.title = "增加"
+      this.centerDialogVisible = true
+    },
+    addform(v) {
+      this.tableData.push(v)
+      this.$nextTick(() => {
+        this.centerDialogVisible = false
+      })
+    },
+    edit() {
+      this.action = "edit"
+    },
+    cancel(v) {
+      this.centerDialogVisible = v
+    },
+    select(row) {
+      console.log(row)
+    },
+    init() {
+      const { title } = Mock.mock({
+        "title|10": [
+          {
+            "account": () => Mock.Random.cname(),
+            "sex": () => Mock.Random.cname()
+          }
+        ]
+      })
+      this.tableData = title
+    }
+  }
+}
+</script>
+<style lang="less" scoped>
+.top {
+  margin-top: 10px;
+  .demo-form-inline {
+    float: right;
+  }
+}
+</style>

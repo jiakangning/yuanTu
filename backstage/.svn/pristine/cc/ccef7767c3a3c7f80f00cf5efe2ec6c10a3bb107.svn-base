@@ -1,0 +1,90 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门模型
+*/
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const { phoneNum } = require('../../util/validator.regex')
+const DepotModel = dbCtx.define('department', {
+  status: {
+    type: Sequelize.INTEGER,
+    validate: {
+      isNumeric: true
+    }
+  },
+  name: {
+    type: Sequelize.STRING(50),
+    unique: true,
+  },
+  telphone: {
+    type: Sequelize.STRING(20),
+    unique: false,
+    validate: {
+      is: phoneNum
+    }
+  },
+  address: {
+    type: Sequelize.STRING(100),
+    allowNull: true
+  },
+  description: {
+    type: Sequelize.STRING(500),
+    allowNull: true
+  },
+  parentId: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    field: 'parent_id'
+  },
+  rtPath: {
+    type: Sequelize.STRING(50),
+    allowNull: true,
+    field: 'rt_path'
+  },
+  slIndex: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    field: 'sl_index'
+  },
+  inCharges: {
+    type: Sequelize.STRING(100),
+    allowNull: true,
+    field: 'in_charges'
+  }
+}, {
+  timestamps: true,
+  paranoid: true,
+  underscored: true,
+  freezeTableName: true,
+  tableName: 'system_membership_department',
+})
+
+DepotModel.beforeSave((depot, options) => {
+  if (depot.changed('parent_id')) {
+    if (depot.parent_id) {
+      return DepotModel.findByPk(depot.parent_id).then(result => {
+        if (result.rt_path) depot.rt_path = result.rt_path + depot.parent_id + ','
+        else depot.rt_path = ',' + depot.parent_id + ','
+      })
+    } else {
+      return ( depot.rt_path = '' )
+    }
+  }
+})
+/**
+ * @desc 依据id查找子节点
+ * @param id
+ * @return Promise
+ */
+DepotModel.findParents = function (id) {
+  return DepotModel.findAll({
+    where: {
+      rt_path: {
+        $like: '%,' + id + ',%'
+      }
+    }
+  })
+}
+
+module.exports = DepotModel

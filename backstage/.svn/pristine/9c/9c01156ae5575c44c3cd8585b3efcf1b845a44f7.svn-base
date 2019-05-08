@@ -1,0 +1,93 @@
+<template>
+  <el-col
+    v-if="isShow"
+    :span="currentCols">
+    <el-form-item
+      class="basic-column-item"
+      :title="currentLabel"
+      :prop="currentField">
+      <template slot="label">
+        {{ currentLabel }}
+        <template v-if="currentTips">
+          <el-tooltip
+            :content="currentTips"
+            effect="dark"
+            placement="bottom">
+            <i class="basic-column-tips el-icon-question"/>
+          </el-tooltip>
+        </template>
+      </template>
+      <component
+        class="basic-column-row"
+        :options="options"
+        :column="column"
+        :is="componentName"
+        v-model="currentForm"/>
+    </el-form-item>
+  </el-col>
+</template>
+
+<script type="text/ecmascript-6">
+  import components from './index.js'
+
+  export default {
+    components,
+    props: {
+      column: {},
+      options: {}
+    },
+    computed: {
+      componentName() {
+        let layout = this.column.layout
+        return typeof layout === "object" ? layout : `column-${ layout }`
+      },
+      currentCols() {
+        return this.column.cols
+      },
+      currentField() {
+        return this.column.field
+      },
+      currentLabel() {
+        return this.column.label
+      },
+      currentTips() {
+        return this.column.tips
+      },
+      currentForm: {
+        get() {
+          return this.options.getForm(this.currentField)
+        },
+        set(val) {
+          return this.options.setForm(val, this.currentField)
+        }
+      },
+      isShow() {
+        return this.options.getConfig('hide').indexOf(this.currentField) === -1
+      }
+    }
+  }
+</script>
+
+<style
+  lang="stylus"
+  type="text/stylus"
+  rel="stylesheet/stylus"
+  scoped>
+  .basic-column
+    &-item
+      >>> .el-form-item__label
+        text-overflow: ellipsis
+        overflow: hidden
+        white-space: nowrap
+
+    &-tips
+      position: relative
+      top: -1px
+      color: #409EFE
+      font-size: 20px
+      display: inline-block
+      vertical-align: middle
+
+    &-row
+      width: 98%
+</style>

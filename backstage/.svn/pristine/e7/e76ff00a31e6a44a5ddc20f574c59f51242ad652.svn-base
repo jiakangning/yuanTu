@@ -1,0 +1,22 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+/**
+ * author:赵赛赛
+ * created_at:2019/3/15
+ * 添加只为管理路由
+ * */
+const menu = require('./menuRouter')
+const command = require('./commandRouter')
+const position = require('./positionRouter')
+const contactRouter = require('./contact')
+const depotRouter = require('./departmentRouter')
+
+exports.system = function (path, app) {
+  app.use(path, command)
+  app.use(path, menu)
+  app.use(path, position)
+  app.use(path, contactRouter)
+  app.use(path, depotRouter)
+}

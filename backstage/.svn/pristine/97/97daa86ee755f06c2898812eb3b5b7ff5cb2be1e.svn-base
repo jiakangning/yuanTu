@@ -1,0 +1,232 @@
+// 王鼎  3-15  18，25
+<template>
+<div>
+  <run-work :options="options">
+    <run-column position="form" after="authorize_state">
+        <el-form-item label="功能命令">
+           <el-button @click="add()">增加</el-button>
+            <el-button>修改</el-button>
+            <el-button>删除</el-button>
+        </el-form-item>
+         <!-- <run-work :options="options1"> </run-work> -->
+    </run-column>
+  </run-work>
+ <el-dialog
+  title="功能命令增加"
+  :visible.sync="dialogVisible"
+  width="30%">
+  <el-form :model="form">
+   <el-form-item label="名称">
+    <el-input v-model="form.name"></el-input>
+  </el-form-item>
+  <el-form-item label="标识">
+    <el-input v-model="form.identification"></el-input>
+  </el-form-item>
+  </el-form>
+  <span slot="footer" class="dialog-footer">
+    <el-button @click="cancel">取 消</el-button>
+    <el-button type="primary" @click="sure">确 定</el-button>
+  </span>
+</el-dialog>
+</div>
+</template>
+
+<script>
+import Run from "run"
+import Mock from "mockjs"
+const state = [
+  {
+    label: "启用",
+    value: "1"
+  },
+  {
+    label: "禁用",
+    value: "2"
+  }
+]
+const account = [
+  {
+    label: "第一个上级",
+    value: "11"
+  },
+  {
+    label: "第二个 上级",
+    value: "222"
+  }
+]
+const icon = [
+  {
+    label: "第一个图标",
+    value: "1"
+  },
+  {
+    label: "第二个图标",
+    value: "2"
+  }
+]
+export default {
+  data() {
+    return {
+      dialogVisible: false,
+      options: null,
+      options1: null,
+      sources: new Run.Source(),
+      form: {
+        name: "",
+        identification: ""
+      },
+      tableData: []
+    }
+  },
+  created() {
+    this.options = new Run.Work({
+      config: {
+        layout: "treegrid",
+        title: "菜单管理"
+      },
+      actions: ["create", "update", "delete", "see"],
+      tabs: "tabs",
+      list: {
+        columns: [
+          {
+            label: "菜单名称",
+            field: "name",
+            layout: "text"
+          },
+          { label: "启动页面", field: "start_up", layout: "text" },
+          { label: "是否激活", field: "sex", layout: "text" },
+          { label: "图标", field: "icon", layout: "text" }
+        ],
+        layout: "treegrid"
+      },
+      form: {
+        columns: [
+          {
+            label: "上级菜单",
+            field: "parent_id",
+            layout: "select",
+            source: "account"
+          },
+          { label: "菜单名称", field: "name", layout: "text" },
+          { label: "模块标识", field: "e_key", layout: "text" },
+          {
+            label: "模块图标",
+            field: "icon",
+            layout: "select",
+            source: "icon"
+          },
+          { label: "启动页面", field: "start_up", layout: "text" },
+          { label: "排序", field: "sl_index", layout: "text" },
+          {
+            label: "启用状态",
+            field: "enable_state",
+            layout: "radio",
+            source: "state"
+          },
+          {
+            label: "授权状态",
+            field: "authorize_state",
+            layout: "radio",
+            source: "state"
+          }
+        ]
+      },
+      search: {
+        layout: "multiple",
+        columns: [{ label: "名称", field: "name", layout: "select" }]
+      }, 
+      events: {
+        search(params) {
+          setTimeout(() => {
+            const { rows } = Mock.mock({
+              "rows|10": [
+                {
+                  name: () => Mock.Random.cname(),
+                  icon: () => Mock.Random.cname(),
+                  sex: () => Mock.Random.boolean(),
+                  "parent_id|1": ["男", "女"],
+                  "id|+1": 1,
+                  parentId() {
+                    return this.id > 5 ? Mock.mock({ "id|1-5": 1 }).id : null
+                  }
+                }
+              ],
+              total() {
+                return this.rows.lenngth
+              }
+            })
+            this.sources.set("rows", rows)
+          }, 1000)
+        },
+        delete(rows, done) {
+          setTimeout(() => {
+            done()
+          }, 1000)
+        },
+        create() {
+console.log(11)
+        },
+        submit(form, done) {
+          setTimeout(() => {
+
+            done()
+          }, 1000)
+        },
+        edit(form) {}
+      },
+      sources: this.sources
+    })
+    this.searchDate()
+    // this.options1 = new Run.Work({
+    //   config: {
+    //     title: "增加增加"
+    //   },
+    //   actions: ["create", "update", "delete", "see"],
+    //   list: [
+    //     { label: "启动页面", field: "start_up", layout: "text" },
+    //     { label: "是否激活", field: "sex", layout: "text" }
+    //   ],
+    //   form: [
+    //     { label: "启动页面", field: "start_up", layout: "text" },
+    //     { label: "是否激活", field: "sex", layout: "text" }
+    //   ],
+    //   events: {
+    //     search(params) {},
+    //     delete(rows, done) {
+    //       setTimeout(() => {
+    //         done()
+    //       }, 1000)
+    //     },
+    //     submit(form, done) {
+    //       setTimeout(() => {
+    //         done()
+    //       }, 1000)
+    //     },
+    //     edit(form) {}
+    //   }
+    // })
+  },
+  methods: {
+    searchDate() {
+      setTimeout(() => {
+        this.sources.set("state", state)
+        this.sources.set("icon", icon)
+        this.sources.set("account", account)
+      }, 3000)
+    },
+    add() {
+      this.dialogVisible = true
+    },
+    sure() {
+      this.tableData.push(this.form)
+      this.dialogVisible = false
+    },
+    cancel() {
+      this.dialogVisible = false
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>

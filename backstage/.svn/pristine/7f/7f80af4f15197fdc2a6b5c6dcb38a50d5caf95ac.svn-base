@@ -1,0 +1,53 @@
+/**
+ * author:赵赛赛
+ * created_at:2019/3/18
+ * */
+const LogLoginModel = require('../../model/system/LogLoginModel')
+const Op = require('sequelize').Op
+
+class LogLoginManager {
+  /**
+   * 创建
+   * @param input { Object}
+   * @param callback 回调
+   */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数！'))
+    } else {
+      LogLoginModel
+        .create(input)
+        .then(position => callback(null, position))
+        .catch(callback)
+    }
+  }
+
+  /**
+   * 删除
+   * @param input {Array, String}
+   * @param callback
+   */
+  destroy (input, callback) {
+    const rows = Array.isArray(input) ? input : [input]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    LogLoginModel
+      .destroy(condition)
+      .then((count) => callback(null, count))
+      .catch(callback)
+  }
+
+  /**
+   * 获取全部
+   * @param input
+   * @param callback
+   */
+  findAll (input, callback) {
+    const options = LogLoginModel.buildOptions(input)
+    LogLoginModel
+      .findAndCountAll(options)
+      .then(result => callback(null, result))
+      .catch(callback)
+  }
+}
+
+module.exports = LogLoginManager

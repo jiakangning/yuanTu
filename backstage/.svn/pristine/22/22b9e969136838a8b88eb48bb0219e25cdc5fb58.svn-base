@@ -1,0 +1,57 @@
+/*
+ * @Author: zhaoqinglong
+ * @Date: 2019-03-16 12:41:33
+ * @Last Modified by: zhaoqinglong
+ * @Last Modified time: 2019-03-18 17:01:10
+ */
+
+const express = require('express')
+const {
+  create,
+  update,
+  getContacts,
+  getContactById,
+  delContactById,
+  completeUserContact,
+  associateUserAndContact
+} = require('../../controller/system/contact')
+
+const router = express.Router()
+/**
+ * 创建联系人
+ */
+router.post('/contact', create)
+/**
+ * 获取联系人
+ */
+router.get('/contacts', getContacts)
+
+// 链式方法
+router.route('/contact/:id')
+  .get(getContactById)
+  .post(update)
+  .delete(delContactById)
+/**
+ * 修改联系人
+ */
+// router.post('/contact/:id', update)
+/**
+ * 根据id查询联系人详细信息
+ */
+// router.get('/contact/:id', getContactById)
+/**
+ * 删除联系人
+ */
+// router.delete('/contact/:id', delContactById)
+
+/**
+ * 完善用户的详细资料
+ */
+router.post('/completeUserContact', completeUserContact)
+
+/**
+ * 关联用户和联系人
+ */
+router.post('/associateUserAndContact', associateUserAndContact)
+
+module.exports = router

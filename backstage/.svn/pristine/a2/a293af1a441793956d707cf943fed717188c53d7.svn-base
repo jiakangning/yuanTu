@@ -1,0 +1,145 @@
+import _ from 'lodash'
+import Base from './Base'
+import Search from './Search'
+import List from './List'
+import Tabs from './Tabs'
+
+export const WorkAction = class WorkAction {
+
+  static DEFAULT = {
+    see: {
+      action: 'see',
+      type: 'default',
+      text: '查看',
+      icon: 'el-icon-view'
+    },
+    create: {
+      action: 'create',
+      type: 'default',
+      text: '新增',
+      icon: 'el-icon-plus'
+    },
+    update: {
+      action: 'update',
+      type: 'default',
+      text: '修改',
+      icon: 'el-icon-edit'
+    },
+    import: {
+      action: 'import',
+      type: 'default',
+      text: '导入',
+      icon: 'el-icon-upload2'
+    },
+    export: {
+      action: 'export',
+      type: 'default',
+      text: '导出',
+      icon: 'el-icon-download'
+    },
+    delete: {
+      action: 'delete',
+      type: 'danger',
+      text: '删除',
+      icon: 'el-icon-delete'
+    }
+  }
+
+  constructor(action) {
+    if (typeof action === 'string') {
+      let [key, text] = action.split(":")
+      let obj = WorkAction.DEFAULT[key]
+      text = text || obj.text
+      Object.assign(this, obj, { text })
+    } else if (typeof action === "object") {
+      Object.assign(this, action)
+    }
+  }
+
+}
+
+class WorkConfig {
+
+  constructor(options) {
+    this.title = _.get(options, "title")
+    this.describe = _.get(options, "describe")
+  }
+
+  get(field) {
+    return field ? this[field] : this
+  }
+}
+
+class Work extends Base {
+
+  static EVENTS = {
+    search: "search"
+  }
+
+  constructor({ events = {}, sources = {}, config = {}, search = {}, list = {}, actions = [], tabs }) {
+    super({ events, sources })
+    this.initConfig(config)
+    this.initSearch(search)
+    this.initList(list)
+    this.initActions(actions)
+    this.initTabs(tabs)
+    this.initBefore()
+  }
+
+  initBefore() {
+    this.events.before(Work.EVENTS.search, () => {
+      let tabsParams = this.tabs.getParams()
+      let listParams = this.list.getParams()
+      let searchParams = this.search.getParams()
+      return _.merge({}, listParams, tabsParams, searchParams)
+    })
+  }
+
+  initConfig(config) {
+    this.config = config instanceof WorkConfig ? config : new WorkConfig(config)
+  }
+
+  initSearch(search) {
+    this.search = Search.Transform(search)
+    this.search.initSources(this.sources)
+    this.search.initEvents(this.events)
+  }
+
+  initList(list) {
+    this.list = List.Transform(list)
+    this.list.initSources(this.sources)
+    this.list.initEvents(this.events)
+  }
+
+  initActions(actions) {
+    this.actions = actions.map(item => item instanceof WorkAction ? item : new WorkAction(item))
+  }
+
+  initTabs(tabs) {
+    this.tabs = tabs instanceof Tabs ? tabs : new Tabs({ config: tabs })
+    this.tabs.initSources(this.sources)
+    this.tabs.initEvents(this.events)
+  }
+
+  getConfig(field) {
+    return this.config.get(field)
+  }
+
+  getSearch() {
+    return this.search
+  }
+
+  getList() {
+    return this.list
+  }
+
+  getActions() {
+    return this.actions
+  }
+
+  getTabs() {
+    return this.tabs
+  }
+}
+
+export default Work

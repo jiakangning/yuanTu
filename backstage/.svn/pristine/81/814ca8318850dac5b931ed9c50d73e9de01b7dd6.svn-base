@@ -1,0 +1,30 @@
+import Vue from 'vue'
+import Router from 'vue-router'
+import system from './system.js'
+import run from './run.js'
+
+const mainRoutes = [].concat(system, run)
+
+const routes = {
+  mode: 'history',
+  routes: [
+    {
+      path: '/',
+      redirect: '/login'
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import("@/apps/base/login/index.vue")
+    },
+    {
+      path: '/main',
+      component: () => import("@/apps/base/main/index.vue"),
+      children: mainRoutes
+    }
+  ]
+}
+
+Vue.use(Router)
+
+export default new Router(routes)

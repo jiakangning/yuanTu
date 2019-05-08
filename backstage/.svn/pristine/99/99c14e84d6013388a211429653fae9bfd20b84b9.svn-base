@@ -1,0 +1,207 @@
+// 王鼎  3-15  18，25
+<template>
+  <run-work :options="options">
+    <run-column
+      position="form"
+      after="authorizeState">
+        <el-form-item label="功能命令">
+            <run-work :options="options1"> </run-work>
+        </el-form-item>
+    </run-column>
+  </run-work>
+</template>
+
+<script>
+import Run from "run"
+import Mock from "mockjs"
+import { system_menu as Menu } from "@/store/action-types.js"
+const state = [
+  {
+    label: "启用",
+    value: "1"
+  },
+  {
+    label: "禁用",
+    value: "2"
+  }
+]
+const account = [
+  {
+    label: "第一个上级",
+    value: "11"
+  },
+  {
+    label: "第二个上级",
+    value: "222"
+  }
+]
+const icon = [
+  {
+    label: "第一个图标",
+    value: "1"
+  },
+  {
+    label: "第二个图标",
+    value: "2"
+  }
+]
+export default {
+  data() {
+    return {
+      dialogVisible: false,
+      options: null,
+      options1: null,
+      sources: new Run.Source(),
+      form: {
+        name: "",
+        identification: ""
+      },
+      tableData: []
+    }
+  },
+  created() {
+    const { parentId } = Mock.mock({
+      "parentId|50": [
+        {
+          label: () => Mock.Random.name(),
+          "value|+1": 1
+        }
+      ]
+    })
+    this.sources.set("parentId", parentId)
+    this.options = new Run.Work({
+      config: {
+        title: "菜单管理"
+      },
+      actions: ["create", "update", "delete", "see"],
+      list: {
+        primaryField: "text",
+        layout: "treegrid",
+        columns: ["text", "icon", "startUp", "enableState"]
+      },
+      form: {
+        columns: [
+          "parentId:select",
+          "text",
+          "eKey",
+          "icon",
+          "startUp",
+          "slIndex",
+          "enableState",
+          "authorizeState"
+        ]
+      },
+      search: {
+        layout: "multiple",
+        columns: ["text:select"]
+      },
+      columns: [
+        {
+          label: "上级菜单",
+          field: "parentId",
+          layout: "select",
+          source: "parentId"
+        },
+        { label: "菜单名称", field: "text", layout: "text" },
+        { label: "模块标识", field: "eKey", layout: "text" },
+        {
+          label: "模块图标",
+          field: "icon",
+          layout: "select",
+          source: "icon"
+        },
+        { label: "启动页面", field: "startUp", layout: "text" },
+        { label: "排序", field: "slIndex", layout: "number" },
+        {
+          label: "启用状态",
+          field: "enableState",
+          layout: "radio",
+          source: "state"
+        },
+        {
+          label: "授权状态",
+          field: "authorizeState",
+          layout: "radio",
+          source: "state"
+        },
+        { label: "启动页面", field: "startUp", layout: "text" },
+        { label: "是否激活", field: "sex", layout: "text" },
+        { label: "图标", field: "icon", layout: "text" }
+      ],
+      events: {
+        // search: params => {
+        //   this.$store.dispatch(Menu.search, params).then(({ rows, total }) => {
+        //     this.sources.set("rows", rows)
+        //     this.sources.set("total", total)
+        //   })
+        // },
+        delete: (rows, done) => {
+          this.$store
+            .dispatch(Menu.delete, rows.map(v => v.id))
+            .then(() => done())
+            .catch(done)
+        },
+        submit: (form, done) => {
+          const action = !form.id ? Menu.create : Menu.update
+          this.$store
+            .dispatch(action, form)
+            .then(() => done())
+            .catch(done)
+        }
+      },
+      sources: this.sources
+    })
+    this.searchDate()
+
+    // 功能命令
+    this.options1 = new Run.Work({
+      actions: ["create", "update", "delete"],
+      list: {
+        pagination: false,
+        columns: ["name1", "name2"]
+      },
+      form: ["name1", "name2"],
+      columns: [
+        { label: "名称", field: "name1", layout: "text" },
+        { label: "标识", field: "name2", layout: "text" }
+      ],
+      events: {
+        search(params) {
+          setTimeout(() => {
+            const { rows } = Mock.mock({
+              "rows|4": [
+                {
+                  name1: () => Mock.Random.cname(),
+                  name2: () => Mock.Random.cname()
+                }
+              ],
+              total() {
+                return this.rows.lenngth
+              }
+            })
+            this.sources.set("rows", rows)
+          }, 1000)
+        },
+        delete(rows, done) {
+          setTimeout(() => {
+            done()
+          }, 1000)
+        },
+        edit(form) {}
+      }
+    })
+  },
+  methods: {
+    searchDate() {
+      setTimeout(() => {
+        this.sources.set("state", state)
+        this.sources.set("icon", icon)
+        this.sources.set("account", account)
+      }, 3000)
+    }
+  }
+}
+</script>
+
+<style scoped>
+</style>

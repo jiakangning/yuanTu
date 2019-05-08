@@ -1,0 +1,10 @@
+const Validator = require('../../util/Validator')
+
+class Staff extends Validator {
+  constructor (args) {
+    super()
+    Object.assign(this, args)
+  }
+}
+
+module.exports = Staff

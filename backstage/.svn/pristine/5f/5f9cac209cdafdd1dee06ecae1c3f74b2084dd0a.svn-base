@@ -1,0 +1,148 @@
+<template>
+  <run-work :options="options">
+    <run-column
+        position="list"
+        after="isValid"
+        label="图标"
+        field="icon">
+      <span slot-scope="scope">
+        <span :class="scope.row.icon"></span>
+      </span>
+    </run-column>
+    <run-column
+        position="form"
+        after="eKey"
+        label="图标"
+        field="icon">
+      <el-select
+          v-model="icon"
+          placeholder="请选择图标"
+          filterable
+          clearable
+          style="width: 100%">
+        <el-option
+            v-for="item in iconData"
+            :key="item.className"
+            :label="item.name"
+            :value="item.className">
+          <span style="float: left">{{ item.name }}</span>
+          <span
+              style="float: right;font-size: 16px;font-weight: bold"
+              :class="item.className"></span>
+        </el-option>
+      </el-select>
+    </run-column>
+  </run-work>
+</template>
+
+<script>
+  import Run from 'run'
+  import {system_mobileModule as mobileModule} from '@/store/action-types.js'
+  import iconData from './data/icon'
+
+  export default {
+    data() {
+      return {
+        iconData: null,
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    computed: {
+      icon: {
+        get() {
+          if (!this.options) return
+          return this.options.getForm().getForm("icon")
+        },
+        set(val) {
+          if (!this.options) return
+          return this.options.getForm().setForm(val, "icon")
+        }
+      }
+    },
+    mounted() {
+      this.iconData = iconData.result
+      this.options = new Run.Work({
+        config: {
+          title: "移动端菜单管理"
+        },
+        actions: ["create", "update", "delete", "see"],
+        list: {
+          primaryField: "mobileText",
+          layout: "treegrid",
+          columns: [
+            "mobileText",
+            "eKey",
+            "isValid"
+          ]
+        },
+        form: [
+          "parentId",
+          "mobileText",
+          "eKey",
+          "slIndex",
+          "description",
+          "isValid"
+        ],
+        columns: [
+          {
+            label: "上级模块",
+            field: "parentId",
+            layout: "treeselect",
+            source: "menuTree",
+            _changeOnSelect: true,
+            _props: {label: "mobileText", value: "id", children: "children"}
+          },
+          {label: "菜单名称", field: "mobileText", layout: "text", rules: true},
+          {label: "菜单编号", field: "eKey", layout: "text", rules: true},
+          {label: "是否激活", field: "isValid", layout: "radio", source: "state", rules: true},
+          {label: "图标", field: "icon", layout: "select", source: "icon"},
+          {label: "排序", field: "slIndex", layout: "number"},
+          {label: "描述", field: "description", layout: "textarea"}
+        ],
+        events: {
+          loading(store, done) {
+            const state = [
+              {
+                label: "启用",
+                value: true
+              },
+              {
+                label: "禁用",
+                value: false
+              }
+            ]
+            this.sources.set("state", state)
+            done()
+          },
+          search: (params) => {
+            this.$store.dispatch(mobileModule.search, params).then(({rows, count}) => {
+              this.sources.set("rows", rows)
+              this.sources.set("count", count)
+              this.sources.build("menuTree", rows)
+            })
+          },
+          delete: (rows, done) => {
+            this.$store.dispatch(mobileModule.delete, rows.map(v => v.id)).then(() => done()).catch(done)
+          },
+          submit: (form, done) => {
+            const action = !form.id ? mobileModule.create : mobileModule.update
+            this.$store.dispatch(action, form).then(() => done()).catch(done)
+          },
+          create: (form, store) => {
+            let row = this.menuOptions.getList().row
+            row && store.setForm({parentId: row.id})
+            this.sources.build("menuTree", this.sources.get("rows"))
+          },
+          edit(form) {
+            this.sources.build("menuTree", this.sources.get("rows"), {exclude: form.id})
+          }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

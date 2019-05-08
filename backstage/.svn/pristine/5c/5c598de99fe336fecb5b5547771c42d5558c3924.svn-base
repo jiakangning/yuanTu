@@ -1,0 +1,165 @@
+<template>
+  <run-work :options="options">
+    <run-column
+      position="form"
+      after="authorizeState">
+        <el-form-item label="功能命令">
+          <run-work :options="options1"></run-work>
+        </el-form-item>
+    </run-column>
+  </run-work>
+</template>
+
+<script>
+  import Run from "run"
+  import Mock from "mockjs"
+  import { system_menu as Menu } from "@/store/action-types.js"
+
+  /**
+   * @author 王鼎
+   * @date 2019-03-15
+   * @description 菜单管理
+   */
+  export default {
+    data() {
+      return {
+        options: null,
+        options1: null,
+        sources: new Run.Source()
+      }
+    },
+    created() {
+      this.options = new Run.Work({
+        config: {
+          title: "菜单管理"
+        },
+        actions: ["create", "update", "delete", "see"],
+        list: {
+          primaryField: "text",
+          layout: "treegrid",
+          columns: ["text", "icon", "startUp", "enableState"]
+        },
+        form: {
+          columns: [
+            "parentId:select",
+            "text",
+            "eKey",
+            "icon",
+            "startUp",
+            "slIndex",
+            "enableState",
+            "authorizeState"
+          ]
+        },
+        search: {
+          layout: "multiple",
+          columns: ["text"]
+        },
+        columns: [
+          { label: "上级菜单", field: "parentId", layout: "select", source: "parentId" },
+          { label: "菜单名称", field: "text", layout: "text", search: true },
+          { label: "模块标识", field: "eKey", layout: "text" },
+          { label: "模块图标", field: "icon", layout: "select", source: "icon" },
+          { label: "启动页面", field: "startUp", layout: "text" },
+          { label: "排序", field: "slIndex", layout: "number" },
+          { label: "启用状态", field: "enableState", layout: "radio", source: "state" },
+          { label: "授权状态", field: "authorizeState", layout: "radio", source: "state" },
+          { label: "启动页面", field: "startUp", layout: "text" },
+          { label: "是否激活", field: "sex", layout: "text" },
+          { label: "图标", field: "icon", layout: "text" }
+        ],
+        events: {
+          loading: (store, done) => {
+            const state = [
+              {
+                label: "启用",
+                value: 1
+              },
+              {
+                label: "禁用",
+                value: 2
+              }
+            ]
+            const account = [
+              {
+                label: "第一个上级",
+                value: "11"
+              },
+              {
+                label: "第二个上级",
+                value: "222"
+              }
+            ]
+            const icon = [
+              {
+                label: "第一个图标",
+                value: "1"
+              },
+              {
+                label: "第二个图标",
+                value: "2"
+              }
+            ]
+            this.sources.set("state", state)
+            this.sources.set("icon", icon)
+            this.sources.set("account", account)
+            done()
+          },
+          search: params => {
+            this.$store.dispatch(Menu.search, params).then(({ rows, count }) => {
+              this.sources.set("rows", rows)
+              this.sources.set("count", count)
+              const parentId = rows.map(it => ({ label: it.text, value: it.id }))
+              this.sources.set("parentId", parentId)
+            })
+          },
+          delete: (rows, done) => {
+            this.$store
+              .dispatch(Menu.delete, rows.map(v => v.id))
+              .then(() => done())
+              .catch(done)
+          },
+          submit: (form, done) => {
+            console.log(form)
+            form.commands = this.sources.get("commandRows")
+            const action = !form.id ? Menu.create : Menu.update
+            this.$store
+              .dispatch(action, form)
+              .then(() => done())
+              .catch(done)
+          }
+        },
+        sources: this.sources
+      })
+
+      // 功能命令
+      this.options1 = new Run.Work({
+        actions: ["create", "update", "delete"],
+        list: {
+          rows: "commandRows",
+          pagination: false,
+          columns: ["text", "cmdKey"]
+        },
+        form: ["text", "cmdKey"],
+        columns: [
+          { label: "名称", field: "text", layout: "text" },
+          { label: "标识", field: "cmdKey", layout: "text" }
+        ],
+        sources: this.sources,
+        events: {
+          search() {
+          },
+          submit: (form, done) => {
+            Object.assign(form, { menuType: "pc" })
+            let rows = (this.sources.get("commandRows") || []).concat(form)
+            this.sources.set("commandRows", rows)
+            done()
+          }
+        }
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

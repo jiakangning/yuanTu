@@ -1,0 +1,99 @@
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  import Run from 'run'
+  import Mock from 'mockjs'
+
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    mounted() {
+      this.options = new Run.Work({
+        config: {
+          title: "隐患排查",
+          describe: "数据来源与手机随手拍"
+        },
+        tabs: "tabs",
+        actions: ["create", "update", "delete"],
+        list: {
+          columns: ["user", "serial", "name"]
+        },
+        form: ["name", "user", "serial"],
+        search: ["name", "user"],
+        columns: [
+          { label: "名称", field: "name", layout: "text", _sortable: true },
+          { label: "主管", field: "user", layout: "text" },
+          { label: "序号", field: "serial", layout: "text" }
+        ],
+        events: {
+          loading(rows, done) {
+            setTimeout(() => {
+              this.sources.set("tabs", [
+                {
+                  label: "风险管控",
+                  params: { category: 1 }
+                },
+                {
+                  label: "隐患排查",
+                  params: { category: 2 }
+                }
+              ])
+              done()
+            }, 1000)
+          },
+          search(params) {
+            console.log(params, '=====')
+            setTimeout(() => {
+              const { rows, count, category } = Mock.mock({
+                "rows|50-100": [{
+                  "name": () => Mock.Random.cname(),
+                  "user": () => Mock.Random.cname(),
+                  "serial|+1": 1,
+                  "id|+1": 1,
+                  "parentId"() {
+                    return this.id > 5 ? Mock.mock({ "id|1-5": 1 }).id : null
+                  }
+                }],
+                "count"() {
+                  return this.rows.length
+                },
+                "category|4": [{
+                  "label|+1": ["基础检查", "安全大检查", "榆北煤业", "上级领导检查"],
+                  "value|+1": [1, 2, 3, 4]
+                }]
+              })
+              this.sources.set("rows", rows)
+              this.sources.set("count", count)
+              this.sources.set("category", category)
+            }, 1000)
+          },
+          delete(rows, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          submit(form, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          edit(form, store) {
+            console.log(this, form, store)
+          },
+          create() {
+          }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

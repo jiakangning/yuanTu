@@ -1,0 +1,144 @@
+/*
+ * @Author: zhaoqinglong
+ * @Date: 2019-03-19 15:22:51
+ * @Last Modified by: zhaoqinglong
+ * @Last Modified time: 2019-03-20 11:35:07
+ */
+const sequelize = require('sequelize')
+const Op = sequelize.Op
+const dbCtx = require('../../../database/dbCtx')
+const buildDefaultOption = require('../../util/buildDefaultOption')
+const Contact = dbCtx.define('contact', {
+  name: {
+    type: sequelize.STRING,
+    allowNull: false
+  },
+  pinyin: {
+    type: sequelize.STRING
+  },
+  capital: {
+    type: sequelize.STRING
+  },
+  address: {
+    type: sequelize.STRING
+  },
+  // 私人电话
+  privatePhone: {
+    type: sequelize.STRING,
+    field: 'private_phone'
+  },
+  // 公司电话
+  companyPhone: {
+    type: sequelize.STRING,
+    field: 'company_phone'
+  },
+  // 井下电话
+  downholePhone: {
+    type: sequelize.STRING,
+    field: 'downhole_phone'
+  },
+  // 身份证号
+  identityNumber: {
+    type: sequelize.STRING,
+    field: 'identity_number'
+  },
+  // 唯一编码
+  uniqueCode: {
+    type: sequelize.STRING,
+    unique: true,
+    field: 'unique_code'
+  },
+  // 卡号
+  cardNumber: {
+    type: sequelize.STRING,
+    field: 'card_number'
+  },
+  // 籍贯
+  birthPlace: {
+    type: sequelize.STRING,
+    field: 'birth_place'
+  },
+  email: {
+    type: sequelize.STRING,
+    validate: {
+      isEmail: true
+    }
+  },
+  birthDate: {
+    type: sequelize.DATE,
+    field: 'birth_date'
+  },
+  // 参加工作时间
+  workTime: {
+    type: sequelize.DATE,
+    field: 'work_time'
+  },
+  // 教育程度
+  educationLevel: {
+    type: sequelize.STRING,
+    field: 'education_level'
+  },
+  // 大学专业
+  major: {
+    type: sequelize.STRING
+  },
+  // 民族
+  nationality: {
+    type: sequelize.STRING
+  },
+  // 婚姻状况
+  maritalStatus: {
+    type: sequelize.STRING,
+    field: 'marital_status'
+  },
+  // 政治面貌
+  politicalStatus: {
+    type: sequelize.STRING,
+    field: 'political_status'
+  },
+  // 工种名称
+  workKind: {
+    type: sequelize.STRING,
+    field: 'work_kind'
+  },
+  // 在职状态
+  inserviceStatus: {
+    type: sequelize.STRING,
+    field: 'inservice_status'
+  },
+  photo: {
+    type: sequelize.STRING
+  },
+  sex: {
+    type: sequelize.STRING,
+    validate: {
+      isIn: [
+        ['男', '女']
+      ]
+    }
+  },
+  description: {
+    type: sequelize.STRING
+  },
+  isLocked: {
+    type: sequelize.BOOLEAN,
+    field: 'is_locked'
+  }
+}, {
+  timestamps: true,
+  paranoid: true,
+  underscored: true,
+  tableName: 'system_contact'
+})
+Contact.buildOptions = function ({ keywords = '', ...raw } = {}) {
+  let result = buildDefaultOption(raw)
+  keywords && (result.where = {
+    [Op.or]: [
+      { name: { [Op.like]: `%${keywords}%` } },
+      { identityNumber: { [Op.like]: `%${keywords}%` } },
+      { cardNumber: { [Op.like]: `%${keywords}%` } }
+    ]
+  })
+  return result
+}
+module.exports = Contact

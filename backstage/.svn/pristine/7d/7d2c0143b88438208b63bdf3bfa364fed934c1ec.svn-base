@@ -1,0 +1,13 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+const router = require('express').Router()
+const { create, update, destroy, findAll } = require('../../../app/controller/system/menuController')
+// 菜单路由
+router.post('/menu/create', create)
+router.post('/menu/update', update)
+router.post('/menu/destroy', destroy)
+router.post('/menu/findAll', findAll)
+
+module.exports = router

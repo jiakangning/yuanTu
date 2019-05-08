@@ -1,0 +1,172 @@
+<script type="text/jsx">
+  import basic from './basic.vue'
+  import match from '../../common/match.js'
+
+  export default {
+    extends: basic,
+    render(h) {
+      return (
+        <div class={ `run-list-table ${ this.currentPagination ? 'is-pagination' : '' }` }>
+          <div class="run-list-table-main">
+            { this.renderTable(h) }
+          </div>
+          <div class="run-list-table-pagination">
+             { this.renderPagination(h) }
+          </div>
+        </div>
+      )
+    },
+    computed: {
+      currentTableOptions() {
+        return {
+          data: this.currentSource,
+          emptyText: this.currentEmptyText,
+          fit: true,
+          stripe: false,
+          border: true,
+          highlightCurrentRow: true,
+          height: "100%",
+          size: "small",
+          ...this.currentRawOption
+        }
+      },
+      currentTableEvents() {
+        return {
+          "current-change": this.onCurrentChange,
+          "selection-change": this.onSelectionChange,
+          "sort-change": this.onSortChange,
+          ...this.currentRawListener
+        }
+      },
+      currentPaginationOptions() {
+        return {
+          total: this.currentTotal,
+          currentPage: this.page,
+          pageSize: this.limitNum,
+          pageSizes: [25, 50, 100, 200, 500, 1000],
+          layout: "total, -> ,sizes, -> , prev, pager, next",
+          ...this.options.getConfig("paginationOptions")
+        }
+      },
+      currentPaginationEvents() {
+        return {
+          "update:pageSize": this.onPageSizeChange,
+          "update:currentPage": this.onCurrentPageChange
+        }
+      },
+      currentSelection() {
+        return this.options.getConfig('selection')
+      },
+      currentLimit() {
+        if (!this.currentPagination) return -1
+        return this.limitNum === null ? this.currentPaginationOptions.pageSizes[0] : this.limitNum
+      },
+      currentPagination() {
+        return this.options.getConfig('pagination')
+      },
+      currentTotalKey() {
+        return this.options.getConfig('total')
+      },
+      currentTotal() {
+        return this.options.getSources(this.currentTotalKey)
+      },
+      currentParams() {
+        return Object.assign({ limit: this.currentLimit, skip: (this.page - 1) * this.currentLimit }, this.sort)
+      }
+
+    },
+    data() {
+      return {
+        page: 1,
+        limitNum: null
+      }
+    },
+    methods: {
+      onPageSizeChange(val) {
+        this.limitNum = val
+      },
+      onCurrentPageChange(val) {
+        this.page = val
+      },
+      renderPagination(h) {
+        if (!this.currentPagination) return
+        return h("el-pagination", {
+          props: this.currentPaginationOptions,
+          on: this.currentPaginationEvents
+        })
+      },
+      renderColumns(h) {
+        let columns = this.getColumns(h)
+        columns.unshift(this.getSerialColumn(h))
+        columns.unshift(this.getSelectionColumn(h))
+        return columns
+      },
+      getSelectionColumn(h) {
+        if (!this.currentSelection) return
+        return (
+          <el-table-column
+            fixed={ true }
+            type="selection"
+            width="55"
+            align="center"
+          />
+        )
+      },
+      getSerialColumn(h) {
+        if (!this.currentSerial) return
+        let serial = {
+          fixed: true,
+          type: "index",
+          label: "序号",
+          width: "50px",
+          align: "center",
+          index: index => index + 1
+        }
+        match(this.currentSerial)
+          .string(val => (serial.label = val))
+          .function(val => (serial.index = val))
+          .object(val => Object.assign(serial, val))
+        return h("el-table-column", { props: serial })
+      },
+      getDeleteRows() {
+        let rows = []
+        if (this.selection.length) {
+          rows = this.selection
+        } else if (this.row) {
+          rows = [this.row]
+        }
+        return rows
+      }
+    },
+    watch: {
+      limitNum() {
+        this.onRefresh()
+      },
+      page() {
+        this.onRefresh()
+      }
+    }
+  }
+</script>
+
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus">
+  .run-list-table
+    width: 100%
+    height: 100%
+    padding-bottom: 20px
+    box-sizing: border-box
+
+    &.is-pagination
+      padding-bottom: 40px
+
+    &-main
+      width: 100%
+      height: 100%
+
+    &-pagination
+      width: 100%
+      margin: 4px 0
+</style>

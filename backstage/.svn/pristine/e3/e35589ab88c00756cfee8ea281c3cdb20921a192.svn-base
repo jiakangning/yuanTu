@@ -1,0 +1,119 @@
+<script type="text/jsx">
+  import Column from '../../model/Column'
+  import columnBasic from '../columns/index.vue'
+  import List from '../../model/List'
+
+  export default {
+    components: { columnBasic },
+    props: {
+      options: {}
+    },
+    data() {
+      return {
+        sort: {},
+        row: null,
+        selection: []
+      }
+    },
+    computed: {
+      currentRawOption() {
+        return this.options.getConfig('rawOption')
+      },
+      currentRawListener() {
+        return this.options.getConfig('rawListener')
+      },
+      currentRowsKey() {
+        return this.options.getConfig('rows')
+      },
+      currentSerial() {
+        return this.options.getConfig('serial')
+      },
+      currentColumns() {
+        return this.options.getColumns()
+      },
+      currentSource() {
+        return this.options.getSources(this.currentRowsKey) || []
+      },
+      currentEmptyText() {
+        return "暂无数据！！！"
+      }
+    },
+    methods: {
+      onRefresh() {
+        this.$nextTick(() => {
+          this.options.emit(List.EVENTS.search, this.currentParams)
+        })
+      },
+      onSortChange({ order, prop }) {
+        this.sort = order ? { [order]: prop } : {}
+      },
+      onCurrentChange(row) {
+        this.row = row
+        this.options.emit(List.EVENTS.currentChange, this.row)
+      },
+      onSelectionChange(selection) {
+        this.selection = selection
+        this.options.emit(List.EVENTS.selectionChange, this.selection)
+      },
+      renderTable(h) {
+        return h("el-table", {
+          props: this.currentTableOptions,
+          on: this.currentTableEvents,
+          ref: "table"
+        }, [
+          this.renderColumns(h)
+        ])
+      },
+      getColumns(h) {
+        let columns = this.currentColumns.map(item => {
+          return {
+            field: item.field,
+            vNode: (
+              <column-basic
+                options={ this.options }
+                column={ item }
+              />
+            )
+          }
+        })
+        let _columns = Column.GetColumnsFormSlots(this.$slots.default, Column.POSITION.list)
+        _columns.forEach((column) => {
+          let index = columns.findIndex(item => item.field === column.field)
+          if (index === -1) {
+            columns.unshift(column)
+          } else {
+            columns.splice(index + 1, 0, column)
+          }
+        })
+        return columns.map(item => item.vNode)
+      }
+    },
+    created() {
+      this.options.initContext(this)
+      this.onRefresh()
+    },
+    watch: {
+      sort() {
+        this.onRefresh()
+      },
+      row: {
+        immediate: true,
+        handler(val) {
+          this.options.setRow(val)
+        }
+      },
+      selection: {
+        immediate: true,
+        handler(val) {
+          this.options.setSelection(val)
+        }
+      },
+      currentParams: {
+        immediate: true,
+        handler(val) {
+          this.options.setParams(val)
+        }
+      }
+    }
+  }
+</script>

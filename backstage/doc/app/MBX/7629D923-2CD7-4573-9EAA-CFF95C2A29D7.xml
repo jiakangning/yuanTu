@@ -1,0 +1,57 @@
+﻿<mockup version="5.3" minAllowVersion="5.3" ID="7629D923-2CD7-4573-9EAA-CFF95C2A29D7" platform="MtWeb" defaultW="1100" defaultH="6000" measureW="1100" measureH="6000" mobileScreenScale="0">
+  <controls controlCount="7">
+    <control controlID="5F46644F-B6C6-4F78-B87D-70C6DCE14BAE" controlTypeID="Shape" x="86" y="139" w="830" h="425" zOrder="0">
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <textSize>14</textSize>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="36D563FF-672F-4E4A-AE12-58C2CFB92D9E" controlTypeID="LabelTextInput" x="124" y="165" w="280" h="24" zOrder="1">
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%E8%AE%BE%E5%A4%87%E7%BC%96%E5%8F%B7%EF%BC%9A%2C10086</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="398A4B25-924A-4E4A-8038-8964F57FCD3E" controlTypeID="LabelTextInput" x="124" y="199" w="280" h="24" zOrder="2">
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%EF%BC%9A%2C%E6%B6%B2%E5%8E%8B%E9%92%BB%E6%9C%BA</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="D4B9638D-4E7F-4E9F-87BE-9113A06C101E" controlTypeID="LabelTextInput" x="124" y="232" w="280" h="24" zOrder="3">
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%EF%BC%9A%2C%E6%B6%B2%E5%8E%8B%E9%92%BB%E6%9C%BA</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="A3DD84A5-E13D-435E-8E2D-48197BD62592" controlTypeID="LabelTextInput" x="124" y="266" w="280" h="24" zOrder="4">
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%EF%BC%9A%2C%E6%B6%B2%E5%8E%8B%E9%92%BB%E6%9C%BA</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="C65DF477-45C2-46D5-9D61-186356BACFE3" controlTypeID="LabelTextInput" x="124" y="300" w="280" h="24" zOrder="5">
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%EF%BC%9A%2C%E6%B6%B2%E5%8E%8B%E9%92%BB%E6%9C%BA</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+    <control controlID="1F6653D0-8C02-41B7-BB2B-C08C9AFFC117" controlTypeID="LabelTextInput" x="124" y="333" w="280" h="24" zOrder="6">
+      <font family="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" displayName="%E5%BE%AE%E8%BD%AF%E9%9B%85%E9%BB%91" postScript="" weightStyle="Regular" weight="400" isBold="False" isItalic="False"/>
+      <text>%E8%AE%BE%E5%A4%87%E5%90%8D%E7%A7%B0%EF%BC%9A%2C%E6%B6%B2%E5%8E%8B%E9%92%BB%E6%9C%BA</text>
+      <textSize>14</textSize>
+      <lineSpacing>0</lineSpacing>
+      <selectedIndex>-1</selectedIndex>
+    </control>
+  </controls>
+  <param>
+    <backgroundColor>4294967295</backgroundColor>
+    <fontSize>0</fontSize>
+    <fontFamily/>
+    <guideLines/>
+  </param>
+</mockup>

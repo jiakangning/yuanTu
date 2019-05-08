@@ -1,0 +1,67 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+const Op = require('sequelize').Op
+
+class CommandManager {
+  constructor (commandRepo) {
+    this.commandRepo = commandRepo || require('../../model/system/CommandModel')
+  }
+
+  /**
+   * @param {String} input
+   * */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数'))
+    } else {
+      if (Array.isArray(input)) {
+        this.commandRepo.bulkCreate(input).then(command => {
+          callback(null, command)
+        }).catch(err => { callback(err) })
+      } else {
+        this.commandRepo.create(input).then(command => {
+          callback(null, command)
+        }).catch(err => {
+          callback(err)
+        })
+      }
+    }
+  }
+
+  update (input, callback) {
+    let { id, ...conditions } = input
+    this.commandRepo.isExist(id).then(command => {
+      if (command) {
+        return command.update(conditions)
+      } else {
+        return Promise.reject(new Error('查无数据'))
+      }
+    }).then(result => {callback(null, result)})
+      .catch(err => {callback(err)})
+  }
+
+  destroy (input, callback) {
+    const { id } = input
+    const rows = Array.isArray(id) ? id : [id]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    this.commandRepo.destroy(condition)
+      .then(count => {callback(null, count)})
+      .catch(err => {callback(err)})
+  }
+
+  /**
+   *
+   * @param input
+   * @param callback
+   */
+  findAll (input, callback) {
+    const options = this.commandRepo.buildOptions(input)
+    this.commandRepo.findAndCountAll(options)
+      .then(result => {callback(null, result)})
+      .catch(err => {callback(err)})
+  }
+}
+
+module.exports = CommandManager

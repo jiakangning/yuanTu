@@ -1,0 +1,277 @@
+/*
+ * @Author: zhaoqinglong
+ * @Date: 2019-03-18 16:56:03
+ * @Last Modified by: zhaoqinglong
+ * @Last Modified time: 2019-03-18 16:56:23
+ */
+// const User = require('../../model/membership/User')
+const Contact = require('../../model/membership/Contact')
+require('../../model/membership/ER')
+class UserManager {
+  constructor (userRepo) {
+    this.userRepo = userRepo || require('../../model/membership/User')
+  }
+  create (input, callback) {
+    const {
+      username,
+      password,
+      email,
+      mobile
+    } = input
+    this.userRepo.create({
+      username,
+      password,
+      email,
+      mobile
+    })
+      .then(user => {
+        callback(null, user.get({
+          plain: true
+        }))
+      })
+      .catch(err => {
+        callback(err)
+      })
+  }
+  login (input, callback) {
+    const {
+      username,
+      password
+    } = input
+    this.userRepo.findOne({
+      where: {
+        username
+      }
+    })
+      .then(user => {
+        if (user) {
+          if (user.comparePassword(password)) {
+            return callback(null, user.get({
+              plain: true
+            }))
+          }
+          return callback(null, false, {
+            message: '用户名或密码错误'
+          })
+        }
+        return callback(null, false, {
+          message: '用户名不存在'
+        })
+      })
+      .catch(err => {
+        callback(err)
+      })
+  }
+  findByPk (id, callback) {
+    this.userRepo.findByPk(id)
+      .then(user => {
+        callback(null, user.get({
+          plain: true
+        }))
+      })
+      .catch(err => {
+        callback(err)
+      })
+  }
+  update (input, callback) {
+    const {
+      id,
+      username,
+      password
+    } = input
+    this.userRepo.findByPk(id)
+      .then(user => {
+        if (user) {
+          user.username = username
+          if (password) {
+            user.password = password
+          }
+          user.save()
+            .then(() => callback(null, user))
+            .catch(err => callback(err))
+        } else {
+          callback(new Error('用户账户不存在'))
+        }
+      })
+      .catch(err => callback(err))
+  }
+  delete (input, callback) {
+    let {
+      id
+    } = input
+    this.userRepo.destroy({
+      where: {
+        id
+      }
+    }).then(count => {
+      callback(null, `{msg:'删除了${count}条数据'}`)
+    }).catch(err => {
+      callback(err)
+    })
+  }
+  // 添加用户和联系人
+  addUserAndContact (input, callback) {
+    const {
+      username,
+      password,
+      email,
+      mobile,
+      name,
+      organizationId,
+      positionId,
+      privatePhone,
+      downholePhone,
+      address,
+      isLocked = false,
+      photo,
+      description
+    } = input
+    let that = this
+    //
+    Promise.all([that.userRepo.create({
+      username,
+      password,
+      email,
+      mobile,
+      isLocked,
+      description
+    }),
+    Contact.create({
+      name,
+      // organizationId,
+      // positionId,
+      privatePhone,
+      downholePhone,
+      address,
+      photo,
+      description
+    })
+    ]).then(([user, contact]) => {
+      this.userRepo.update({
+        contact_id: contact.id
+      }, {
+        where: {
+          id: user.id
+        }
+      }).then(user => {
+        callback(null, user)
+      }).catch(err => {
+        callback(err)
+      })
+    }).catch(err => {
+      callback(err)
+    })
+  }
+  // 修改用户和联系人
+  updateUserAndContact (input, callback) {
+    const {
+      userId,
+      contactId,
+      username,
+      password,
+      email,
+      mobile,
+      name,
+      organizationId,
+      positionId,
+      privatePhone,
+      downholePhone,
+      address,
+      isLocked,
+      photo,
+      description
+    } = input
+    // 修改user
+    this.userRepo.findByPk(userId)
+      .then(user => {
+        if (user) {
+          user.username = username
+          if (password) {
+            user.password = password
+          }
+          if (email) {
+            user.email = email
+          }
+          if (mobile) {
+            user.mobile = mobile
+          }
+          if (isLocked != null && isLocked !== undefined) {
+            user.isLocked = isLocked
+          }
+          user.description = description
+          user.save()
+            .then()
+            .catch(err => callback(err))
+        } else {
+          callback(new Error('用户账户不存在'))
+        }
+      })
+      .catch(err => callback(err))
+    // 修改contact
+    Contact.update({ name,
+      // organizationId,
+      // positionId,
+      privatePhone,
+      downholePhone,
+      address,
+      photo,
+      description }, { where: {
+      id: contactId
+    } }).then().catch(err => {
+      callback(err)
+    })
+    callback(null, { msg: '修改成功' })
+  }
+  // 关联用户和联系人
+  associateContact (input, callback) {
+    let msg = {
+      msg: '用户id或联系人id不能为空'
+    }
+    let {
+      userId,
+      contactId
+    } = input
+    if (userId == null || contactId == null) {
+      callback(msg)
+    }
+    this.userRepo.update({
+      contact_id: contactId
+    }, {
+      where: {
+        id: userId
+      }
+    }).then(user => {
+      callback(null, user)
+    }).catch(err => {
+      callback(err)
+    })
+  }
+  // 查询用户详细信息，关联contact
+  getUserContact (input, callback) {
+    let { userId } = input
+    this.userRepo.findByPk(userId, { include: [{
+      model: Contact
+    }] }).then(user => {
+      callback(null, user)
+    }).catch(err => {
+      callback(err)
+    })
+  }
+  // 查询用户详细信息列表，关联contact
+  getUserContacts (input, callback) {
+    // let { keyword, pagination } = input
+    const options = this.userRepo.buildOptions(input)
+    Object.assign(options, { include: [{
+      model: Contact
+    }] })
+    this.userRepo.findAndCountAll(options, { include: [{
+      model: Contact
+    }] }).then(user => {
+      callback(null, user)
+    }).catch(err => {
+      callback(err)
+    })
+  }
+}
+
+module.exports = UserManager

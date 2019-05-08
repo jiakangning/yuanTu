@@ -1,0 +1,141 @@
+const DrainageManager = require('../service/monitor/DrainageManager')
+const MainCoalFlowManager = require('../service/monitor/MainCoalFlowManager')
+const SafeManager = require('../service/monitor/SafeManager')
+const MinePressureManager = require('../service/monitor/MinePressureManager')
+const MainFanManger = require('../service/monitor/MainFanManager')
+
+// 定时器集合
+const timer = {
+  drainage: null,
+  mainCoalFlow: null,
+  minePressure: null,
+  safe: null,
+  mainFan: null
+}
+
+/* 排水 */
+exports.getAllDrainages = (req, res, next) => {
+  const drainageManager = new DrainageManager()
+  drainageManager.getAll({}, (error, drainages) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(drainages)
+    }
+  })
+}
+
+exports.pushAllDrainages = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer.drainage) clearInterval(timer.drainage)
+  const drainageManager = new DrainageManager()
+  timer.drainage = setInterval(() => {
+    drainageManager.getAll({}, (error, drainages) => {
+      if (error) return io.emit('Error.Realtime', error)
+      io.emit('Monitor.Drainage', { type: 'show', payload: drainages })
+    })
+  }, interval)
+}
+
+/* 主煤流 */
+exports.getAllMainCoalFlow = (req, res, next) => {
+  const mainCoalFlowManager = new MainCoalFlowManager()
+  mainCoalFlowManager.getAll({}, (error, mainCoalFlows) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(mainCoalFlows)
+    }
+  })
+}
+
+exports.pushAllMainCoalFlows = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer.mainCoalFlow) clearInterval(timer.mainCoalFlow)
+  const mainCoalFlowManager = new MainCoalFlowManager()
+  timer.mainCoalFlow = setInterval(() => {
+    mainCoalFlowManager.getAll({}, (error, mainCoalFlows) => {
+      if (error) return io.emit('Error.Realtime', error)
+      io.emit('Monitor.MainCoalFlow', { type: 'show', payload: mainCoalFlows })
+    })
+  }, interval)
+}
+/** 安全监控 */
+exports.getAllSafty = (req, res, next) => {
+  const safeManager = new SafeManager()
+  safeManager.getAll({}, (error, result) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(result)
+    }
+  })
+}
+// 推送全部安全监控值
+exports.pushAllSafty = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer.safe) clearInterval(timer.safe)
+  const safeManager = new SafeManager()
+  timer.safe = setInterval(() => {
+    safeManager.getAll({}, (error, result) => {
+      if (error) {
+        return io.emit('Error.Realtime', error)
+      } else {
+        return io.emit('Monitor.Safe', { type: 'show', payload: result })
+      }
+    })
+  }, interval)
+}
+
+/** 矿压监测 */
+exports.getAllMinePressures = (req, res, next) => {
+  const minePressureManager = new MinePressureManager()
+  minePressureManager.getAll((error, result) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(result)
+    }
+  })
+}
+// 推送全部矿压监测值
+exports.pushAllMinePressures = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer.minePressure) clearInterval(timer.minePressure)
+  const minePressureManager = new MinePressureManager()
+  timer.minePressure = setInterval(() => {
+    minePressureManager.getAll({}, (error, result) => {
+      if (error) {
+        return io.emit('Error.Realtime', error)
+      } else {
+        return io.emit('Monitor.MinePressure', { type: 'show', payload: result })
+      }
+    })
+  }, interval)
+}
+
+/** 主扇风机 */
+exports.getAllMainFan = (req, res, next) => {
+  const mainFanManger = new MainFanManger()
+  mainFanManger.getAll((error, result) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(result)
+    }
+  })
+}
+exports.pushAllMainFan = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer.mainFan) clearInterval(timer.mainFan)
+  const mainFanManger = new MainFanManger()
+  timer.mainFan = setInterval(() => {
+    mainFanManger.getAll({}, (error, result) => {
+      if (error) {
+        return io.emit('Error.Realtime', error)
+      } else {
+        return io.emit('Monitor.MainFan', { type: 'show', payload: result })
+      }
+    })
+  }, interval)
+}

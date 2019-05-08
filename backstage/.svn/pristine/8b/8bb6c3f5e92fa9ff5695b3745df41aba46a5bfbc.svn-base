@@ -1,0 +1,33 @@
+import _ from 'lodash'
+import Base from './Base'
+import Config from './Config'
+
+class ChartWidge extends Base {
+
+  static EVENTS = {
+    screen: "screen"
+  }
+
+  static DEFAULT = {
+    source: "",
+    btnText: "",
+    layout: "simple",
+    theme: "tradition"
+  }
+
+  static Transform(config) {
+    return new ChartWidge({ config })
+  }
+
+  constructor({ config = {}, sources = {}, events = {} }) {
+    super({ events, sources })
+    this.source = _.get(config, "source", ChartWidge.DEFAULT.source)
+    this.theme = _.get(config, "theme", ChartWidge.DEFAULT.theme)
+    this.layout = _.get(config, "layout", ChartWidge.DEFAULT.layout)
+    this.btnText = _.get(config, "btnText", ChartWidge.DEFAULT.btnText)
+    this.rawOption = Config.GetOptionsByStartKey(config, Config.RAWKEY.option)
+    this.rawListener = Config.GetOptionsByStartKey(config, Config.RAWKEY.listener)
+  }
+}
+
+export default ChartWidge

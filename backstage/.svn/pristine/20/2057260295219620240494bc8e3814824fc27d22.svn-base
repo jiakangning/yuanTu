@@ -1,0 +1,62 @@
+const StaffManager = require('../service/location/StaffManager')
+const VehicleManager = require('../service/location/VehicleManager')
+
+// 定时器集合
+const timer = {
+  staff: null,
+  vehicle: null
+}
+
+exports.getAllStaffs = (req, res, next) => {
+  const staffManager = new StaffManager()
+  staffManager.getAll({}, (error, staffs) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(staffs)
+    }
+  })
+}
+
+exports.pushAllStaffs = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer.staff) clearInterval(timer.staff)
+  const staffManager = new StaffManager()
+  timer.staff = setInterval(() => {
+    staffManager.getAll({}, (error, staffs) => {
+      if (error) return io.emit('Error.Realtime', error)
+      io.emit('Location.Staff', { type: 'show', payload: staffs })
+    })
+    // io.clients((_, clients) => {
+    //   clients.forEach(key => {
+    //     console.log(io.sockets.connected[key].user)
+    //   })
+    // })
+  }, interval)
+}
+
+/** 车辆 */
+
+exports.getAllVehicles = (req, res, next) => {
+  const vehicleManager = new VehicleManager()
+  vehicleManager.getAll({}, (error, vehicles) => {
+    if (error) {
+      next(error)
+    } else {
+      res.json(vehicles)
+    }
+  })
+}
+
+exports.pushAllVehicles = ({ interval = 5000 } = {}) => {
+  const io = require('../../config/plugin.socket').singleton()
+  if (timer.vehicle) clearInterval(timer.vehicle)
+  const vehicleManager = new VehicleManager()
+  timer.vehicle = setInterval(() => {
+    // 获取全部的井下车辆
+    vehicleManager.getAll({}, (error, vehicles) => {
+      if (error) return io.emit('Error.Realtime', error)
+      io.emit('Location.Vehicle', { type: 'show', payload: vehicles })
+    })
+  }, interval)
+}

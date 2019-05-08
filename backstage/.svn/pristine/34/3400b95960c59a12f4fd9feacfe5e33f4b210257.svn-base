@@ -1,0 +1,138 @@
+import Vue from 'vue'
+import _ from "lodash"
+import getRule from "../common/getRule.js"
+import match from '../common/match.js'
+import Base from './Base'
+
+export default class Form extends Base {
+  static RAWKEY = {
+    option: "_",
+    listener: "$"
+  }
+
+  static EVENTS = {
+    create: "create",
+    submit: "submit",
+    cancel: "cancel",
+    close: "close"
+  }
+
+  static COLUMN_TAG = "run-column"
+
+  static COLUMN_POSITION = "form"
+
+  static GetOptionsByStartKey(obj, str) {
+    return Object.keys(obj).reduce((results, item) => {
+      if (item[0] === str) {
+        results[item.substr(1, item.length - 1)] = obj[item]
+      }
+      return results
+    }, {})
+  }
+
+  static GetColumnsFormSlots(slots = []) {
+    return slots.reduce((results, item) => {
+      let tag = _.get(item, "componentOptions.tag")
+      let position = _.get(item, "componentOptions.propsData.position")
+      let after = _.get(item, "componentOptions.propsData.after")
+      if (tag === Form.COLUMN_TAG && position === Form.COLUMN_POSITION) {
+        results.push({ field: after, vNode: item })
+      }
+      return results
+    }, [])
+  }
+
+  constructor({ columns = [], events = {}, config = {}, rules = {}, form = {}, sources }) {
+    super({ sources, events })
+    this.initForm(form)
+    this.initRules(rules, columns)
+    this.setColumns(columns)
+    this.setConfig(config)
+  }
+
+  initForm(form) {
+    this.form = typeof form === "function" ? form() : form
+  }
+
+  getForm(field) {
+    return field ? this.form[field] : (this.form || {})
+  }
+
+  setForm(val, field) {
+    if (field) {
+      Vue.set(this.form, field, val)
+    } else {
+      this.form = Object.assign({}, this.form, val)
+    }
+  }
+
+  getColumns() {
+    return this.columns || []
+  }
+
+  setColumns(columns = []) {
+    this.columns = columns
+  }
+
+  initRules(rules, columns) {
+    let _rules = columns.reduce((result, column) => {
+      if (column.rules !== undefined && column.rules !== null) {
+        result[column.field] = column.rules
+      }
+      return result
+    }, {})
+    this.rules = Object.assign({}, rules, _rules)
+  }
+
+  getRules() {
+    const result = {}
+    const mn = (message) => ({ required: true, message, trigger: 'blur' })
+    _.forIn(this.rules, (v, k) => {
+      result[k] = match(v)
+        .boolean(() => {
+          let column = this.columns.find(n => n.field === k)
+          return !column ? undefined : mn(`请填写${ column.label }`)
+        })
+        .number(getRule)
+        .string(mn)
+        .array()
+        .object()
+        .build()
+    })
+    return result
+  }
+
+  setRules(rules, key) {
+    if (key) {
+      this.rules[key] = rules
+    } else {
+      this.rules = Object.assign(this.rules, rules)
+    }
+  }
+
+  setContext(context) {
+    this.context = context
+  }
+
+  getConfig(field) {
+    return field ? this.config[field] : (this.config || {})
+  }
+
+  setConfig(val, field) {
+    if (field) {
+      Vue.set(this.config, field, val)
+    } else {
+      this.config = Object.assign({}, this.config, val)
+    }
+  }
+
+  validate() {
+    if (!this.context) return
+    return this.context.validate()
+  }
+
+  validateField(field) {
+    if (!this.context) return
+    return this.context.validateField(field)
+  }
+}

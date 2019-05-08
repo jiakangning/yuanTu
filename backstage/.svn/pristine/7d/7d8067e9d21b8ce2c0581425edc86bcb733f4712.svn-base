@@ -1,0 +1,68 @@
+<!-- 用车申请 -->
+<template>
+    <div
+      class="screen-panel"
+      v-if="panelCars">
+      <div class="screen-panel-title">用车申请（<el-button type="text">{{ cars.length }}</el-button>）</div>
+      <div class="screen-panel-header">
+        <span>起点</span>
+        <span>终点</span>
+        <span>用车时段</span>
+        <span>操作</span>
+      </div>
+      <div class="screen-panel-content">
+        <run-marquee
+          :speed="cars.length"
+          @loaded="copyCars">
+          <p
+            class="screen-panel-line"
+            v-for="(car, index) in afterCars"
+            :key="index">
+            <span>{{ car.startText }}</span>
+            <span>{{ car.endText }}</span>
+            <span>{{ car.time }}</span>
+            <span><el-button
+              type="warning"
+              size="mini"
+              round>派单</el-button></span>
+          </p>
+        </run-marquee>
+      </div>
+    </div>
+</template>
+
+<script>
+  import Mock from 'mockjs'
+  import runMarquee from './marquee.vue'
+
+  export default {
+    name: 'apply-car',
+    components: { runMarquee },
+    data () {
+      return {
+        panelCars: true,
+        cars: [],
+        afterCars: []
+      }
+    },
+    methods: {
+      copyCars () {
+        const { cars } = Mock.mock({
+          'cars|10': [
+            {
+              'id|+1': 1,
+              'startText': () => Mock.Random.ctitle(3, 5),
+              'endText': () => Mock.Random.ctitle(3, 5),
+              'time' () {
+                return `${Mock.Random.date('hh:mm')}-${Mock.Random.date('hh:mm')}`
+              }
+            }
+          ]
+        })
+        this.cars = cars
+        this.afterCars = cars
+        this.afterCars = [].concat(this.cars, this.afterCars)
+      }
+    }
+  }
+</script>

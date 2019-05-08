@@ -1,0 +1,17 @@
+/**
+ * author:赵赛赛
+ * created_at:2019/3/15
+ * */
+const express = require('express')
+const { createPosition, updatePosition, destroyPosition, findPositionByPk, findAll } = require('../../controller/system/PositionController')
+const router = express.Router()
+
+// 职位管理路由
+router.post('/position', createPosition)
+router.put('/position', updatePosition)
+router.patch('/position', updatePosition)
+router.delete('/position/:id', destroyPosition)
+router.get('/position/:id', findPositionByPk)
+router.post('/findPositionAll', findAll)
+
+module.exports = router

@@ -1,0 +1,7 @@
+const classes = require('./classes.js')
+const student = require('./student.js')
+
+module.exports = function (path, app) {
+  app.use(path, classes)
+  // app.use('/student', student)
+}

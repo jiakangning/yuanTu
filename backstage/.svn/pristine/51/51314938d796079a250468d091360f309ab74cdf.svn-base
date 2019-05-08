@@ -1,0 +1,21 @@
+import Form from '../../model/Form'
+
+export const BasicFormColumn = {
+  props: {
+    options: {},
+    column: {},
+    value: {}
+  },
+  computed: {
+    currentRawOption() {
+      return Form.GetOptionsByStartKey(this.column, Form.RAWKEY.option)
+    },
+    currentRawListener() {
+      return Form.GetOptionsByStartKey(this.column, Form.RAWKEY.listener)
+    },
+    currentSource() {
+      let source = this.column.source
+      return source ? this.options.getSources(source) : []
+    }
+  }
+}

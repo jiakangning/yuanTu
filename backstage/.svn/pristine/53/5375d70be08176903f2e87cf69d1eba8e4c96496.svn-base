@@ -1,0 +1,66 @@
+const path = require('path')
+const express = require('express')
+const bodyParser = require('body-parser')
+const morgan = require('morgan')
+const cors = require('cors')
+const helmet = require('helmet')
+const route = require('./app/router/index')
+const config = require('./config/config.loader').load()
+const dbCtx = require('./database/dbCtx')
+
+const authRoute = require('./app/router/auth')
+// const { rps, sps } = require('./app/middleware/authenticate')
+const failure = require('./app/middleware/failure')
+const locationRoute = require('./app/router/location')
+const monitorRoute = require('./app/router/monitor')
+
+const app = express()
+
+app.use(helmet())
+app.use(cors())
+app.use(morgan('dev'))
+app.use(require('./config/plugin.morgan')('log'))
+
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static(path.join(__dirname, 'app', 'public')))
+app.use('/auth', authRoute)
+app.use('/location', locationRoute)
+app.use('/monitor', monitorRoute)
+// app.use(rps())
+route(app)
+
+app.use(failure)
+
+const server = app.listen(config.server.http.port, () => {
+  console.log(`已正常开启Http服务，使用端口：${config.server.http.port}`)
+  if (process.env.NODE_ENV === 'production') {
+    dbCtx.authenticate().then(() => {
+      console.log('已正常连接数据库')
+    }).catch(err => {
+      console.log('无法连接数据库，故障描述：', err)
+    })
+  } else if (process.env.NODE_ENV === 'development') {
+    dbCtx.sync({ force: false }).then(_ => {
+      console.log('已同步更新数据库结构')
+    }).catch(err => {
+      console.log('无法同步更新数据库结构，故障描述：', err)
+    })
+  }
+})
+
+require('./config/plugin.socket').init(server)
+// io.use(sps())
+/** 定位相关推送 */
+const location = require('./app/controller/location')
+location.pushAllStaffs({ interval: 3000 })
+location.pushAllVehicles({ interval: 3000 })
+
+/** 监测监控相关推送 */
+const monitor = require('./app/controller/monitor')
+monitor.pushAllSafty({ interval: 3000 })
+monitor.pushAllMinePressures({ interval: 3000 })
+monitor.pushAllMainFan({ interval: 3000 })
+monitor.pushAllDrainages({ interval: 3000 })
+monitor.pushAllMainCoalFlows({ interval: 3000 })
+monitor.pushAllAlarms({ interval: 3000 })

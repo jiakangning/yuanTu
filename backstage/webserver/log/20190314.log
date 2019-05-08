@@ -1,0 +1,13 @@
+[0mPOST /system/deleteDepot [32m200 [0m305.166 ms - 16[0m
+[0mPOST /system/deleteDepot [32m200 [0m133.634 ms - 16[0m
+[0mGET /system/showDepots [32m200 [0m238.050 ms - 2262[0m
+[0mGET /system/showDepots [32m200 [0m251.919 ms - 2[0m
+[0mGET /system/showDepots [32m200 [0m312.092 ms - 2262[0m
+[0mGET /system/showDepots [32m200 [0m428.562 ms - 2[0m
+[0mGET /system/showDepots [32m200 [0m15926.586 ms - 2[0m
+[0mGET /system/showDepots [32m200 [0m224.625 ms - 320[0m
+[0mGET /system/showDepots [32m200 [0m225.901 ms - 2[0m
+[0mGET /system/showDepots [32m200 [0m244.026 ms - 445[0m
+[0mGET /system/depot/?id=4 [33m404 [0m8.231 ms - 152[0m
+[0mGET /system/depot/4 [32m200 [0m311.852 ms - 278[0m
+[0mGET /system/depot/14 [32m200 [0m10.412 ms - 282[0m

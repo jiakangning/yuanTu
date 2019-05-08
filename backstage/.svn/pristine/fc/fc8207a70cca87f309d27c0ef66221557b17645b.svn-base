@@ -1,0 +1,60 @@
+<template>
+  <el-table-column v-bind="currentOption">
+    <div slot-scope="scope">
+      <span
+        v-if="currentShowArrow"
+        :style="getIndentStyle(scope)"/>
+      <i
+        v-if="currentShowArrow"
+        :style="getIconStyle(scope)"
+        class="el-icon-arrow-right"/>
+      <slot
+        v-if="$scopedSlots.default"
+        v-bind="scope"/>
+      <span v-else>{{getValue(scope)}}</span>
+    </div>
+  </el-table-column>
+</template>
+
+<script type="text/ecmascript-6">
+  import _ from "lodash"
+
+  export default {
+    props: {
+      options: {},
+      column: {}
+    },
+    computed: {
+      currentShowArrow() {
+        return this.options.getConfig('primaryField') === this.column.field
+      },
+      currentOption() {
+        return {
+          align: this.currentShowArrow ? "left" : "center",
+          headerAlign: "center",
+          ...this.$attrs
+        }
+      }
+    },
+    methods: {
+      getValue(scope) {
+        let { property, prop, formatter } = this.currentOption
+        property = property || prop
+        let cellValue = _.get(scope.row, property)
+        return formatter ? formatter(scope, scope.row, cellValue) : cellValue
+      },
+      getIndentStyle({ row }) {
+        let state = this.options.getStateByRow(row)
+        return state ? { marginLeft: (state.level - 1) * 20 + "px" } : {}
+      },
+      getIconStyle({ row }) {
+        let state = this.options.getStateByRow(row)
+        return state ? {
+          marginRight: "4px",
+          transform: state.isOpen ? "rotate(90deg)" : "",
+          visibility: state.isLeaf ? "hidden" : "visible"
+        } : {}
+      }
+    }
+  }
+</script>

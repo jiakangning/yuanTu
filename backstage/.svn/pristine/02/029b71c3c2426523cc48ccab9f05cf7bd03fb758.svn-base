@@ -1,0 +1,95 @@
+/**
+ * author:Zyy
+ * created_at:2019/3/15
+ * */
+class CommandManager {
+  constructor (commandRepo) {
+    this.commandRepo = commandRepo || require('../../model/system/CommandModel')
+  }
+
+  /**
+   * @param {String} input
+   * */
+  create (input, callback) {
+    if (Array.isArray(input)) {
+      this.commandRepo.bulkCreate(input)
+        .then(command => {
+          callback(null, command)
+        }).catch(err => {callback(err)})
+    } else {
+      this.commandRepo.create(input)
+        .then(command => {
+          callback(null, command.get({plain: true}))
+        })
+        .catch(err => {
+          callback(err.message)
+        })
+    }
+  }
+
+  update (input, callback) {
+    let {id, ...conditions} = input
+    this.commandRepo.findOne({where: {id}})
+      .then(command => {
+        if (command) {
+          Object.assign(command.dataValues, conditions)
+          return command.save().then(result => {
+            callback(null, result)
+          })
+        } else {
+          callback(new Error('查无数据'))
+        }
+      }).catch(err => {
+      callback(err)
+    })
+  }
+
+  destroy (input, callback) {
+    let {id} = input
+    let condition = {}
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      condition = {where: {id: {[Op.in]: id}}}
+    } else {
+      condition = {where: {id}}
+    }
+    this.commandRepo.destroy(condition)
+      .then(number => {
+        if (number) {
+          callback(null, {msg: `删除成功${number}行`})
+        } else {
+          callback({msg: '查无该数据'})
+        }
+      }).catch(err => {callback(err)})
+  }
+
+  findByPk (input, callback) {
+    let {id} = input
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      this.commandRepo.findAll({where: {id: {[Op.in]: id}}})
+        .then(commands => {
+          if (commands && commands.length > 0) {
+            callback(null, {success: true, result: {rows: commands, count: commands.length}})
+          } else {
+            callback({error: '查无数据', result: {}})
+          }
+        }).catch(err => {
+        callback({error: err.message, result: {}})
+      })
+    } else {
+      this.commandRepo.findByPk(id)
+        .then(command => {
+          if (command) {
+            callback(null, {success: true, result: command})
+          } else {
+            callback({error: '查无数据', result: {}})
+          }
+        }).catch(err => {
+        callback({error: err.message, result: {}})
+      })
+    }
+  }
+}
+
+module.exports = CommandManager

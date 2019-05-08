@@ -1,0 +1,86 @@
+/**
+ * @author  赵赛赛
+ * @date 2019/03/19
+ */
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const Op = require('sequelize').Op
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+const Connector = ','
+
+const MobileModule = dbCtx.define('MobileModule', {
+  author: {
+    type: Sequelize.STRING
+    // allowNull: false
+  },
+  editor: {
+    type: Sequelize.STRING
+  },
+  isValid: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false,
+    field: 'is_valid'
+  },
+  eKey: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    field: 'e_key'
+  },
+  mobileText: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    field: 'mobile_text'
+  },
+  icon: {
+    type: Sequelize.STRING,
+    allowNull: false
+  },
+  description: {
+    type: Sequelize.STRING
+  },
+  parentId: {
+    type: Sequelize.INTEGER,
+    field: 'parent_id'
+  },
+  rtPath: {
+    type: Sequelize.STRING,
+    field: 'rt_path'
+  },
+  slIndex: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    field: 'sl_index'
+  }
+}, {
+  tableName: 'system_mobile_module_info',
+  underscored: true,
+  paranoid: true
+})
+
+MobileModule.beforeSave((instance) => {
+  if (instance.changed('parentId') && instance.parentId) {
+    return MobileModule
+      .findByPk(instance.parentId)
+      .then(res => {
+        if (res.rtPath) {
+          let parents = res.rtPath.split(Connector).concat(instance.parentId)
+          instance.rtPath = parents.join(Connector)
+        } else {
+          instance.rtPath = instance.parentId
+        }
+        return instance
+      })
+  }
+})
+
+MobileModule.buildOptions = function ({ mobileText = '', ...raw } = {}) {
+  let result = buildDefaultOption(raw)
+  mobileText && (result.where.mobileText = { [Op.like]: '%' + mobileText + '%' })
+  return result
+}
+
+MobileModule.isExist = function (id) {
+  return MobileModule.findByPk(id)
+}
+
+module.exports = MobileModule

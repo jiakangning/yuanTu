@@ -1,0 +1,104 @@
+/**
+ * author:赵赛赛
+ * created_at:2019/3/15
+ * */
+const PositionModel = require('../../model/system/PositionModel')
+const Op = require('sequelize').Op
+const formatPagination = require('../../util/formatPagination.js')
+
+class PositionManager {
+  /**
+   * 创建
+   * @param input {Array, Object}
+   * @param callback 回调
+   */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数！'))
+    } else {
+      if (Array.isArray(input)) {
+        PositionModel.bulkCreate(input)
+          .then(position => callback(null, position))
+          .catch(callback)
+      } else {
+        PositionModel.create(input)
+          .then(position => callback(null, position))
+          .catch(callback)
+      }
+    }
+  }
+
+  /**
+   * 更新数据
+   * @param input {Object}
+   * @param callback
+   */
+  update (input, callback) {
+    const { id, text, mLevel, pIndex, remarks } = input
+    PositionModel.isExist(id)
+      .then(position => {
+        if (!position) {
+          return Promise.reject(new Error('数据已被删除，无法修改！'))
+        } else {
+          return position.update({ text, mLevel, pIndex, remarks })
+        }
+      })
+      .then(position => callback(null, position))
+      .catch(callback)
+  }
+
+  /**
+   * 删除
+   * @param input {Array, String}
+   * @param callback
+   */
+  destroy (input, callback) {
+    const rows = Array.isArray(input) ? input : [input]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    PositionModel.destroy(condition)
+      .then((count) => callback(null, count))
+      .catch(callback)
+  }
+
+  findAll (input, callback) {
+    let { pagination, pageSize, currentPage, text = '', mLevel } = input
+    let condition = {}
+    if (!mLevel) {
+      condition = { text: { [Op.like]: '%' + text + '%' } }
+    } else {
+      condition = { mLevel: { [Op.in]: mLevel }, text: { [Op.like]: '%' + text + '%' } }
+    }
+    // if (pagination) {
+    //   let offset = (currentPage - 1) * pageSize
+    //   PositionModel
+    //     .findAll({
+    //       where: { ...condition },
+    //       limit: pageSize,
+    //       offset
+    //     })
+    //     .then(position => {
+    //       if (position) {
+    //         callback(null, { total: position.length, rows: position })
+    //       } else {
+    //         callback(new Error('查无数据'))
+    //       }
+    //     })
+    //     .catch(callback)
+    // } else {
+    //   PositionModel
+    //     .findAll({
+    //       where: { ...condition }
+    //     })
+    //     .then(position => {
+    //       if (position) {
+    //         callback(null, position)
+    //       } else {
+    //         callback(new Error('查无数据'))
+    //       }
+    //     })
+    //     .catch(callback)
+    // }
+  }
+}
+
+module.exports = PositionManager

@@ -1,0 +1,63 @@
+/**
+ * @author 甄岩岩
+ * @created_at 2019/3/15
+ */
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+const Op = require('sequelize').Op
+
+const Menu = dbCtx.define('menu', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  authorId: { type: Sequelize.INTEGER, field: 'author_id' },
+  editorId: { type: Sequelize.INTEGER, field: 'editor_id' },
+  enableState: { type: Sequelize.INTEGER, field: 'enable_state' },
+  authorizeState: { type: Sequelize.STRING(10), field: 'authorize_state' },
+  eKey: { type: Sequelize.STRING(50), unique: true, allowNull: false, field: 'e_key' },
+  text: { type: Sequelize.STRING(50), allowNull: false },
+  icon: { type: Sequelize.STRING },
+  startUp: { type: Sequelize.STRING, field: 'start_up' },
+  description: { type: Sequelize.TEXT },
+  parentId: { type: Sequelize.INTEGER, field: 'parent_id' },
+  rtPath: { type: Sequelize.STRING(500), field: 'rt_path' },
+  slIndex: { type: Sequelize.INTEGER, field: 'sl_index' }
+}, {
+  tableName: 'system_menu_info',
+  underscored: true,
+  paranoid: true,
+  hooks: {}
+})
+
+const Connector = ','
+
+Menu.beforeSave((instance) => {
+  if (instance.changed('parentId') && instance.parentId) {
+    return Menu
+      .findByPk(instance.parentId)
+      .then(res => {
+        if (res.rtPath) {
+          let parents = res.rtPath.split(Connector).concat(instance.parentId)
+          instance.rtPath = parents.join(Connector)
+        } else {
+          instance.rtPath = instance.parentId
+        }
+        return instance
+      })
+  }
+})
+
+Menu.buildOptions = function ({ text = '', ...raw }) {
+  let result = buildDefaultOption(raw)
+  text && (result.where.text = { [Op.like]: '%' + text + '%' })
+  return result
+}
+
+Menu.isExist = function (id) {
+  return Menu.findByPk(id)
+}
+
+Menu.prototype.getParentIds = function () {
+  return this.rtPath ? this.rtPath.split(Connector) : []
+}
+
+module.exports = Menu

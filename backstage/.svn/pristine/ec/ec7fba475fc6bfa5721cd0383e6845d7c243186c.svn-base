@@ -1,0 +1,15 @@
+const express = require('express')
+const { signup, update, postLogin, getUserDetail } = require('../controller/auth')
+
+const router = express.Router()
+
+router.post('/login', postLogin)
+
+router.post('/signup', signup)
+
+router.post('/update', update)
+/**
+ * 获取用户以及关联的contact
+ */
+router.get('/userDetail/:id', getUserDetail)
+module.exports = router

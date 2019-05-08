@@ -1,0 +1,22 @@
+const async = require('async')
+
+class VehicleManager {
+  constructor (repo) {
+    if( repo) {
+      this.repo = repo
+    } else {
+      const vehicleRepo = require('../../model/location/VehicleRepo')
+      this.repo = new vehicleRepo()
+    }
+  }
+  getAll({limit = 20}, callback) {
+    async.waterfall([
+      this.repo.getAll,
+      (vehicles, cb) => {
+        async.mapLimit(vehicles, limit,this.repo.get, cb)
+      }
+    ], callback)
+  }
+}
+
+module.exports = VehicleManager

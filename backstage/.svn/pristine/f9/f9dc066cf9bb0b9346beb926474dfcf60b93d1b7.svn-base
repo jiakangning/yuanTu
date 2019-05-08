@@ -1,0 +1,16 @@
+<template>
+  <div class="login">
+    这里是职位管理
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'login',
+  data() {
+    return {
+      input: ""
+    }
+  }
+}
+</script>

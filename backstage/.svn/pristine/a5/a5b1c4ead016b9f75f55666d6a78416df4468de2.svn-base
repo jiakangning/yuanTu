@@ -1,0 +1,101 @@
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  import Run from 'run'
+  import Mock from 'mockjs'
+
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    created() {
+      this.options = new Run.Work({
+        config: {
+          title: "隐患排查",
+          describe: "数据来源与手机随手拍"
+        },
+        actions: ["create", "update", "delete"],
+        tabs: "tabs",
+        list: [
+          { label: "名称", field: "name", layout: "text" },
+          { label: "主管", field: "user", layout: "text" },
+          { label: "序号", field: "serial", layout: "text" }
+        ],
+        form: {
+          columns: [
+            { label: "名称", field: "name", layout: "text", rules: true },
+            { label: "主管", field: "user", layout: "text", rules: true },
+            { label: "序号", field: "serial", layout: "text" }
+          ]
+        },
+        search: {
+          layout: "popup",
+          columns: [
+            { label: "名称", field: "name", layout: "text" },
+            { label: "检查形式", field: "category", layout: "select", source: "category" },
+            { label: "检查日期", field: "date", layout: "date" },
+            { label: "年份", field: "year", layout: "year" },
+            { label: "月份", field: "month", layout: "month" },
+            { label: "禁用", field: "switch", layout: "switch" },
+            { label: "日期时间", field: "datetime", layout: "datetime" },
+            { label: "时间", field: "time", layout: "time" }
+          ]
+        },
+        events: {
+          search(params) {
+            setTimeout(() => {
+              const { rows, total, category, tabs } = Mock.mock({
+                "rows|50-100": [{
+                  "name": () => Mock.Random.cname(),
+                  "user": () => Mock.Random.cname(),
+                  "serial|+1": 1,
+                  "id|+1": 1,
+                  "parentId"() {
+                    return this.id > 5 ? Mock.mock({ "id|1-5": 1 }).id : null
+                  }
+                }],
+                "total"() {
+                  return this.rows.length
+                },
+                "category|4": [{
+                  "label|+1": ["基础检查", "安全大检查", "榆北煤业", "上级领导检查"],
+                  "value|+1": [1, 2, 3, 4]
+                }],
+                "tabs": [
+                  { label: "隐患排查", param: { danger: 1 } },
+                  { label: "风险管控", param: { danger: 2 } }
+                ]
+              })
+              this.sources.set("rows", rows)
+              this.sources.set("total", total)
+              this.sources.set("category", category)
+              this.sources.set("tabs", tabs)
+            }, 1000)
+          },
+          delete(rows, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          submit(form, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          edit(form) {
+            console.log(this, form)
+          }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

@@ -1,0 +1,47 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-19
+  description: role-menu-command中间表
+*/
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const uniqueArr = require('../../util/uniqueArr')
+
+const RoleMenuCommand = dbCtx.define('roleMenuCommand', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  roleId: { type: Sequelize.INTEGER, allowNull: false, unique: 'roleMenuCommand', field: 'role_id' },
+  cmdId: { type: Sequelize.INTEGER, unique: 'roleMenuCommand', allowNull: true, field: 'cmd_id' },
+  moduleId: { type: Sequelize.INTEGER, unique: 'roleMenuCommand', allowNull: true, field: 'module_id' }
+},
+{
+  freezeTableName: true,
+  timestamps: true,
+  paranoid: true,
+  underscored: true,
+  tableName: 'system_role_module_permission'
+})
+
+RoleMenuCommand.findSame = function (input) {
+  const { id } = input
+  return RoleMenuCommand.findAll({ where: { roleId: id } })
+}
+
+RoleMenuCommand.simplifyInput = function (input, parting) {
+  const { roleId, moduleId } = input
+  if (moduleId && moduleId.length) {
+    let results = []
+    moduleId.forEach(item => {
+      let tempItem = item.split(parting)
+      if (tempItem.length > 1) {
+        results.push(Object.assign({}, { roleId: roleId, cmdId: tempItem[1], moduleId: tempItem[0] }))
+      } else {
+        results.push(Object.assign({}, { roleId: roleId, cmdId: null, moduleId: tempItem[0] }))
+      }
+    })
+    return uniqueArr(results)
+  } else {
+    return []
+  }
+}
+
+module.exports = RoleMenuCommand

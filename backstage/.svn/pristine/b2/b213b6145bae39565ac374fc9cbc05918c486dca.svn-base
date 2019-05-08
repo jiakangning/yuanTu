@@ -1,0 +1,104 @@
+import _ from 'lodash'
+import Base from './Base'
+import Config from './Config'
+import Vue from 'vue'
+
+class SearchConfig {
+  static DEFAULT = {
+    layout: "single",
+    width: "500px"
+  }
+
+  static LAYOUT = {
+    single: "single",
+    multiple: "multiple",
+    popup: "popup"
+  }
+
+  constructor(options) {
+    this.layout = _.get(options, "layout", SearchConfig.DEFAULT.layout)
+    this.rawOption = Config.GetOptionsByStartKey(options, Config.RAWKEY.option)
+    this.rawListener = Config.GetOptionsByStartKey(options, Config.RAWKEY.listener)
+    this.width = _.get(options, "width", SearchConfig.DEFAULT.width)
+    this.primary = _.get(options, "primary")
+  }
+
+  get(field) {
+    return field ? this[field] : this
+  }
+}
+
+class SearchColumn {
+  static DEFAULT = {
+    layout: "text",
+    visible: false
+  }
+
+  constructor(options) {
+    this.rawOption = Config.GetOptionsByStartKey(options, Config.RAWKEY.option)
+    this.rawListener = Config.GetOptionsByStartKey(options, Config.RAWKEY.listener)
+    this.layout = _.get(options, "layout", SearchColumn.DEFAULT.layout)
+    this.label = _.get(options, "label")
+    this.field = _.get(options, "field")
+    this.source = _.get(options, "source")
+    this.width = _.get(options, "width")
+    this.visible = _.get(options, "visible", SearchColumn.DEFAULT.visible)
+  }
+}
+
+class Search extends Base {
+  static EVENTS = {
+    search: "search",
+    input: "input"
+  }
+
+  static Transform(options) {
+    if (Array.isArray(options)) {
+      return new Search({ columns: options })
+    } else {
+      let { columns, ...config } = options
+      return new Search({ columns, config })
+    }
+  }
+
+  constructor({ columns = [], events = {}, config = {}, sources = {}, params = {} }) {
+    super({ events, sources })
+    this.initParams(params)
+    this.initConfig(config)
+    this.initColumns(columns)
+  }
+
+  initColumns(columns) {
+    this.columns = columns.map(column => column instanceof SearchColumn ? column : new SearchColumn(column))
+  }
+
+  initConfig(config) {
+    this.config = config instanceof SearchConfig ? config : new SearchConfig(config)
+  }
+
+  initParams(params) {
+    this.params = params
+  }
+
+  getColumns() {
+    return this.columns || []
+  }
+
+  getConfig(field) {
+    return this.config.get(field)
+  }
+
+  getParams(field) {
+    return field ? this.params[field] : (this.params || {})
+  }
+
+  setParams(val, field) {
+    if (field) {
+      Vue.set(this.params, field, val)
+    } else {
+      this.params = Object.assign({}, this.params, val)
+    }
+  }
+}
+
+export default Search

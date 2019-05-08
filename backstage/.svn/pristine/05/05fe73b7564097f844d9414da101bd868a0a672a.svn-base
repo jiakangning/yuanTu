@@ -1,0 +1,20 @@
+/**
+ * author:甄岩岩 2019-03-20
+ * @type {multer|Multer}
+ */
+const multer = require('multer')
+const path = require('path')
+// 上传文件的最大数量
+const MAX_FILES = 10
+let storage = multer.diskStorage({
+  destination: 'upload/',
+  filename: function (req, file, cb) {
+    cb(null, Date.now() + file.originalname)
+  }
+})
+let limits = {
+  files: MAX_FILES
+}
+
+const upload = multer({ storage, limits }).any()
+module.exports = upload

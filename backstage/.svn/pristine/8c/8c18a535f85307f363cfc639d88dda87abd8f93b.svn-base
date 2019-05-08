@@ -1,0 +1,251 @@
+/*
+ * @Author: zhaoqinglong
+ * @Date: 2019-03-16 11:42:36
+ * @Last Modified by: zhaoqinglong
+ * @Last Modified time: 2019-03-18 17:07:33
+ */
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+class ContactManager {
+  constructor (contactRepo) {
+    this.contactRepo = contactRepo || require('../../model/membership/Contact')
+  }
+  /**
+   * 创建联系人
+   * @param {*} input 输入数据
+   * @param {*} callback  回调函数
+   */
+  create (input, callback) {
+    let {
+      name,
+      pinyin,
+      address,
+      privatePhone,
+      companyPhone,
+      downholePhone,
+      identityNumber,
+      uniqueCode,
+      birthPlace,
+      email,
+      birthDate,
+      workTime,
+      educationLevel,
+      major,
+      nationality,
+      maritalStatus,
+      politicalStatus,
+      workKind,
+      inserviceStatus,
+      photo,
+      sex,
+      capital,
+      cardNumber
+      // organizationId // 组织机构id
+    } = input
+    // todo 校验
+    this.contactRepo.build({
+      name,
+      pinyin,
+      address,
+      privatePhone,
+      companyPhone,
+      downholePhone,
+      identityNumber,
+      uniqueCode,
+      birthPlace,
+      email,
+      birthDate,
+      workTime,
+      educationLevel,
+      major,
+      nationality,
+      maritalStatus,
+      politicalStatus,
+      workKind,
+      inserviceStatus,
+      photo,
+      sex,
+      capital,
+      cardNumber
+      // organizationId
+    }).save().then(contact => {
+      callback(null, contact)
+    }).catch(err => {
+      callback(err, {})
+    })
+  }
+  /**
+   * 修改联系人
+   * @param {*} input 修改的参数
+   * @param {*} callback 回调函数
+   */
+  update (input, callback) {
+    let {
+      id,
+      name,
+      pinyin,
+      address,
+      privatePhone,
+      companyPhone,
+      downholePhone,
+      identityNumber,
+      uniqueCode,
+      birthPlace,
+      email,
+      birthDate,
+      workTime,
+      educationLevel,
+      major,
+      nationality,
+      maritalStatus,
+      politicalStatus,
+      workKind,
+      inserviceStatus,
+      photo,
+      sex,
+      capital,
+      cardNumber
+    } = input
+    // todo 校验
+    this.contactRepo.update({
+      name,
+      pinyin,
+      address,
+      privatePhone,
+      companyPhone,
+      downholePhone,
+      identityNumber,
+      uniqueCode,
+      birthPlace,
+      email,
+      birthDate,
+      workTime,
+      educationLevel,
+      major,
+      nationality,
+      maritalStatus,
+      politicalStatus,
+      workKind,
+      inserviceStatus,
+      photo,
+      sex,
+      capital,
+      cardNumber
+    }, {
+      where: {
+        id
+      }
+    }).then(count => {
+      callback(null, {
+        msg: `修改成功`,
+        count
+      })
+    }).catch(err => {
+      callback(err, {
+        msg: `修改失败,${err}`
+      })
+    })
+  }
+
+  /**
+   * 获取联系人
+   * @param {*} input 修改的参数
+   * @param {*} callback 回调函数
+   */
+  getContacts (input, callback) {
+    let {
+      pageSize = 10,
+      currentPage = 1,
+      keyword,
+      pagination = true
+    } = input
+    // todo build params
+    // let param = this.filter({
+    //   pagination,
+    //   pageSize,
+    //   currentPage,
+    //   keyword
+    // })
+    // let p = {
+    //   limit: pageSize,
+    //   offset: (currentPage - 1) * pageSize,
+    //   where: {
+    //     [Op.or]: [{ name: { [Op.like]: `%${keyword}%` } }, { identityNumber: { [Op.like]: `%${keyword}%` } }, { cardNumber: { [Op.like]: `%${keyword}%` } }]
+    //   }
+    // }
+    let p = this.contactRepo.buildOptions({
+      pageSize,
+      currentPage,
+      keyword,
+      pagination
+    })
+
+    // if (keyword) {
+    //   // 当使用object.assign方法时，[Op.or]等将会返回symbol类型
+    //   p.where = {
+    //     [Op.or]: [{ name: { [Op.like]: `%${keyword}%` } }, { identityNumber: { [Op.like]: `%${keyword}%` } }, { cardNumber: { [Op.like]: `%${keyword}%` } }]
+    //   }
+    // }
+    this.contactRepo.findAndCountAll(p).then(data => {
+      callback(null, {
+        ...data
+      })
+    }).catch(err => {
+      callback(err, {
+        msg: `系统出错了,${err}`
+      })
+    })
+  }
+  getContactById (input, callback) {
+    let {
+      id
+    } = input
+    this.contactRepo.findByPk(id).then(contact => {
+      callback(null, {
+        contact
+      })
+    }).catch(err => {
+      callback(err, {
+        msg: `服务器错误,${err}`
+      })
+    })
+  }
+  deleteContactById (input, callback) {
+    let {
+      id
+    } = input
+    this.contactRepo.destroy({
+      where: {
+        id
+      }
+    }).then(count => {
+      callback(null, {
+        msg: `成功删除${count}条数据`
+      })
+    }).catch(err => {
+      callback(err, {
+        msg: `服务器错误,${err}`
+      })
+    })
+  }
+  /**
+   * 构建where查询条件
+   * @param {} input
+   */
+  filter (input) {
+    let { pagination, pageSize = 10, currentPage = 1, keyword } = input
+    let searchParams = { where: {} }
+    // 需要分页
+    if (pagination) {
+      Object.assign(searchParams, { limit: pageSize, offset: (currentPage - 1) * pageSize })
+    }
+    if (keyword) {
+      // 当使用object.assign方法时，[Op.or]等将会返回symbol类型
+      searchParams.where = {
+        [Op.or]: [{ name: { [Op.like]: `%${keyword}%` } }, { identityNumber: { [Op.like]: `%${keyword}%` } }, { cardNumber: { [Op.like]: `%${keyword}%` } }]
+      }
+    }
+    return searchParams
+  }
+}
+module.exports = ContactManager

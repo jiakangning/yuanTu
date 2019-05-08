@@ -1,0 +1,14 @@
+const redisCtx = require('../../../config/plugin.redis')
+
+class DrainageRepo {
+  getAll (callback) {
+    redisCtx.smembers(DrainageRepo.Key, callback)
+  }
+  get (key, callback) {
+    redisCtx.hgetall(key, callback)
+  }
+}
+
+DrainageRepo.Key = '陕西陕煤曹家滩矿业有限公司:排水自动化系统'
+
+module.exports = DrainageRepo

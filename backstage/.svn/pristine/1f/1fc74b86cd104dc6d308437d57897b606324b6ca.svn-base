@@ -1,0 +1,92 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门控制器
+*/
+const DepotManage = require('../../service/system/DepartmentManager')
+/**
+ * @desc 创建部门
+ * @param req
+ * @param res
+ */
+exports.createDepot = function (req, res) {
+  const depot = new DepotManage()
+  depot.create(req.body, (err, data) => {
+    res.send({
+      success: !err,
+      result: err ? err.message: data
+    })
+  })
+}
+/**
+ * @desc 修改部门
+ * @param req
+ * @param res
+ */
+exports.updateDepot = function (req, res) {
+  const depot = new DepotManage()
+  depot.update(req.body, (err, data) => {
+    res.send({
+      success: !err,
+      result: err ? err.message: data
+    })
+  })
+}
+/**
+ *@desc 依据id删除
+ * @param req
+ * @param res
+ */
+exports.deleteDepot = function (req, res) {
+  const depot = new DepotManage()
+  depot.delete(req.params.id, (err, affectRwos) => {
+    res.send({
+      success: !err,
+      result: err ? err.message: affectRwos
+    })
+  })
+}
+/**
+ * @desc 依据id查找部门
+ * @param req
+ * @param res
+ */
+exports.showDepotById = function (req, res) {
+  const depot = new DepotManage()
+  depot.findByPk(req.params.id, (err, data) => {
+    res.send({
+      success: !err,
+      result: err ? err.message: data
+    })
+  })
+}
+/**
+ * @desc 展示所有部门
+ * @param req
+ * @param res
+ */
+exports.showDepots = function (req, res) {
+  const depot = new DepotManage()
+  depot.showAllDepot(req.body, (err, data) => {
+    res.send({
+      success: !err,
+      result: err ? err.message: data
+    })
+  })
+}
+
+/**
+ * @desc 获取级联部门
+ * @param req
+ * @param res
+ */
+exports.getDepotByCcade = function (req, res) {
+  const depot = new DepotManage()
+  depot.showDepotsByCcade(req.params.id, (err, data) => {
+    res.send({
+      success: !err,
+      result: err ? err.message: data
+    })
+  })
+}
+

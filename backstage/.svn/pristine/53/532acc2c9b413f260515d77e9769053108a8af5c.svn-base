@@ -1,0 +1,135 @@
+<template>
+  <div class="unity-map">
+    <!-- 主地图窗口 -->
+    <Map
+      :loaded="loaded"
+      :modelList="modelList"
+      :showPropertyMenu="showPropertyMenu"
+      :menuList="menuList"
+      @changeMenuVisible="changeMenuVisible"
+      @getMenus="setMenus"
+    />
+    <!-- 左上角搜索 -->
+    <SearchTool/>
+    <!-- 右上角工具 -->
+    <LayerAndTools/>
+    <!-- 弹窗 -->
+    <Dialog
+      v-if="showDialog"
+      :dialogType="dialogType"
+      :dialogTitle="dialogTitle"
+      :options="dialogOptions"
+    />
+  </div>
+</template>
+
+<script>
+import { mapState, mapActions } from "vuex";
+import Map from "./Map";
+import LayerAndTools from "./LayerAndTools";
+import SearchTool from "./tools/SearchTool";
+import Dialog from "./Dialog";
+export default {
+  data() {
+    return {
+      dialogType: "",
+      showDialog: false,
+      dialogTitle: "",
+      dialogOptions: null,
+      showPropertyMenu: false,
+      modelList: null,
+      menuList: null
+    };
+  },
+  computed: {
+    ...mapState({
+      loaded: state => state.unity.loaded
+    })
+  },
+  components: {
+    Map,
+    LayerAndTools,
+    SearchTool,
+    Dialog
+  },
+  mounted() {},
+  methods: {
+    changeMenuVisible(visible) {
+      this.showPropertyMenu = visible;
+    },
+    setMenus({ type, payload }) {
+      switch (payload.entity.EntityType) {
+        case "Tunnel":
+          this.menuList = [
+            {
+              name: "详细信息",
+              serial: payload.guid,
+              type: payload.entity.EntityType
+            },
+            {
+              name: "进入内部",
+              serial: payload.guid,
+              type: payload.entity.EntityType,
+              position: payload.point
+            }
+          ];
+          if (payload.entity.OpenShow === false) {
+            this.menuList.push({
+              name: "巷道半开",
+              serial: payload.guid,
+              type: payload.entity.EntityType
+            });
+          } else {
+            this.menuList.push({
+              name: "关闭半开",
+              serial: payload.guid,
+              type: payload.entity.EntityType
+            });
+          }
+          break;
+        case "Sensor":
+          this.menuList = [
+            {
+              name: "详细信息",
+              serial: payload.entity.GUID,
+              system: JSON.parse(payload.entity.SubSystem),
+              type: payload.entity.EntityType,
+              group: payload.entity.Group
+            }
+          ];
+          if (
+            payload.entity.Group === "矿工" ||
+            payload.entity.Group === "矿车"
+          ) {
+            this.menuList.push({
+              name: "历史轨迹",
+              serial: payload.entity.GUID,
+              system: JSON.parse(payload.entity.SubSystem),
+              type: payload.entity.EntityType,
+              group: payload.entity.Group
+            });
+          }
+          break;
+        default:
+          this.menuList = [
+            {
+              name: "详细信息",
+              serial: result.guid,
+              type: entity.EntityType
+            }
+          ];
+          break;
+      }
+    }
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.unity-map {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: relative;
+}
+</style>

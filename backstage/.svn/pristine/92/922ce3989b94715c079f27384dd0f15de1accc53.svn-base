@@ -1,0 +1,291 @@
+<template>
+  <div
+    ref="unityBackground"
+    class="unity-map-background"
+    @click.stop="clickUnityMap"
+    @mousedown="mousedown"
+    @mouseup="mouseup"
+    @mousemove="mousemove"
+    @mouseenter="openUnityEvent"
+    @mouseleave="closeUnityEvent"
+  >
+    <!-- 场景中手动绘制的图标 -->
+    <img
+      :src="iconSrc"
+      v-show="showIconImg"
+      :style="{left: iconPosition.x + 'px', top: iconPosition.y + 'px'}"
+    >
+    <!-- 场景右键菜单 -->
+    <right-menu
+      v-if="showPropertyMenu"
+      @itemClick="menuItemClick"
+      :menuList="menuList"
+      :position="menuPosition"
+    ></right-menu>
+  </div>
+</template>
+
+<script>
+import RightMenu from "./tools/RightMenu";
+export default {
+  props: {
+    // 需要加载的三维模型
+    modelList: {
+      type: Array,
+      default: () => [],
+      required: false
+    },
+    // 是否显示右键菜单
+    showPropertyMenu: {
+      type: Boolean,
+      default: false,
+      required: false
+    },
+    // 右键菜单
+    menuList: {
+      type: Array,
+      default: null,
+      required: false
+    },
+    // 手动绘制图标的src
+    iconSrc: {
+      type: String,
+      required: false,
+      default: "/static/images/unityMark/椭圆高亮.png"
+    },
+    // 是否显示手动绘制的图标
+    showIconImg: {
+      type: Boolean,
+      default: false,
+      required: false
+    }
+  },
+  components: {
+    RightMenu
+  },
+  data() {
+    return {
+      // 图标相对于屏幕的位置
+      iconPosition: {
+        x: 0,
+        y: 0
+      },
+      menuPosition: {
+        left: 0,
+        top: 0
+      },
+      isMouseMove: false,
+      // 是否处于任意查询状态
+      isAnyQuery: true
+    };
+  },
+  mounted() {
+    this.registerEvents();
+    this.initMap();
+  },
+  destroyed() {
+    unitySaveViewport();
+    unitySaveScene();
+    unitySaveSensors('{"CallBack": "saveSensors"}');
+    unityQuit();
+  },
+  methods: {
+    registerEvents() {
+      const that = this;
+      // 注册保存传感器事件
+      window.saveSensors = async data => {
+        that.$emit("saveSensors", data);
+      };
+      // 注册显示右键菜单事件
+      window.showEntityMenu = (flag, result) => {
+        if (flag) {
+          this.$emit("changeMenuVisible", true);
+          let entity = JSON.parse(result.entity);
+          this.$emit("showMenu", {
+            type: entity.EntityType,
+            payload: { ...result, entity: entity }
+          });
+        }
+      };
+      // 三维工具返回结果
+      window.getQueryData = result => {
+        let tool = JSON.parse(result);
+        that.$emit("showToolResult", { type: tool.ToolType, payload: tool });
+      };
+      // 确定起止点坐标和所在巷道
+      window.choosePositionInUnity = type => {
+        return (flag, result) => {
+          if (flag) {
+            that.$emit("showSelectPosition", { type: type, payload: result });
+          } else {
+            if (type === "start") {
+              that.$message("起点没有在巷道上面，为无效起点");
+            } else if (type === "end") {
+              that.$message("终点没有在巷道上面，为无效终点");
+            }
+          }
+        };
+      };
+      // 添加标记
+      window.createMarkInUnity = type => {
+        return (flag, result) => {
+          that.$emit("createMark", {
+            type: type,
+            valid: flag,
+            payload: result
+          });
+        };
+      };
+      // 显示搜索到的详细信息面板
+      window.showSearchInfo = serial => {
+        return (flag, result) => {
+          if (flag && serial === result.guid) {
+            that.$emit("showSearchDialog", { payload: result });
+          }
+        };
+      };
+    },
+    // 初始化地图
+    initMap() {
+      // 设置地图位置以及宽高 ,加载三维场景, 并判断是否在unity中
+      let clientHeight = Number(document.documentElement.clientHeight);
+      let clientWidth = Number(document.documentElement.clientWidth);
+      let xStart = 0;
+      let yStart = 0;
+      let xWidth = 1 - xStart;
+      let yWidth = 1 - 105 / clientHeight;
+      try {
+        unityLoadScene();
+        unitySetEventIntercept(false);
+        unitySetViewportRect(xStart, yStart, xWidth, yWidth);
+        this.initUnityModel(this.modelList);
+        console.log("unity loaded success")
+      } catch (err) {
+        if (err) {
+          console.log("unity loaded faild" + err);
+        }
+      }
+    },
+    // 加载三维模型库配置的模型
+    initUnityModel(unityList) {
+      // let unityModel = await commonApi.find(
+      //   "monitor_unityModelPositionCollection"
+      // );
+      let unityModel = unityList.map(val => {
+        return {
+          Name: val.Name || "",
+          Type: val.Type || "",
+          GUID: val.GUID || "",
+          subSystem: val.SubSystem ? JSON.stringify(val.SubSystem) : "",
+          Forward: val.Forward || {},
+          Position: val.Position || {},
+          Scale: val.Scale || {},
+          BindObjectGUID: val.BindObjectGUID || ""
+        };
+      });
+      unityModel = JSON.stringify(unityModel);
+      unityLoadSensors(unityModel);
+    },
+    // 点击三维地图图层的事件
+    clickUnityMap() {},
+    // 区分左右键点击事件
+    mouseup() {
+      let e = window.event;
+      if (
+        e.button === 2 &&
+        this.isMouseMove === false &&
+        this.isAnyQuery === true
+      ) {
+        let y = window.screen.height - e.screenY;
+        this.menuPosition.left = e.layerX;
+        this.menuPosition.top = e.layerY;
+        unityRaycast(e.screenX, y, "showEntityMenu");
+      }
+    },
+    mousedown() {
+      this.isMouseMove = false;
+    },
+    // 鼠标移动，显示图标
+    mousemove() {
+      this.isMouseMove = true;
+      if (this.isStartMove) {
+        this.showIconByType();
+      }
+    },
+    openUnityEvent() {
+      if (this.isInUnity) {
+        unitySetEventIntercept(false);
+      }
+    },
+    closeUnityEvent() {
+      if (this.isInUnity) {
+        unitySetEventIntercept(true);
+      }
+    },
+    async menuItemClick(item) {}
+  }
+};
+</script>
+
+<style scoped lang="less">
+div {
+  width: 100%;
+  height: 100%;
+  .unity-map-background {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    img {
+      width: 36px;
+      height: 36px;
+      margin-left: -18px;
+      margin-top: -36px;
+      position: fixed;
+    }
+    .clickMenu {
+      width: 80px;
+      background: #fff;
+      border-radius: 2px;
+      box-shadow: 0;
+      // padding: 5px;
+      position: absolute;
+      li {
+        width: 80px;
+        height: 24px;
+        text-align: center;
+        line-height: 24px;
+        font-size: 14px;
+        cursor: pointer;
+        margin: 0px !important;
+        border-radius: 2px;
+      }
+      li:hover {
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
+  }
+  .mark-card {
+    z-index: 100;
+    width: 400px;
+    height: 240px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    margin-left: -200px;
+    margin-top: -400px;
+    img {
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+    .selectColor {
+      position: absolute;
+      top: 0;
+      right: -205px;
+    }
+  }
+}
+</style>

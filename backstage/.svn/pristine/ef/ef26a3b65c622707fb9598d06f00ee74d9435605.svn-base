@@ -1,0 +1,45 @@
+<template>
+  <basic
+    :options="options"
+    :column="column"
+    :label="column.label"
+    :prop="column.field"
+    v-bind="currentOption"/>
+</template>
+
+<script type="text/ecmascript-6">
+  import { BasicListColumn } from './basic'
+  import _ from 'lodash'
+
+  export default {
+    extends: BasicListColumn,
+    computed: {
+      currentOption() {
+        return {
+          formatter: this.formatter,
+          ...this.currentRawOption,
+          label: this.column.label,
+          minWidth: "150px"
+        }
+      }
+    },
+    methods: {
+      formatter(a, b, c) {
+        let { label = 'label', value = "value" } = this.currentRawOption
+        const fn = (val) => {
+          if (typeof val === "object") {
+            return _.get(val, label)
+          } else {
+            let obj = this.currentSource.find(v => _.get(v, value) === val)
+            return _.get(obj, label)
+          }
+        }
+        if (Array.isArray(c)) {
+          return c.map(fn).filter(v => v).join(",")
+        } else {
+          return fn(c)
+        }
+      }
+    }
+  }
+</script>

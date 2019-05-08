@@ -1,0 +1,15 @@
+const redisCtx = require('../../../config/plugin.redis')
+
+class VehicleRepo {
+  getAll (callback) {
+    redisCtx.smembers(VehicleRepo.Key, callback)
+  }
+
+  get (key, callback) {
+    redisCtx.hgetall(key, callback)
+  }
+}
+
+VehicleRepo.Key = '陕西陕煤曹家滩矿业有限公司:车辆精确定位系统:井下'
+
+module.exports = VehicleRepo

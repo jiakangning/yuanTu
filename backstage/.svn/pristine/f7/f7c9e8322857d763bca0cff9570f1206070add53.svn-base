@@ -1,0 +1,96 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门控制器
+*/
+const DepotManage = require('../../service/system/DepartmentManager')
+/**
+ * @desc 创建部门
+ * @param req
+ * @param res
+ */
+exports.createDepot = function (req, res) {
+  const depot = new DepotManage()
+  depot.create(req.body, (err, data) => {
+    if (err) res.status(403).send(err)
+    else {
+      // res.setHeader('Location', `http://127.0.0.1:3721/system/depots/${data.id}`)
+      // res.send({ status: 201 })
+      res.send(data)
+    }
+  })
+}
+/**
+ * @desc 修改部门
+ * @param req
+ * @param res
+ */
+exports.updateDepot = function (req, res) {
+  let id = req.id
+  const depot = new DepotManage()
+  depot.update(id, (err, data) => {
+    if (err) res.send(Object.assign({ msg: '更新当前部门信息出错' }, err))
+    else res.json({ status: 200, data })
+  })
+}
+/**
+ *@desc 依据id删除
+ * @param req
+ * @param res
+ */
+exports.deleteDepot = function (req, res) {
+  const depot = new DepotManage()
+  depot.delete(req.params.id, (err, affectRwos) => {
+    if (err) res.send(Object.assign({ msg: '查不到与当前传入的Id相关的部门信息' }, err))
+    else {
+      res.send({ status: 200, affectRwos: (affectRwos + 1) })
+    }
+  })
+}
+/**
+ * @desc 依据id查找部门
+ * @param req
+ * @param res
+ */
+exports.showDepotById = function (req, res) {
+  const depot = new DepotManage()
+  depot.findByPk(req.params.id, (err, data) => {
+    if (err) res.send(Object.assign({ msg: '查不到与当前传入的Id相关的部门信息' }, err))
+    else {
+      res.json({ status: 200, data })
+    }
+  })
+}
+/**
+ * @desc 展示所有部门
+ * @param req
+ * @param res
+ */
+exports.showDepots = function (req, res) {
+  const depot = new DepotManage()
+  depot.showAllDepot(req.body, (err, data) => {
+    if (err) res.send(err)
+    else {
+      // res.json(data.reduce((acc, current) => {
+      //   return acc.concat({ id: current.id, name: current.name, parent_id: current.parent_id, rt_path: current.rt_path })
+      // }, []))
+      res.json(data)
+    }
+  })
+}
+
+/**
+ * @desc 获取级联部门
+ * @param req
+ * @param res
+ */
+exports.getDepotByCcade = function (req, res) {
+  const depot = new DepotManage()
+  depot.showDepotsByCcade(req.params.id, (err, data) => {
+    if (err) res.send(err)
+    else {
+      res.json(data)
+    }
+  })
+}
+

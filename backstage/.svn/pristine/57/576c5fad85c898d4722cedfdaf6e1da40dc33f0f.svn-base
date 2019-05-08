@@ -1,0 +1,112 @@
+<!-- create: 韩连杰
+    data: 2019-03-15
+    description: 职位管理
+  -->
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  import Run from 'run'
+  import Mock from 'mockjs'
+
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    mounted() {
+      this.options = new Run.Work({
+        config: {
+          title: "职位管理",
+        },
+        actions: ["create", "update", "delete", "see"],
+        tabs: "tabs",
+        list: [
+          'name',
+          'text',
+          'remarks'
+        ],
+        form: [
+          'name',
+          'department',
+          'm_level',
+          'remarks'
+        ],
+        search: {
+          layout: "single",
+          columns: [
+            'account',
+            'supervisor',
+            'in_charges'
+          ]
+        },
+        columns: [
+          { label: "所属部门", field: "name", layout: "text"},
+          { label: "职位名称", field: "text", layout: "text"},
+          { label: "职位说明", field: "remarks", layout: "textarea" },
+          { label: "组织机构", field: "department", layout: "select", source: 'job', rules: true },
+          { label: "职级", field: "m_level", layout: "select", source: 'level', rin_chargesules: true },
+          { label: "名称", field: "account", layout: "select" },
+          { label: "主管", field: "supervisor", layout: "select", source: "supervisor" },
+          { label: "分管", field: "in_charges", layout: "select", source: "in_charges" }
+        ],
+        events: {
+          loading(store, done) {
+            console.log('loading')
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          search(params) {
+            setTimeout(() => {
+              const { rows, total, level, job } = Mock.mock({
+                "rows|50-100": [{
+                  "text": () => Mock.Random.cname(),
+                  "name": () => Mock.Random.cname(),
+                  "remarks|1": ['机长']
+                }],
+                "total"() {
+                  return this.rows.length
+                },
+                'level|25': [{
+                  'label|+1': 1,
+                  'value|+1': 1
+                }],
+                'job|2': [
+                  {
+                    'label|+1': ['堂主', '喽啰'],
+                    'value|+1': ['1', '2']
+                  }
+                ]
+              })
+              this.sources.set("rows", rows)
+              this.sources.set("total", total)
+              this.sources.set("level", level)
+              this.sources.set('job', job)
+            }, 1000)
+          },
+          delete(rows, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          submit(form, done) {
+            setTimeout(() => {
+              done()
+            }, 1000)
+          },
+          edit(form) {
+            console.log(this, form)
+          }
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

@@ -1,0 +1,7 @@
+export default [
+  {
+    path: '/driver/screen',
+    name: '大屏',
+    component: () => import('@/apps/driver/screen/index.vue')
+  }
+]

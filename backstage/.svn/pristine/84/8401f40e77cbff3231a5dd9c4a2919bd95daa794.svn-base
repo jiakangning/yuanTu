@@ -1,0 +1,12 @@
+import job from './job.js'
+import contact from './contact.js'
+import department from './department'
+
+export default {
+  namespaced: true,
+  modules: {
+    job,
+    contact,
+    department
+  }
+}

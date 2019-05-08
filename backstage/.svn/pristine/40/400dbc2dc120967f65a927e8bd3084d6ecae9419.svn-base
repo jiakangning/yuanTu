@@ -1,0 +1,35 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门模型
+*/
+const Sequelize = require('sequelize')
+const dbCtx = require('../../../database/dbCtx')
+const Op = require('sequelize').Op
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+
+const Role = dbCtx.define('role', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
+  roleText: { type: Sequelize.STRING(50), allowNull: true, unique: true, field: 'role_text' },
+  pIndex: { type: Sequelize.INTEGER, allowNull: false, unique: false, field: 'p_index' },
+  description: { type: Sequelize.STRING(500), allowNull: false, unique: false }
+}, {
+  timestamps: true,
+  paranoid: true,
+  underscored: true,
+  freezeTableName: true,
+  tableName: 'system_membership_role'
+})
+
+Role.buildOptions = function ({ roleText = '', description = '', ...raw } = {}) {
+  let result = buildDefaultOption(raw)
+  roleText && (result.where.roleText = { [Op.like]: '%' + roleText + '%' })
+  description && (result.where.description = { [Op.like]: '%' + description + '%' })
+  return result
+}
+
+Role.isExist = function (id) {
+  return Role.findByPk(id)
+}
+
+module.exports = Role

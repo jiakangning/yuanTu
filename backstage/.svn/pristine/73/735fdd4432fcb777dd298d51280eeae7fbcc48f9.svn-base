@@ -1,0 +1,42 @@
+/**
+ * @author 魏婷
+ * @date 2019-03-18
+ * @description 角色管理
+ */
+
+import http from '@/store/http.js'
+import Mock from 'mockjs'
+export default {
+  namespaced: true,
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {
+    search({ commit, state }, params) {
+      const { rows, count } = Mock.mock({
+        "rows|20": [
+          {
+            "id|+1": 0,
+            "pIndex|+1": 1,
+            "text": () => Mock.Random.ctitle(3, 5),
+            "description": () => Mock.Random.ctitle(10, 15),
+            "created_at": () => Mock.Random.date()
+          }
+        ],
+        "count"() {
+          return this.rows.length
+        }
+      })
+      return Promise.resolve({ rows, count })
+    },
+    create({commit, state}, form) {
+      return Promise.resolve({ success: true, result: form })
+    },
+    update({ commit, state }, form) {
+      return Promise.resolve({ success: true, result: form })
+    },
+    delete({ commit, state }, rows) {
+      return Promise.resolve({ success: true, resault: 1 })
+    }
+  }
+}

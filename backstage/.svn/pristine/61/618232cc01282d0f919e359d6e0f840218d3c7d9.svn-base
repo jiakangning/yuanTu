@@ -1,0 +1,18 @@
+/**
+ * @author 赵赛赛
+ * @date 2019-03-18
+ */
+const logLoginManager = require('../../service/system/logLoginManager')
+const formatResponse = require('../../util/formatResponse.js')
+
+exports.create = function (req, res) {
+  new logLoginManager().create(req.body, formatResponse(res))
+}
+
+exports.destroy = function (req, res) {
+  new logLoginManager().destroy(req.body, formatResponse(res))
+}
+
+exports.findAll = function (req, res) {
+  new logLoginManager().findAll(req.body, formatResponse(res))
+}

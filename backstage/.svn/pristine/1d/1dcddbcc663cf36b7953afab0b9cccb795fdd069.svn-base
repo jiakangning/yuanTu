@@ -1,0 +1,25 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 部门路由
+*/
+const express = require('express')
+const { createDepot, updateDepot, deleteDepot, showDepots, showDepotById, getDepotByCcade } = require('../../controller/system/departmentController')
+
+const router = express.Router()
+// 获取所有部门
+router.get('/depots', showDepots)
+// 获取id为** 的用户
+router.get('/depots/:id', showDepotById)
+// 创建一个新部门
+router.post('/depots', createDepot)
+// 更新id为**的部门
+router.put('/depots', updateDepot)
+// 删除id为**的部门
+router.delete('/depots/:id', deleteDepot)
+// 获取级联部门
+router.get('/depots/byCascade/:id', getDepotByCcade)
+
+
+
+module.exports = router

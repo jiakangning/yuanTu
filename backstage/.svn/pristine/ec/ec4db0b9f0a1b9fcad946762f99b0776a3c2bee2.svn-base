@@ -1,0 +1,56 @@
+<template>
+  <component
+    class="run-list"
+    :is="currentName"
+    :options="options"
+    @search="onSearch">
+    <slot/>
+  </component>
+</template>
+
+<script type="text/ecmascript-6">
+  import template from './templates'
+  import List from '../model/List'
+
+  export default {
+    name: "run-list",
+    components: template,
+    props: {
+      options: {
+        default() {
+          return new List({})
+        }
+      }
+    },
+    computed: {
+      currentName() {
+        let layout = this.options.getConfig("layout")
+        return `template-${ layout }`
+      }
+    },
+    methods: {
+      onSearch() {
+        this.$emit(List.EVENTS.search, this.options.getParams())
+        this.options.emit(List.EVENTS.search, this.options.getParams())
+      }
+    }
+  }
+</script>
+
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus">
+  .run-list {
+    width: 100%;
+    height: 100%;
+
+    .el-table--striped .el-table__body tr.el-table__row--striped.current-row td, .el-table__body tr.current-row > td, .el-table__body tr.hover-row.current-row > td, .el-table__body tr.hover-row.el-table__row--striped.current-row > td, .el-table__body tr.hover-row.el-table__row--striped > td, .el-table__body tr.hover-row > td {
+      background: #e7f6ff;
+    }
+
+    .el-table__fixed, .el-table__fixed-right {
+      background: #ffffff;
+    }
+  }
+</style>

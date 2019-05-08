@@ -1,0 +1,6 @@
+const User = require('./User')
+const Contact = require('./Contact')
+
+// const contactUser = User.belongsTo(Contact, { foreignKey: 'sss' })
+const userContact = User.belongsTo(Contact)
+module.exports = userContact

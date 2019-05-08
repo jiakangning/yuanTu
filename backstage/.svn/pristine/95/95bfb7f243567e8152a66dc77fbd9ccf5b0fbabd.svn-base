@@ -1,0 +1,156 @@
+import Vue from 'vue'
+import _ from "lodash"
+import getRule from "../common/getRule.js"
+import match from '../common/match.js'
+import Base from './Base'
+import Config from "./Config.js"
+
+class FormColumn {
+
+  static DEFAULT = {
+    layout: "text"
+  }
+
+  constructor(options) {
+    this.rawOption = Config.GetOptionsByStartKey(options, Config.RAWKEY.option)
+    this.rawListener = Config.GetOptionsByStartKey(options, Config.RAWKEY.listener)
+    this.layout = _.get(options, "layout", FormColumn.DEFAULT.layout)
+    this.label = _.get(options, "label")
+    this.field = _.get(options, "field")
+    this.source = _.get(options, "source")
+    this.cols = parseInt(_.get(options, "cols", 24))
+    this.tips = _.get(options, "tips")
+    this.rules = _.get(options, "rules")
+  }
+}
+
+class FormConfig {
+
+  static DEFAULT = {
+    layout: "form",
+    confirm: false,
+    submit: true,
+    hide: [],
+    disabled: []
+  }
+
+  constructor(options) {
+    this.rawOption = Config.GetOptionsByStartKey(options, Config.RAWKEY.option)
+    this.rawListener = Config.GetOptionsByStartKey(options, Config.RAWKEY.listener)
+    this.layout = _.get(options, "layout", FormConfig.DEFAULT.layout)
+    this.confirm = _.get(options, "confirm", FormConfig.DEFAULT.confirm)
+    this.submit = _.get(options, "submit", FormConfig.DEFAULT.submit)
+    this.hide = _.get(options, "hide", FormConfig.DEFAULT.hide)
+    this.disabled = _.get(options, "disabled", FormConfig.DEFAULT.disabled)
+  }
+
+  initRules(rules = {}, columns = []) {
+    let _rules = columns.reduce((result, column) => {
+      if (column.rules !== undefined && column.rules !== null) {
+        result[column.field] = column.rules
+      }
+      return result
+    }, {})
+    rules = Object.assign(rules, _rules)
+    const result = {}
+    const mn = (message) => ({ required: true, message, trigger: 'blur' })
+    _.forIn(rules, (v, k) => {
+      result[k] = match(v)
+        .boolean(() => {
+          let column = columns.find(n => n.field === k)
+          return !column ? undefined : mn(`请填写${ column.label }`)
+        })
+        .number(getRule)
+        .string(mn)
+        .array()
+        .object()
+        .build()
+    })
+    this.rules = result
+  }
+
+  get(field) {
+    return field ? this[field] : this
+  }
+
+  set(val) {
+    Object.assign(this, val)
+  }
+}
+
+export default class Form extends Base {
+
+  static EVENTS = {
+    submit: "submit",
+    cancel: "cancel",
+    success: "success"
+  }
+
+  constructor({ config = {}, columns = [], events = {}, sources = {} }) {
+    super({ sources, events })
+    this.initForm()
+    this.initColumns(columns)
+    this.initConfig(config)
+  }
+
+  initContext(context) {
+    this.context = context
+  }
+
+  initConfig(config) {
+    this.config = config instanceof FormConfig ? config : new FormConfig(config)
+    this.config.initRules(config.rules, this.columns)
+  }
+
+  initColumns(columns) {
+    this.columns = columns.map(column => column instanceof FormColumn ? column : new FormColumn(column))
+  }
+
+  initDefaultForm(form) {
+    this._form = { ...form }
+  }
+
+  initForm(form = {}) {
+    this.form = form
+  }
+
+  getConfig(field) {
+    return this.config.get(field)
+  }
+
+  getColumns() {
+    return this.columns || []
+  }
+
+  getForm(field) {
+    return field ? this.form[field] : (this.form || {})
+  }
+
+  setForm(val, field) {
+    if (field) {
+      Vue.set(this.form, field, val)
+    } else {
+      this.form = Object.assign({}, this.form, val)
+    }
+  }
+
+  validate() {
+    if (!this.context) return
+    return this.context.validate()
+  }
+
+  validateField(field) {
+    if (!this.context) return
+    return this.context.validateField(field)
+  }
+
+  create() {
+    this.initForm({})
+    this.config.submit = true
+  }
+
+  update(form) {
+    this.initForm({ ...form })
+    this.config.submit = true
+  }
+}

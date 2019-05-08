@@ -1,0 +1,14 @@
+const redisCtx = require('../../../config/plugin.redis')
+
+class MainCoalFlowRepo {
+  getAll (callback) {
+    redisCtx.smembers(MainCoalFlowRepo.Key, callback)
+  }
+  get (key, callback) {
+    redisCtx.hgetall(key, callback)
+  }
+}
+
+MainCoalFlowRepo.Key = '陕西陕煤曹家滩矿业有限公司:煤流自动化子系统'
+
+module.exports = MainCoalFlowRepo

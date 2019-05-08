@@ -1,0 +1,13 @@
+/**
+ * @description 数组去重
+ * @param input
+ * @return {Array}
+ */
+module.exports.uniqueArray = function (oldArr) {
+  oldArr.reduce((acc, current) => {
+    let flag = true
+    if (acc.find(v => v.moduleId === current.moduleId && v.cmdId === current.cmdId)) flag = false
+    if (flag) return acc.concat(current)
+    else return acc
+  }, [oldArr[0]])
+}

@@ -1,0 +1,130 @@
+/**
+ * author:赵赛赛
+ * created_at:2019/3/15
+ * */
+const PositionManager = require('../../../model/system/position/PositionModel')
+const Op = require('sequelize').Op
+
+class PositionManager {
+  /**
+   * 新增
+   * @param {Object|Array<Object>}  input
+   * @param {Function} callback
+   * */
+  create (input, callback) {
+    if (Array.isArray(input)) {
+      PositionManager.bulkCreate(input)
+        .then(position => {
+          callback(null, position)
+        }).catch(err => { callback(err) })
+    } else {
+      PositionManager.create(input)
+        .then(position => {
+          callback(null, position.id)
+          // callback(null, menu.get({plain: true}))
+        })
+        .catch(err => {
+          callback(err.message)
+        })
+    }
+  }
+
+  /**
+   * 修改
+   * @param {Object}  input
+   * @param {Function} callback
+   * */
+  update (input, callback) {
+    const { id, text, mLevel, pIndex, remarks } = input
+    PositionManager.findOne({ where: { id } })
+      .then(position => {
+        return position.update({ text, mLevel, pIndex, remarks })
+      })
+      .then(() => {
+        callback(null, { code: '200', msg: '修改成功' })
+      })
+      .catch(err => {
+        callback(err)
+      })
+  };
+
+  /**
+   * 删除
+   * @param {String} input  多个用','串起来
+   * */
+  destroy (input, callback) {
+    let { id } = input
+    let condition = {}
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      condition = { where: { id: { [Op.in]: id } } }
+    } else {
+      condition = { where: { id } }
+    }
+    PositionManager.destroy(condition)
+      .then(number => {
+        if (number) {
+          callback(null, { success: true, code: 200, msg: `删除成功${number}行` })
+        } else {
+          callback({ msg: '查无该数据', code: 404, error: true })
+        }
+      })
+      .catch(err => {
+        callback({ error: true, msg: err.message })
+      })
+  }
+
+  /**
+   * 根据id查询
+   * @param {} input
+   * */
+  findByPk (input, callback) {
+    let { id } = input
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      PositionManager.findAll({ where: { id: { [Op.in]: id } } })
+        .then(positions => {
+          if (positions && positions.length > 0) {
+            callback(null, { success: true, result: { rows: positions, count: positions.length } })
+          } else {
+            callback({ error: '查无数据', result: {} })
+          }
+        }).catch(err => {
+        callback({ error: err.message, result: {} })
+      })
+    } else {
+      PositionManager.findByPk(id)
+        .then(position => {
+          if (position) {
+            callback(null, { success: true, result: position })
+          } else {
+            callback({ error: '查无数据', result: {} })
+          }
+        }).catch(err => {
+        callback({ error: err.message, result: {} })
+      })
+    }
+  }
+
+  /**
+   * 条件查询
+   *根据attributes查询
+   * */
+  findAll (input, callback) {
+    let { pageSize, currentPage, ...condition } = input
+    let offset = (currentPage - 1) * pageSize
+    PositionManager.findAll({ where: { ...condition }, limit: pageSize, offset })
+      .then(position => {
+        if (position) {
+          callback(null, position)
+          // callback(null, {success: true, result: {count: menu.length, rows: menu}})
+        } else {
+          callback({ error: '查无数据' })
+        }
+      }).catch(err => {
+      callback({ error: err.message })
+    })
+  }
+}
+
+module.exports = PositionManager

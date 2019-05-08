@@ -1,0 +1,103 @@
+/**
+ * @author 甄岩岩
+ * @date 2019-03-15
+ */
+const Op = require('sequelize').Op
+const dbCtx = require('../../../database/dbCtx.js')
+const { Command, Menu } = require('../../model/system/index.js')
+
+class MenuManager {
+  constructor (MenuRepo = Menu, CommandRepo = Command) {
+    this.menuRepo = MenuRepo
+    this.commandRepo = CommandRepo
+  }
+
+  /**
+   * 创建菜单
+   * @param {Object}  input
+   * @param {Function} callback
+   */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数'))
+    } else {
+      this.menuRepo
+        .create(input, { include: [this.commandRepo] })
+        .then((res) => callback(null, res))
+        .catch(callback)
+    }
+  }
+
+  // todo 待完善
+  /**
+   * 修改菜单
+   * @param {Object|Array<Object>}  input
+   * @param {Function} callback
+   */
+  update (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数!'))
+    } else {
+      let { id, commands, ...raw } = input
+      dbCtx
+        .transaction((t) => {
+          this.menuRepo.isExist(id)
+            .then(menu => {
+              if (menu) {
+                return menu.update(raw, { transaction: t })
+              } else {
+                return Promise.reject(new Error('菜单不存在！'))
+              }
+            })
+            .then(() => {
+              const condition = { where: { menuId: { [Op.in]: [id] } } }
+              return this.commandRepo.destroy(condition, { transaction: t })
+            })
+            .then(() => {
+              commands = commands.map(command => ({ ...command, id: undefined, menuId: id }))
+              return this.commandRepo.bulkCreate(commands, { transaction: t })
+            })
+        })
+        .then(() => callback(null, '修改成功！'))
+        .catch(callback)
+    }
+  }
+
+  /**
+   * 删除菜单
+   * @param input {Array, Number}
+   * @param callback
+   */
+  destroy (input, callback) {
+    const rows = Array.isArray(input) ? input : [input]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    this.menuRepo.destroy(condition)
+      .then(count => callback(null, count))
+      .catch(callback)
+  }
+
+  /**
+   * 获取能构建成树形结构的数据
+   * @param input
+   * @param callback
+   */
+  findAll (input, callback) {
+    const options = this.menuRepo.buildOptions(input)
+    this.menuRepo.findAll(options)
+      .then(instances => {
+        const rows = instances.reduce((results, item) => {
+          return results.concat(item.getParentIds())
+        }, instances.map(v => v.id))
+        const params = {
+          where: { id: { [Op.in]: rows } },
+          include: { model: this.commandRepo, required: false },
+          distinct: true
+        }
+        return this.menuRepo.findAndCountAll(params)
+      })
+      .then(result => (callback(null, result)))
+      .catch(callback)
+  }
+}
+
+module.exports = MenuManager

@@ -1,0 +1,16 @@
+import http from '@/store/http.js'
+
+export default {
+  namespaced: "contact",
+  state: {},
+  getters: {},
+  mutations: {},
+  actions: {
+    create({ commit, state }, form) {
+      return http.post('/system/position', form)
+    },
+    update({ commit, state }, form) {
+      return http.post(`/system/position/${ form.id }`, form)
+    }
+  }
+}

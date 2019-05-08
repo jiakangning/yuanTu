@@ -1,0 +1,15 @@
+let io
+
+module.exports = {
+  init: server => {
+    io = require('socket.io')(server)
+    return io
+  },
+  singleton: () => {
+    if (!io) {
+      throw new Error('实时推送服务未能正常启动')
+    } else {
+      return io
+    }
+  }
+}

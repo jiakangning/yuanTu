@@ -1,0 +1,39 @@
+/**
+ * author: 甄岩岩 2019-3-21
+ * @type {Router}
+ */
+const router = require('express').Router()
+const upload = require('../../util/plugin.multer')
+const fs = require('fs')
+
+router.post('/upload/files', function (req, res) {
+  upload(req, res, function (err) {
+    if (err) {
+      res.send({ success: false, result: err.message })
+    } else {
+      let result = req.files.reduce(function (data = [], item) {
+        let url = item.destination + item.filename
+        let name = item.originalname
+        data.push({ url, name })
+        return data
+      }, [])
+      res.send({ success: true, result })
+    }
+  })
+})
+router.post('/download/files', function (req, res) {
+  try {
+    if (!req.body) {
+      res.send({ success: false, result: '请传入参数' })
+    } else {
+      res.writeHead(200, {
+        'Content-Type': 'application/octet-stream',
+        'Content-Disposition': 'attachment; filename=' + req.body.name,
+      })
+      fs.createReadStream(req.body.url).pipe(res)
+    }
+  } catch (e) {
+    res.send(err.message)
+  }
+})
+module.exports = router

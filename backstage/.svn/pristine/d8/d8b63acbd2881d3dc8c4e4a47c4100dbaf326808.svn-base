@@ -1,0 +1,117 @@
+<template>
+  <div :class="['surveyingTools', activeName]">
+    <!-- 按钮 -->
+    <ul class="toolButtons">
+      <li @click="toggleShow('Layers')" :class="{active: activeName === 'Layers'}">
+        <i class="iconfont icon-layer"></i>图层
+      </li>
+      <li @click="toggleShow('ViewPorts')" :class="{active: activeName === 'ViewPorts'}">
+        <i class="iconfont icon-view"></i>视口
+      </li>
+      <li @click="toggleShow('Tools')" :class="{active: activeName === 'Tools'}">
+        <div class="rotate45"><i class="iconfont icon-straighten"></i>工具</div>
+      </li>
+    </ul>
+    <!-- 工具面板 -->
+    <div :class="['panel', activeName]">
+      <component :is="activeName" v-if="activeName" :divHeight="divHeight" />
+    </div>
+  </div>
+</template>
+
+<script>
+import Tools from './tools/Tools'
+import Layers from './tools/Layer'
+import ViewPorts from './tools/ViewPort'
+export default {
+  components: {
+    Tools,
+    Layers,
+    ViewPorts
+  },
+  data () {
+    return {
+      // 当前激活的选项
+      activeName: '',
+      divHeight: document.documentElement.clientHeight - 250
+    }
+  },
+mounted() {
+    const that = this;
+    window.onresize = () => {
+      return (() => {
+        that.divHeight = document.documentElement.clientHeight - 250;
+      })();
+    };
+  },
+  methods: {
+    /**
+     * 切换显示面板
+     */
+    toggleShow (name) {
+      if (name === this.activeName) {
+        this.activeName = ''
+      } else {
+        this.activeName = name
+      }
+    }
+  }
+}
+</script>
+
+<style lang="less" scoped>
+  .surveyingTools {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    z-index: 999;
+    display: flex;
+    // 工具
+    .toolButtons {
+      width: 40px;
+      min-width: 40px;
+      max-width: 40px;
+      position: absolute;
+      top: 0;
+      left: -40px;
+      li {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 5px;
+        background: rgb(242, 242, 242);
+        box-shadow: 0px 1px 3px 0px #aaaaaa;
+        text-align: center;
+        cursor: pointer;
+        .rotate45 {
+          transform: rotate(-45deg);
+        }
+        i {
+          font-size: 20px;
+          line-height: 40px;
+          color: black;
+        }
+        &.active {
+          background: #fff;
+          i {
+            color: #38b1ff;
+            font-weight: bold;
+          }
+        }
+      }
+    }
+    // 面板
+    .panel {
+      width: 0;
+      background-color: rgba(255, 255, 255, 1);
+      &.Tools {
+        width: 200px
+      }
+      &.Layers {
+        width: 300px;
+      }
+      &.ViewPorts {
+        width: 300px;
+      }
+    }
+  }
+</style>

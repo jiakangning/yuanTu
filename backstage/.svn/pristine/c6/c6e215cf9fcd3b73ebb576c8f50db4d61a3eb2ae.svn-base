@@ -1,0 +1,60 @@
+/**
+ * @author 刘腾腾
+ * @date 2019-03-22
+ * @type {Sequelize}
+ */
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
+const dbCtx = require('../../../database/dbCtx')
+const buildDefaultOption = require('../../util/buildDefaultOption.js')
+const compareData = require('../../util/compareData.js')
+
+const Student = dbCtx.define('student', {
+  id: { type: Sequelize.INTEGER, autoIncrement: true, primaryKey: true },
+  name: { type: Sequelize.STRING(50), allowNull: false, unique: true }
+}, {
+  tableName: 'test_student',
+  underscored: true
+})
+
+Student.foreignKey = 'classes_id'
+
+Student.sourceKey = 'id'
+
+Student.buildOptions = function (raw = {}) {
+  return buildDefaultOption(raw)
+}
+
+Student.batchDestroy = function ({ rows = [] }, options) {
+  rows = rows.map(v => typeof v === 'object' ? v.id : v)
+  options = Object.assign({ where: { id: { [Op.in]: rows } } })
+  return Student.destroy(options)
+}
+
+Student.batchCreate = function ({ classes, rows = [] }, options) {
+  let p = rows.map(item => {
+    let obj = Object.assign(item, { [Student.foreignKey]: classes[Student.sourceKey] })
+    return Student.build(obj).save(options)
+  })
+  return Promise.all(p)
+}
+
+Student.batchUpdate = function ({ classes, rows = [] }, options) {
+  let p = rows.map(item => {
+    let obj = Object.assign(item, { [Student.foreignKey]: classes[Student.sourceKey] })
+    options = Object.assign({ where: { id: item.id } }, options)
+    return Student.update(obj, options)
+  })
+  return Promise.all(p)
+}
+
+Student.batchProcess = function ({ classes, students }, options) {
+  const { create, update, destroy } = compareData(students, classes.students)
+  return Promise.all([
+    Student.batchCreate({ rows: create, classes }, options),
+    Student.batchUpdate({ rows: update, classes }, options),
+    Student.batchDestroy({ rows: destroy }, options)
+  ])
+}
+
+module.exports = Student

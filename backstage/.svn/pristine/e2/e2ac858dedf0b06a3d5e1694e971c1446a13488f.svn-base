@@ -1,0 +1,15 @@
+/*
+  creator: 贾康宁
+  date: 2019-03-15
+  description: 角色路由
+*/
+const router = require('express').Router()
+const { create, update, destroy, findAll } = require('../../controller/system/role')
+
+// 角色路由
+router.post('/role/create', create)
+router.post('/role/update', update)
+router.post('/role/delete', destroy)
+router.post('/role/findAll', findAll)
+
+module.exports = router

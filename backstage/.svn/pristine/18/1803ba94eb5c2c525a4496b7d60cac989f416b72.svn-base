@@ -1,0 +1,20 @@
+/**
+ * @description 平铺数组
+ * @param input
+ * @return {Array}
+ */
+module.exports.uniqueArray = function (oldArr) {
+  let allArr = []
+  for (let i = 0; i < oldArr.length; i++) {
+    let flag = true
+    for (let j = 0; j < allArr.length; j++) {
+      if (oldArr[i].moduleId === allArr[j].moduleId && oldArr[i].cmdId === allArr[j].cmdId) {
+        flag = false
+      }
+    }
+    if (flag) {
+      allArr.push(oldArr[i])
+    }
+  }
+  return allArr
+}

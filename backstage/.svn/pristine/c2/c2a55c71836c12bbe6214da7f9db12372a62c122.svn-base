@@ -1,0 +1,302 @@
+<template>
+  <div
+    class="page"
+    style="overflow: auto">
+    <el-row :gutter="20">
+      <run-chart-card :options="options1"/>
+      <run-chart-card :options="options2"/>
+      <run-chart-card :options="options3"/>
+      <run-chart-card :options="options4"/>
+      <run-chart-card :options="options5"/>
+      <run-chart-card :options="options6"/>
+      <run-chart-card :options="options7"/>
+      <run-chart-card :options="options8"/>
+    </el-row>
+  </div>
+</template>
+
+<script>
+import Run from 'run'
+import Mock from 'mockjs'
+import moment from 'moment'
+
+export default {
+  data() {
+    return {
+      sources: new Run.Source(),
+      options1: null,
+      options2: null,
+      options3: null,
+      options4: null,
+      options5: null,
+      options6: null,
+      options7: null,
+      options8: null
+    }
+  },
+  created() {
+    this.renderSimple()
+    this.renderBarReverse()
+    this.renderBarNegative()
+    this.renderBarStack()
+    this.renderLineArea()
+    this.renderLineDynamic()
+    this.renderPieCustom()
+    this.renderPieDoughnut()
+  },
+  methods: {
+    renderSimple() {
+      this.options1 = new Run.ChartCard({
+        config: {
+          cols: 24,
+          title: "行业统计",
+          source: "simple",
+          charts: ["bar", "line"],
+          layout: "simple",
+          _xAxisName: '类型',
+          _yAxisName: '演练次数',
+          _serieName: "行业统计"
+        },
+        sources: this.sources
+      })
+
+      const { items } = Mock.mock({
+        "items|24": [
+          {
+            "name|+1": [
+              '危险化学品',
+              '非媒矿山',
+              '金属演练',
+              '工贸企业',
+              '烟花爆竹',
+              '其他'
+            ],
+            "value|1-50": 1
+          }
+        ]
+      })
+
+      this.sources.set('simple', items)
+    },
+    renderBarReverse() {
+      this.options2 = new Run.ChartCard({
+        config: {
+          cols: 24,
+          height: 400,
+          title: "重大危险源事故类型统计",
+          source: "reverse",
+          charts: ["bar"],
+          _layout: "simple",
+          bar: { layout: 'reverse', xAxisName: '风险个数', yAxisName: '事故类型' }
+        },
+        sources: this.sources
+      })
+
+      const { items } = Mock.mock({
+        "items|20": [
+          {
+            "name": () => Mock.Random.ctitle(3, 5),
+            "value|1-100": 1
+          }
+        ]
+      })
+
+      this.sources.set('reverse', items)
+    },
+    renderBarNegative() {
+      this.options3 = new Run.ChartCard({
+        config: {
+          cols: 24,
+          title: "正负条形图",
+          source: "negative",
+          charts: ["bar"],
+          bar: { layout: "negative" }
+        },
+        sources: this.sources
+      })
+
+      let { items } = Mock.mock({
+        "items|3": [
+          {
+            "name|+1": ['利润', '收入', '支出'],
+            "value|7": [
+              {
+                "name|+1": ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                "value|200-300": 1
+              }
+            ]
+          }
+        ]
+      })
+
+      items = items.map(v => {
+        if (v.name === '支出') v.value = v.value.map(o => ({ name: o.name, value: -o.value }))
+        return v
+      })
+
+      this.sources.set("negative", items)
+    },
+    renderBarStack() {
+      this.options4 = new Run.ChartCard({
+        config: {
+          cols: 24,
+          title: "堆叠条形图",
+          source: "stark",
+          charts: ["bar"],
+          bar: { layout: "stack" }
+        },
+        sources: this.sources
+      })
+
+      const { items } = Mock.mock({
+        "items|5": [
+          {
+            "name|+1": ['直接访问', '邮件直销', '联盟广告', '视频广告', '搜索引擎'],
+            "value|7": [
+              {
+                "name|+1": ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+                "value|0-300": 1
+              }
+            ]
+          }
+        ]
+      })
+
+      this.sources.set('stark', items)
+    },
+    renderLineArea() {
+      this.options5 = new Run.ChartCard({
+        config: {
+          cols: 24,
+          title: "大数据量面积图",
+          source: "lineArea",
+          charts: ["line"],
+          line: { layout: "area" },
+          _serieName: "模拟数据"
+        },
+        sources: this.sources
+      })
+
+      /**
+       * 模拟数据
+       * [ { name: '2018-03-12', value: 200 }, { name: '2018-03-13', value: 100 } ]
+       */
+      let { items } = Mock.mock({
+        "items|2000": [
+          {
+            "name|+86400000": Date.parse(Mock.Random.date()),
+            "value|200-300": 1
+          }
+        ]
+      })
+      items = items.map(v => ({ name: moment(v.name).format("YYYY-MM-DD"), value: v.value }))
+      this.sources.set('lineArea', items)
+    },
+    renderLineDynamic() {
+      this.options6 = new Run.ChartCard({
+        config: {
+          col: 24,
+          title: '动态数据 + 时间数据轴',
+          source: 'lineDynamic',
+          charts: ['line'],
+          line: { layout: 'dynamic', minLimit: 100, maxLimit: 700 }
+        },
+        sources: this.sources
+      })
+
+      /**
+       * 模拟数据
+       * [ { name: '', value: ['2019/03/11', 560] }, { name: '时间格式', value: ['2019/03/12', 570] } ]
+       */
+      let { items } = Mock.mock({
+        "items|100": [
+          {
+            "name|+86400000": Date.parse(Mock.Random.date()),
+            "value|0-800": 1
+          }
+        ]
+      })
+      items = items.map(v => ({
+        name: moment(v.name).toString(),
+        value: [moment(v.name).format('YYYY-MM-DD'), v.value]
+      }))
+      this.sources.set('lineDynamic', items)
+
+      // TODO: 想要使数据动态变化，应调用 myChart.setOption({ series: [{ data: data }] })刷新数据，而非重新渲染整个图表
+      // setInterval(() => {
+      //   for (var i = 0; i < 5; i++) {
+      //     data.shift()
+      //     data.push(randomData())
+      //   }
+      //   // TODO: 运行下面语句，重新渲染视图
+      //   // this.sources.set('lineDynamic', data)
+      // }, 1000)
+    },
+    renderPieCustom() {
+      this.options7 = new Run.ChartCard({
+        config: {
+          cols: 12,
+          title: '物资占比统计',
+          source: 'pieCustom',
+          charts: ["pie"],
+          pie: { layout: 'custom', minValue: 300, maxValue: 400 }
+        },
+        sources: this.sources
+      })
+
+      let { items } = Mock.mock({
+        "items|4": [
+          {
+            "name|+1": [
+              "车辆类",
+              "防护类",
+              "侦捡类",
+              "救生类"
+            ],
+            "value|300-400": 1
+          }
+        ]
+      })
+
+      this.sources.set('pieCustom', items)
+    },
+    renderPieDoughnut() {
+      this.options8 = new Run.ChartCard({
+        config: {
+          cols: 12,
+          title: '安管人员统计',
+          source: 'pieDoughnut',
+          charts: ['pie'],
+          pie: { layout: 'doughnut' }
+        },
+        sources: this.sources
+      })
+
+      let { items } = Mock.mock({
+        "items|4": [
+          {
+            "name|+1": [
+              '分管安全负责人',
+              '安全管理人员',
+              '主要负责人',
+              '部门主要负责人'
+            ],
+            "value|1-10": 1
+          }
+        ]
+      })
+
+      this.sources.set('pieDoughnut', items)
+    }
+  }
+}
+</script>
+
+<style scoped>
+.page {
+  width: 100%;
+  height: 100%;
+  padding: 0 20px 20px 20px;
+  box-sizing: border-box;
+}
+</style>

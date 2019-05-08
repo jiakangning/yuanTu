@@ -1,0 +1,104 @@
+<template>
+  <run-work :options="options"/>
+</template>
+
+<script>
+  import Run from 'run'
+  import Mock from 'mockjs'
+  import {system_mobileModule as mobileModule} from '@/store/action-types.js'
+
+  export default {
+    data() {
+      return {
+        options: null,
+        sources: new Run.Source()
+      }
+    },
+    mounted() {
+      this.options = new Run.Work({
+        config: {
+          title: "移动端菜单管理",
+        },
+        actions: ["create", "update", "delete", "see"],
+        tabs: "tabs",
+        list: {
+          primaryField: "text",
+          layout: "treegrid",
+          columns: [
+            "mobileText",
+            "eKey",
+            "isValid",
+            "icon"
+          ]
+        },
+        form: [
+          "parentId",
+          "mobileText",
+          "eKey",
+          "icon",
+          "slIndex",
+          "description",
+          "isValid"
+        ],
+        columns: [
+          {label: "上级模块", field: "parentId", layout: "select", source: "parentId"},
+          {label: "菜单名称", field: "mobileText", layout: "text", rules: true},
+          {label: "菜单编号", field: "eKey", layout: "text", rules: true},
+          {label: "是否激活", field: "isValid", layout: "radio", source: "state", rules: true},
+          {label: "图标", field: "icon", layout: "select", source: "icon"},
+          {label: "排序", field: "slIndex", layout: "number"},
+          {label: "描述", field: "description", layout: "textarea"}
+        ],
+        events: {
+          loading(store, done) {
+            const state = [
+              {
+                label: "启用",
+                value: true
+              },
+              {
+                label: "禁用",
+                value: false
+              }
+            ]
+            const icon = [
+              {
+                label: "第一个图标",
+                value: "位置1"
+              },
+              {
+                label: "第二个图标",
+                value: "位置2"
+              }
+            ]
+            this.sources.set("state", state)
+            this.sources.set("icon", icon)
+            done()
+          },
+          search: (params) => {
+            this.$store.dispatch(mobileModule.search, params).then(({rows, count}) => {
+              this.sources.set("rows", rows)
+              this.sources.set("count", count)
+              const parentId = rows.map(it => ({label: it.mobileText, value: it.id}))
+              this.sources.set("parentId", parentId)
+            })
+          },
+          delete(rows, done) {
+            this.$store.dispatch(mobileModule.delete, rows.map(v => v.id)).then(() => done()).catch(done)
+          },
+          submit: (form, done) => {
+            const action = !form.id ? mobileModule.create : mobileModule.update
+            this.$store.dispatch(action, form).then(() => done()).catch(done)
+          },
+          edit(form) {
+            console.log(this, form)
+          },
+        },
+        sources: this.sources
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

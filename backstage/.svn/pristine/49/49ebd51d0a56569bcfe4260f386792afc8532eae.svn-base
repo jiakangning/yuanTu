@@ -1,0 +1,207 @@
+/**
+ * author:甄岩岩
+ * created_at:2019/3/15
+ * */
+const dbCtx = require('../../../database/dbCtx')
+const Menu = require('../../model/system/MenuModel')
+const Command = require('../../model/system/CommandModel')
+const Op = require('sequelize').Op
+const { buildTree } = require('../../util/buildTree')
+require('../../model/system/ER')
+
+class MenuManager {
+  constructor (MenuRepo) {
+    this.menuRepo = MenuRepo || require('../../model/system/MenuModel')
+  }
+
+  /**
+   * @param {Object|Array<Object>}  input
+   * @param {Function} callback
+   * */
+  create (input, callback) {
+    if (Array.isArray(input)) {
+      this.menuRepo.bulkCreate(input).then(users => {
+        callback(null, users)
+      }).catch(err => { callback(err) })
+    } else {
+      this.menuRepo.create(input).then(menu => {
+        callback(null, menu.id)
+        // callback(null, menu.get({plain: true}))
+      }).catch(err => {
+        callback(err.message)
+      })
+    }
+  }
+
+  update (input, callback) {
+    let { id, ...conditions } = input
+    this.menuRepo.findOne({ where: { id } }).then(menu => {
+      if (menu) {
+        for (let key of Object.keys(conditions)) {
+          menu.setDataValue(key, conditions[key])
+        }
+        menu.save().then(result => {
+          callback(null, result)
+        }).catch(err => {
+          callback(err.message)
+        })
+      } else {
+        callback(new Error({ msg: '查无数据', error: true }))
+      }
+    }).catch(err => {
+      callback(err)
+    })
+  }
+
+  /**
+   * @param {String} input  多个用','串起来
+   * */
+  destroy (input, callback) {
+    let { id } = input
+    let condition = {}
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      condition = { where: { id: { [Op.in]: id } } }
+    } else {
+      condition = { where: { id } }
+    }
+    this.menuRepo.destroy(condition).then(number => {
+      if (number) {
+        callback(null, { success: true, msg: `删除成功${number}行` })
+      } else {
+        callback(new Error({ msg: '查无该数据', error: true }))
+      }
+    }).catch(err => { callback(err.message()) })
+  }
+
+  bulkDestroy (input, callback) {
+    this.menuRepo.destroy({ where: {} }).then(number => {
+      callback(null, { success: true, msg: '删除成功', number })
+    }).catch(err => {
+      callback(err.message)
+    })
+  }
+
+  // 保存Menu和Command
+  createMenuAndCommand (input, callback) {
+    let { source, target } = input
+    dbCtx.transaction(function (t) {
+      return Menu.create(source, { transaction: t }).then(menu => {
+        target.forEach(item => {
+          item.menu_id = menu.id
+        })
+        return Command.bulkCreate(target, { transaction: t })
+      })
+    }).then(result => {
+      callback(null, { msg: '创建成功' })
+    }).catch(err => { callback(err.message) })
+  }
+
+  /**
+   * 查询
+   * @param {} input
+   * */
+  findByPk (input, callback) {
+    let { id } = input
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      this.menuRepo.findAll({ where: { id: { [Op.in]: id } } }).then(users => {
+        if (users && users.length > 0) {
+          callback(null,
+            { success: true, result: { rows: users, count: users.length } })
+        } else {
+          callback(new Error({ error: '查无数据', result: {} }))
+        }
+      }).catch(err => {
+        callback(err.message)
+      })
+    } else {
+      this.menuRepo.findByPk(id).then(menu => {
+        if (menu) {
+          callback(null, { success: true, result: menu })
+        } else {
+          callback(new Error({ error: '查无数据', result: {} }))
+        }
+      }).catch(err => {
+        callback(new Error({ error: err.message, result: {} }))
+      })
+    }
+  }
+
+  /**
+   *根据attributes查询
+   * */
+  findAll (input, callback) {
+    let { pageSize = 15, currentPage = 1, ...condition } = input
+    let offset = (currentPage - 1) * pageSize
+    this.menuRepo.findAll({ where: { ...condition }, limit: pageSize, offset })
+      .then(menu => {
+        if (menu) {
+          let arr = menu.map(v => v.dataValues)
+          let result = buildTree(arr, '', 'parentId')
+          callback(null, result)
+          // callback(null, {success: true, result: {count: menu.length, rows: menu}})
+        } else {
+          callback(new Error({ msg: '查无数据', error: true }))
+        }
+      })
+      .catch(err => {
+        callback(err.message)
+      })
+  }
+
+  findMenuCmdToTree (input, callback) {
+    let sql = `
+          SELECT
+            menu.*,
+            json_agg ( command ) AS commands 
+          FROM
+            system_menu_info AS menu
+            LEFT JOIN system_menu_command AS command ON menu."id" = command.menu_id 
+          GROUP BY
+            menu.ID
+    `
+    dbCtx.query(sql, { type: dbCtx.QueryTypes.SELECT }).then(result => {
+      result = buildTree(result, '', 'parentId')
+      callback(null, { success: true, code: 200, result })
+    }).then(() => {
+      callback(new Error({ code: 404, error: true }))
+    })
+  }
+
+  /**
+   * 根据id/ids 级联删除menu和command
+   * @param {String} input
+   * */
+  destroyMenuCommandCascade (input, callback) {
+    let { id } = input
+    let condition = {}
+    let condition2 = {}
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      condition = { where: { id: { [Op.in]: id } } }
+      condition2 = { where: { menu_id: { [Op.in]: id } } }
+    } else {
+      condition = { where: { id } }
+      condition2 = { where: { menu_id: id } }
+    }
+    dbCtx.transaction(function (t) {
+      return Menu.destroy(condition, { transaction: t }).then(() => {
+        console.log('删除成功')
+        return Command.findAll(condition2, { transaction: t }).then(commands => {
+          if (commands && commands.length > 0) {
+            let idArr = commands.map(v => v.id)
+            return Command.destroy({ where: { id: { [Op.in]: idArr } } },
+              { transaction: t })
+          }
+        })
+      })
+    }).then(() => {
+      callback(null, { msg: '删除成功', success: true })
+    }).catch(err => {
+      callback(err.message)
+    })
+  }
+}
+
+module.exports = MenuManager

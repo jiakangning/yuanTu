@@ -1,0 +1,16 @@
+/**
+ * 构建默认的查询参数，包含分页，排序
+ * @author 刘腾腾
+ * @param options
+ * @returns {{where: {}}}
+ */
+module.exports = function (options) {
+  const { pagination, pageSize = 20, currentPage = 1, order = { DESC: ['created_at'] } } = options
+  let result = { where: {}, order: [] }
+  const { DESC, ASC } = order
+  DESC && result.order.push([].concat(DESC, 'DESC'))
+  ASC && result.order.push([].concat(ASC, 'ASC'))
+  pagination && (result.limit = pageSize)
+  pagination && (result.offset = (currentPage - 1) * pageSize)
+  return result
+}

@@ -1,0 +1,178 @@
+<template>
+  <run-work :options="menuOptions">
+    <run-column
+      position="form"
+      after="authorizeState">
+      <el-form-item label="功能命令">
+        <run-work :options="commandOptions"/>
+      </el-form-item>
+    </run-column>
+  </run-work>
+</template>
+
+<script>
+  import Run from "run"
+  import { system_menu as Menu } from "@/store/action-types.js"
+
+  /**
+   * @author 王鼎
+   * @date 2019-03-15
+   * @description 菜单管理
+   */
+  export default {
+    data() {
+      return {
+        menuOptions: null,
+        commandOptions: null,
+        relationOptions: null,
+        sources: new Run.Source()
+      }
+    },
+    created() {
+      this.menuOptions = new Run.Work({
+        actions: ["create", "update", "delete"],
+        config: {
+          title: "菜单管理"
+        },
+        list: {
+          primaryField: "text",
+          layout: "treegrid",
+          columns: ["text", "icon", "startUp", "enableState"]
+        },
+        search: {
+          layout: "multiple",
+          columns: ["text"]
+        },
+        form: [
+          "parentId",
+          "text",
+          "eKey",
+          "icon",
+          "startUp",
+          "slIndex",
+          "enableState",
+          "authorizeState"
+        ],
+        columns: [
+          {
+            label: "上级菜单",
+            field: "parentId",
+            layout: "treeselect",
+            source: "menuTree",
+            _changeOnSelect: true,
+            _props: { label: "text", value: "id", children: "children" }
+          },
+          { label: "菜单名称", field: "text", layout: "text", rules: true },
+          { label: "模块标识", field: "eKey", layout: "text", rules: true },
+          { label: "模块图标", field: "icon", layout: "select", source: "icon", rules: true },
+          { label: "启动页面", field: "startUp", layout: "text" },
+          { label: "排序", field: "slIndex", layout: "number" },
+          { label: "启用状态", field: "enableState", layout: "radio", source: "state", rules: true },
+          { label: "授权状态", field: "authorizeState", layout: "radio", source: "state", rules: true },
+          { label: "启动页面", field: "startUp", layout: "text" },
+          { label: "是否激活", field: "sex", layout: "text" },
+          { label: "图标", field: "icon", layout: "text" }
+        ],
+        events: {
+          loading: (store, done) => {
+            const state = [
+              {
+                label: "启用",
+                value: 1
+              },
+              {
+                label: "禁用",
+                value: 2
+              }
+            ]
+            const account = [
+              {
+                label: "第一个上级",
+                value: "11"
+              },
+              {
+                label: "第二个上级",
+                value: "222"
+              }
+            ]
+            const icon = [
+              {
+                label: "第一个图标",
+                value: "1"
+              },
+              {
+                label: "第二个图标",
+                value: "2"
+              }
+            ]
+            this.sources.set("state", state)
+            this.sources.set("icon", icon)
+            this.sources.set("account", account)
+            done()
+          },
+          search: params => {
+            this.$store
+              .dispatch(Menu.search, params)
+              .then(({ rows, count }) => {
+                this.sources.set("rows", rows)
+                this.sources.set("count", count)
+                this.sources.build("menuTree", rows)
+              })
+          },
+          delete: (rows, done) => {
+            this.$store
+              .dispatch(Menu.delete, rows.map(v => v.id))
+              .then(() => done())
+              .catch(done)
+          },
+          submit: (form, done) => {
+            const action = !form.id ? Menu.create : Menu.update
+            this.$store
+              .dispatch(action, form)
+              .then(() => done())
+              .catch(done)
+          },
+          create: (form, store) => {
+            let row = this.menuOptions.getList().row
+            row && store.setForm({ parentId: row.id })
+          },
+          update: (form) => {
+            this.sources.build("menuTree", this.sources.get("rows"), { exclude: form.id })
+          }
+        },
+        sources: this.sources
+      })
+
+      this.commandOptions = new Run.Work({
+        actions: ["create", "update", "delete"],
+        config: {
+          layout: "inline"
+        },
+        list: {
+          rows: "commandRows",   // 重新定义rows， 因为两个work共用一个sources
+          pagination: false,
+          height: null,
+          columns: ["text", "cmdKey"]
+        },
+        form: ["text", "cmdKey"],
+        columns: [
+          { label: "名称", field: "text", layout: "text" },
+          { label: "标识", field: "cmdKey", layout: "text" }
+        ],
+        events: {
+          create: (form, store) => store.setForm({ menuType: "pc" })
+        },
+        sources: this.sources
+      })
+
+      this.relationOptions = new Run.Relation({
+        parent: this.menuOptions,
+        child: this.commandOptions,
+        field: "commands"
+      })
+    }
+  }
+</script>
+
+<style scoped>
+</style>

@@ -1,0 +1,168 @@
+/**
+ * @author 甄岩岩
+ * @date 2019-03-15
+ */
+const dbCtx = require('../../../database/dbCtx')
+const Menu = require('../../model/system/Menu')
+const Command = require('../../model/system/Command')
+const Op = require('sequelize').Op
+const { buildTree } = require('../../util/buildTree')
+require('../../model/system/ER')
+
+class MenuManager {
+  constructor (MenuRepo) {
+    this.menuRepo = MenuRepo || require('../../model/system/Menu')
+  }
+
+  /**
+   * @param {Object|Array<Object>}  input
+   * @param {Function} callback
+   * */
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数'))
+    } else {
+      if (Array.isArray(input)) {
+        this.menuRepo.bulkCreate(input).then(menus => {
+          callback(null, menus)
+        }).catch(err => { callback(err) })
+      } else {
+        this.menuRepo.create(input).then(menu => {
+          callback(null, menu)
+        }).catch(err => {
+          callback(err)
+        })
+      }
+    }
+  }
+
+  update (input, callback) {
+    const { id, ...conditions } = input
+    this.menuRepo.isExist(id)
+      .then(menu => {
+        if (menu) {
+          return menu.update(conditions)
+        } else {
+          return Promise.reject(new Error('查无数据'))
+        }
+      })
+      .then(menu => {callback(null, menu)})
+      .catch(err => {callback(err)})
+  }
+
+  /**
+   * @param {String} input  多个用','串起来
+   * */
+  destroy (input, callback) {
+    const rows = Array.isArray(input) ? input : [input]
+    const condition = { where: { id: { [Op.in]: rows } } }
+    this.menuRepo.destroy(condition)
+      .then(count => {callback(null, count)})
+      .catch(callback)
+  }
+
+  // 保存Menu和Command
+  createMenuAndCommand (input, callback) {
+    let { source, target } = input
+    dbCtx.transaction(function (t) {
+      return Menu.create(source, { transaction: t }).then(menu => {
+        target.forEach(item => {
+          item.menu_id = menu.id
+        })
+        return Command.bulkCreate(target, { transaction: t })
+      })
+    }).then(result => {
+      callback(null, '创建成功')
+    }).catch(err => { callback(err) })
+  }
+
+  /**
+   *根据attributes查询
+   * */
+  findAll (input, callback) {
+    const options = this.menuRepo.buildOptions(input)
+    this.menuRepo.findAndCountAll(options)
+      .then(result => {callback(null, result)})
+      .catch(err => {callback(err)})
+  }
+
+  findMenuCmdToTree (input, callback) {
+    let sql = `
+  SELECT
+	menu.author_id AS "authorId",
+	menu.authorize_state AS "authorizeState",
+	menu.created_at AS "createdAt",
+	menu.description AS description,
+	menu.e_key AS "eKey",
+	menu.editor_id AS "editorId",
+	menu.enable_state AS "enableState",
+	menu.icon AS icon,
+	menu.ID AS ID,
+	menu.parent_id AS "parentId",
+	menu.rt_path AS "rtPath",
+	menu.sl_index AS "slIndex",
+	menu.start_up AS "startUp",
+	menu.TEXT AS TEXT,
+	menu.updated_at AS "updatedAt",
+	json_agg ( C ) 
+FROM
+	system_menu_info menu
+	LEFT JOIN (
+	SELECT ID
+		,
+		TEXT,
+		cmd_key AS "cmdKey",
+		menu_type AS "menuType",
+		created_at AS "createdAt",
+		updated_at AS "updatedAt",
+		menu_id AS "menuId",
+		deleted_at AS "deletedAt" 
+	FROM
+		system_menu_command 
+	) C ON menu.ID = C."menuId" 
+GROUP BY
+	menu."id"
+    `
+    dbCtx.query(sql, { type: dbCtx.QueryTypes.SELECT }).then(result => {
+      result = buildTree(result, '', 'parentId')
+      callback(null, result)
+    }).catch(err => {
+      callback(err)
+    })
+  }
+
+  /**
+   * 根据id/ids 级联删除menu和command
+   * @param {String} input
+   * */
+  destroyMenuCommandCascade (input, callback) {
+    let { id } = input
+    let condition = {}
+    let condition2 = {}
+    if (id.indexOf(',') > -1) {
+      id = id.split(',')
+      condition = { where: { id: { [Op.in]: id } } }
+      condition2 = { where: { menu_id: { [Op.in]: id } } }
+    } else {
+      condition = { where: { id } }
+      condition2 = { where: { menu_id: id } }
+    }
+    dbCtx.transaction(function (t) {
+      return Menu.destroy(condition, { transaction: t }).then(() => {
+        return Command.findAll(condition2, { transaction: t }).then(commands => {
+          if (commands && commands.length > 0) {
+            let idArr = commands.map(v => v.id)
+            return Command.destroy({ where: { id: { [Op.in]: idArr } } },
+              { transaction: t })
+          }
+        })
+      })
+    }).then(() => {
+      callback(null, '删除成功')
+    }).catch(err => {
+      callback(err)
+    })
+  }
+}
+
+module.exports = MenuManager

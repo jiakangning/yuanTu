@@ -1,0 +1,47 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "resolutions": {
+    "webpack-dev-middleware": "3.6.0"
+  },
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "doc:dev": "vuepress dev docs",
+    "doc:build": "vuepress build docs"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "echarts": "^4.1.0",
+    "element-ui": "^2.5.4",
+    "global": "^4.3.2",
+    "highlight.js": "^9.15.6",
+    "jquery": "^3.3.1",
+    "layui-layer": "sentsin/layer",
+    "lodash": "^4.17.11",
+    "mockjs": "^1.0.1-beta3",
+    "moment": "^2.24.0",
+    "pinyin-match": "^1.0.7",
+    "vue": "^2.6.10",
+    "vue-highlight.js": "^3.1.0",
+    "vue-i18n": "^8.9.0",
+    "vue-router": "^3.0.1",
+    "vuepress": "^0.14.10",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.4.0",
+    "@vue/cli-plugin-eslint": "^3.4.0",
+    "@vue/cli-service": "^3.4.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.8.0",
+    "eslint-plugin-vue": "^5.0.0",
+    "less": "^3.9.0",
+    "less-loader": "^4.1.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "text-loader": "^0.0.1",
+    "vue-template-compiler": "^2.6.6"
+  }
+}

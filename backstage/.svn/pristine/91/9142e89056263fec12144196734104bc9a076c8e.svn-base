@@ -1,0 +1,15 @@
+import _ from 'lodash'
+
+export default class Source {
+  constructor(sources = {}) {
+    this.sources = sources
+  }
+
+  set(name, value) {
+    this.sources = _.set({ ...this.sources }, name, value)
+  }
+
+  get(name) {
+    return name ? _.get(this.sources, name) : this.sources
+  }
+}

@@ -1,0 +1,48 @@
+/**
+ * @author 刘腾腾
+ * @date 2019-03-22
+ */
+const { Classes, Student } = require('../../model/test/index.js')
+
+class ClassesManager {
+  constructor (classRepo = Classes, studentRepo = Student) {
+    this.classRepo = classRepo
+    this.studentRepo = studentRepo
+  }
+
+  create (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数'))
+    } else {
+      this.classRepo
+        .createClassesAndStudents(input, { Classes: this.classRepo, Student: this.studentRepo })
+        .then(result => callback(null, result))
+        .catch(callback)
+    }
+  }
+
+  update (input, callback) {
+    if (!input) {
+      callback(new Error('请传入参数'))
+    } else {
+      this.classRepo
+        .updateClassesAndStudents(input, { Classes: this.classRepo, Student: this.studentRepo })
+        .then(result => callback(null, result))
+        .catch(callback)
+    }
+  }
+
+  findAll (input, callback) {
+    let options = this.classRepo.buildOptions(input)
+    options = Object.assign(options, {
+      include: { model: this.studentRepo, required: false },
+      distinct: true
+    })
+    this.classRepo
+      .findAndCountAll(options)
+      .then(result => callback(null, result))
+      .catch(callback)
+  }
+}
+
+module.exports = ClassesManager

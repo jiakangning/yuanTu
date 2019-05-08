@@ -1,0 +1,79 @@
+<template>
+  <div
+    class="run-marquee"
+    :style="getStyle"
+    @mouseover="over"
+    @mouseleave="leave"
+    ref="marquee">
+          <slot></slot>
+        </div>
+</template>
+
+<script>
+  export default {
+    name: 'run-marquee',
+    props: {
+      delay: {
+        type: Number,
+        default: 1
+      },
+      speed: {
+        type: Number,
+        default: 5
+      },
+      contents: []
+    },
+    data() {
+      return {
+        isPaused: false
+      }
+    },
+    computed: {
+      getStyle () {
+        if(!this.isPaused) {
+          return { animation: `${this.speed}s rowup-${this._uid} linear ${this.delay}s infinite normal` }
+        } else {
+          return {
+            animation: `${this.speed}s rowup-${this._uid} linear ${this.delay}s infinite normal`,
+            'animation-play-state': `paused`
+          }
+        }
+      }
+    },
+    mounted () {
+      let keyframes = `  @keyframes rowup-${this._uid} {
+                  0% {
+                    -webkit-transform: translate3d(0, 0, 0);
+                    transform: translate3d(0, 0, 0);
+                  }
+                  100% {
+                    -webkit-transform: translate3d(0, -${this.$refs.marquee.offsetHeight}px, 0);
+                    transform: translate3d(0, -${this.$refs.marquee.offsetHeight}px, 0);
+                  }
+                }`
+      let sheet = document.createElement('style')
+      sheet.setAttribute('type', 'text/css')
+      sheet.innerHTML = keyframes
+      document.head.appendChild(sheet)
+      this.$emit('loaded')
+    },
+    methods: {
+      over() {
+        this.isPaused = true
+      },
+      leave() {
+        this.isPaused = false
+      }
+    }
+  }
+</script>
+
+<style
+  lang="stylus"
+  rel="stylesheet/stylus"
+  type="text/stylus">
+  .run-marquee
+    position relative
+  .run-marquee:hover
+    animation-play-state paused
+</style>
